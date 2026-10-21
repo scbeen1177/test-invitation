@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#fbfaf8">
+  <meta name="description" content="손준호와 남채빈의 결혼식에 초대합니다. 2027년 3월 27일 토요일 오전 11시, 더에스비 웨딩홀">
+  <title>준호 ♥ 채빈 — 2027.03.27</title>
+  <link rel="preload" href="./assets/hero.jpg" as="image">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <div class="ambient ambient--one" aria-hidden="true"></div>
+  <div class="ambient ambient--two" aria-hidden="true"></div>
+
+  <div class="app-shell">
+    <header class="topbar">
+      <button class="topbar__icon topbar__add" type="button" aria-label="청첩장 메뉴 열기" id="moreButton">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v16M4 12h16"/></svg>
+      </button>
+      <a class="wordmark wordmark--handle" href="#top" aria-label="청첩장 처음으로">
+        <span class="wordmark__handle">junho.marries.chaebeen</span>
+      </a>
+      <div class="topbar__actions">
+        <button class="topbar__icon" type="button" id="headerLikeButton" aria-label="좋아요" aria-pressed="false">
+          <svg class="heart-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.8 4.6c-2.2-2.2-5.8-2.2-8 0L12 5.4l-.8-.8a5.7 5.7 0 0 0-8 8L12 21l8.8-8.4a5.7 5.7 0 0 0 0-8Z"/></svg>
+        </button>
+      </div>
+    </header>
+
+    <main id="top">
+      <section class="story-rail" aria-label="청첩장 스토리">
+        <button class="story story--dday story--date" id="storyDdayButton" type="button" data-calendar aria-label="결혼식 D-Day와 캘린더 보기">
+          <span class="story__ring">
+            <span class="story__image story__image--date" aria-live="polite">
+              <strong id="storyDdayNumber">D-DAY</strong>
+              <small id="storyDdayCaption">COUNTDOWN</small>
+            </span>
+          </span>
+          <span class="story__label" id="storyDdayLabel">D-DAY</span>
+        </button>
+        <button class="story story--active" type="button" data-story="0">
+          <span class="story__ring">
+            <span class="story__image story__image--monogram">J<span>&</span>C</span>
+          </span>
+          <span class="story__label">our wedding</span>
+        </button>
+        <button class="story" type="button" data-story="1">
+          <span class="story__ring"><img class="story__image" src="./assets/couple-02.jpg" alt=""></span>
+          <span class="story__label">the day</span>
+        </button>
+        <button class="story" type="button" data-story="2">
+          <span class="story__ring"><img class="story__image" src="./assets/detail-01.jpg" alt=""></span>
+          <span class="story__label">the place</span>
+        </button>
+        <button class="story" type="button" data-story="3">
+          <span class="story__ring"><img class="story__image" src="./assets/couple-03.jpg" alt=""></span>
+          <span class="story__label">our promise</span>
+        </button>
+      </section>
+
+      <article class="post" aria-label="결혼식 초대 게시물">
+        <div class="post__header">
+          <div class="avatar">
+            <img src="./assets/detail-01.jpg" alt="">
+          </div>
+          <div class="post__identity">
+            <button class="account account-button" type="button" data-feed-open aria-label="준호와 채빈의 피드 보기">
+              junho.chaebeen
+              <svg class="verified" viewBox="0 0 24 24" aria-label="공식 계정">
+                <path d="m12 1.8 2.4 1.8 3 .1 1 2.8 2.3 1.9-1 2.8 1 2.8-2.3 1.9-1 2.8-3 .1L12 22.2l-2.4-1.8-3-.1-1-2.8-2.3-1.9 1-2.8-1-2.8 2.3-1.9 1-2.8 3-.1L12 1.8Z"/>
+                <path d="m8.3 12.1 2.2 2.2 5-5.2" class="verified__check"/>
+              </svg>
+            </button>
+            <div class="location-line">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/></svg>
+              <span data-location-short>보라매공원 · 더에스비 웨딩홀</span>
+            </div>
+          </div>
+          <button class="post__more" type="button" aria-label="더 보기" id="postMoreButton">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="5" cy="12" r="1.5" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1.5" fill="currentColor" stroke="none"/><circle cx="19" cy="12" r="1.5" fill="currentColor" stroke="none"/></svg>
+          </button>
+        </div>
+
+        <div class="carousel" id="postCarousel" aria-roledescription="carousel" aria-label="웨딩 사진">
+          <div class="carousel__track" id="carouselTrack">
+            <div class="carousel__slide cover-slide">
+              <img class="carousel__image" src="./assets/hero.jpg" alt="꽃다발을 든 신부와 신랑">
+              <div class="cover-slide__shade"></div>
+              <div class="cover-copy">
+                <span class="eyebrow">WE'RE GETTING MARRIED</span>
+                <h1><span>Junho</span><i>&</i><span>Chaebeen</span></h1>
+                <div class="cover-copy__date">
+                  <span>2027</span><b>03.27</b><span>SAT</span>
+                </div>
+                <p>AM 11:00 · WITH LOVE</p>
+              </div>
+              <div class="photo-stamp">J&nbsp;·&nbsp;C</div>
+            </div>
+
+            <div class="carousel__slide">
+              <img class="carousel__image" src="./assets/couple-02.jpg" alt="웨딩 가든의 꽃장식">
+              <div class="slide-note slide-note--light">
+                <small>THE DAY</small>
+                <strong>2027. 03. 27.</strong>
+                <span>토요일 오전 11시</span>
+              </div>
+            </div>
+
+            <div class="carousel__slide">
+              <img class="carousel__image" src="./assets/detail-01.jpg" alt="신랑 신부의 결혼반지와 꽃다발">
+              <div class="slide-note slide-note--right">
+                <small>OUR PROMISE</small>
+                <strong>함께 걷는<br>모든 날</strong>
+                <span>Junho &amp; Chaebeen</span>
+              </div>
+            </div>
+          </div>
+
+          <button class="carousel__arrow carousel__arrow--prev" type="button" aria-label="이전 사진" hidden>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>
+          </button>
+          <button class="carousel__arrow carousel__arrow--next" type="button" aria-label="다음 사진">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
+          </button>
+          <div class="carousel__dots" id="carouselDots" aria-label="사진 선택"></div>
+          <div class="heart-burst" id="heartBurst" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M20.8 4.6c-2.2-2.2-5.8-2.2-8 0L12 5.4l-.8-.8a5.7 5.7 0 0 0-8 8L12 21l8.8-8.4a5.7 5.7 0 0 0 0-8Z"/></svg>
+          </div>
+        </div>
+
+        <div class="post__actions">
+          <div class="post__actions-left">
+            <button class="icon-button action-button" type="button" id="likeButton" aria-label="좋아요" aria-pressed="false">
+              <svg class="heart-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.8 4.6c-2.2-2.2-5.8-2.2-8 0L12 5.4l-.8-.8a5.7 5.7 0 0 0-8 8L12 21l8.8-8.4a5.7 5.7 0 0 0 0-8Z"/></svg>
+            </button>
+            <button class="icon-button action-button" type="button" id="commentButton" aria-label="축하 댓글 남기기">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 9.4 9.4 0 0 1-3.8-.8L3 21l1.9-5.2A8.4 8.4 0 1 1 21 11.5Z"/></svg>
+            </button>
+            <button class="icon-button action-button" type="button" id="shareButton" aria-label="청첩장 공유">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m22 2-7 20-4-9-9-4 20-7Z"/><path d="M22 2 11 13"/></svg>
+            </button>
+          </div>
+          <button class="icon-button action-button" type="button" id="saveButton" aria-label="청첩장 저장" aria-pressed="false">
+            <svg class="bookmark-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h12v18l-6-4-6 4V3Z"/></svg>
+          </button>
+        </div>
+
+        <div class="post__body">
+          <div class="likes-row">
+            <div class="mini-avatars" aria-hidden="true">
+              <img src="./assets/couple-03.jpg" alt="">
+              <img src="./assets/detail-02.jpg" alt="">
+            </div>
+            <span><strong id="likeCount">184</strong>명이 좋아합니다</span>
+          </div>
+
+          <div class="caption">
+            <button class="caption__account" type="button" data-account-feed aria-label="junho.chaebeen 계정 피드 보기">junho.chaebeen</button>
+            <span>서로의 가장 좋은 계절이 되어,<br>같은 방향으로 걸어가려 합니다.</span>
+          </div>
+
+          <p class="caption-meta">
+            <span class="caption-meta__date">2027. 03. 27. SAT</span>
+            <span>오전 11시</span>
+          </p>
+
+          <div class="hashtags">
+            <span>#준호채빈</span>
+            <span>#우리의결혼식</span>
+            <span>#20270327</span>
+          </div>
+
+          <button class="comment-preview" type="button" id="commentPreview">
+            <span id="commentCountText">축하 댓글 0개</span>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
+          </button>
+
+          <time class="post__time" datetime="2027-03-27T11:00:00+09:00">우리의 결혼식까지</time>
+        </div>
+      </article>
+
+      <article class="social-post social-post--invitation reveal" aria-labelledby="invitationTitle">
+        <header class="social-post__header">
+          <div class="social-post__avatar"><img src="./assets/detail-01.jpg" alt=""></div>
+          <div class="social-post__identity">
+            <button class="account account-button" type="button" data-feed-open>
+              junho.chaebeen
+              <svg class="verified" viewBox="0 0 24 24" aria-hidden="true"><path d="m12 1.8 2.4 1.8 3 .1 1 2.8 2.3 1.9-1 2.8 1 2.8-2.3 1.9-1 2.8-3 .1L12 22.2l-2.4-1.8-3-.1-1-2.8-2.3-1.9 1-2.8-1-2.8 2.3-1.9 1-2.8 3-.1L12 1.8Z"/><path d="m8.3 12.1 2.2 2.2 5-5.2" class="verified__check"/></svg>
+            </button>
+            <span>our story</span>
+          </div>
+          <button class="icon-button" type="button" data-share aria-label="초대 게시물 공유"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m22 2-7 20-4-9-9-4 20-7Z"/><path d="M22 2 11 13"/></svg></button>
+        </header>
+
+        <div class="social-post__media social-post__media--portrait">
+          <img src="./assets/couple-03.jpg" alt="꽃다발을 든 신부의 모습">
+          <div class="social-post__media-note"><span>a life to share</span><small>2027 · spring</small></div>
+        </div>
+
+        <div class="social-post__actions">
+          <div>
+            <button class="icon-button" type="button" data-social-like aria-label="좋아요" aria-pressed="false"><svg class="heart-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.8 4.6c-2.2-2.2-5.8-2.2-8 0L12 5.4l-.8-.8a5.7 5.7 0 0 0-8 8L12 21l8.8-8.4a5.7 5.7 0 0 0 0-8Z"/></svg></button>
+            <button class="icon-button" type="button" data-comment-open aria-label="축하 댓글 남기기"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 9.4 9.4 0 0 1-3.8-.8L3 21l1.9-5.2A8.4 8.4 0 1 1 21 11.5Z"/></svg></button>
+            <button class="icon-button" type="button" data-share aria-label="게시물 공유"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m22 2-7 20-4-9-9-4 20-7Z"/><path d="M22 2 11 13"/></svg></button>
+          </div>
+          <button class="icon-button" type="button" data-save-post aria-label="게시물 저장" aria-pressed="false"><svg class="bookmark-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h12v18l-6-4-6 4V3Z"/></svg></button>
+        </div>
+
+        <div class="social-post__body">
+          <div class="social-post__likes"><strong data-social-likes>184</strong>명이 좋아합니다</div>
+          <p class="social-post__caption">
+            <button type="button" class="social-post__account" data-account-feed>junho.chaebeen</button>
+            서로의 계절을 함께 걸어온 두 사람이 이제 한 폭의 풍경이 되려 합니다.
+          </p>
+          <h2 class="social-post__caption-title" id="invitationTitle">사랑이 머무는 자리에, 소중한 걸음으로 함께해 주세요.</h2>
+          <p class="social-post__signature">손준호 <i>&amp;</i> 남채빈</p>
+          <div class="hashtags"><span>#준호채빈</span><span>#우리의결혼식</span><span>#20270327</span></div>
+          <button class="social-post__comment" type="button" data-comment-open><span>축하 댓글 모두 보기</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></button>
+          <time class="social-post__time" datetime="2027-03-27T11:00:00+09:00">2027년 3월 27일</time>
+        </div>
+      </article>
+
+      <article class="social-post social-post--date reveal" aria-labelledby="dateTitle">
+        <header class="social-post__header">
+          <div class="social-post__avatar"><img src="./assets/detail-01.jpg" alt=""></div>
+          <div class="social-post__identity">
+            <button class="account account-button" type="button" data-feed-open>junho.chaebeen<svg class="verified" viewBox="0 0 24 24" aria-hidden="true"><path d="m12 1.8 2.4 1.8 3 .1 1 2.8 2.3 1.9-1 2.8 1 2.8-2.3 1.9-1 2.8-3 .1L12 22.2l-2.4-1.8-3-.1-1-2.8-2.3-1.9 1-2.8-1-2.8 2.3-1.9 1-2.8 3-.1L12 1.8Z"/><path d="m8.3 12.1 2.2 2.2 5-5.2" class="verified__check"/></svg></button>
+            <span>save the date</span>
+          </div>
+          <button class="icon-button" type="button" data-share aria-label="날짜 게시물 공유"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m22 2-7 20-4-9-9-4 20-7Z"/><path d="M22 2 11 13"/></svg></button>
+        </header>
+
+        <div class="social-post__media social-post__media--date">
+          <section class="date-card" aria-labelledby="dateTitle">
+            <div class="date-card__top"><span class="mono-label">THE WEDDING DAY</span><span class="date-card__flower" aria-hidden="true">✿</span></div>
+            <div class="date-lockup">
+              <div class="date-lockup__month"><span>MARCH</span><small>2027</small></div>
+              <strong class="date-lockup__day">27</strong>
+              <div class="date-lockup__detail"><span>SATURDAY</span><strong>11:00 AM</strong></div>
+            </div>
+            <h2 id="dateTitle">2027년 3월 27일 토요일<br>오전 11시</h2>
+            <div class="mini-calendar" aria-label="2027년 3월 결혼식 달력">
+              <div class="mini-calendar__heading">
+                <span>MARCH 2027</span>
+                <em>our day</em>
+              </div>
+              <div class="mini-calendar__weekdays" aria-hidden="true">
+                <span>일</span><span>월</span><span>화</span><span>수</span><span>목</span><span>금</span><span>토</span>
+              </div>
+              <div class="mini-calendar__days" id="weddingCalendarDays" role="grid" aria-label="2027년 3월 날짜"></div>
+            </div>
+            <div class="countdown" id="countdown" aria-label="결혼식까지 남은 시간">
+              <div><strong data-countdown="days">000</strong><span>DAYS</span></div><i>:</i>
+              <div><strong data-countdown="hours">00</strong><span>HRS</span></div><i>:</i>
+              <div><strong data-countdown="minutes">00</strong><span>MIN</span></div>
+            </div>
+            <button class="soft-button" type="button" data-calendar><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 10h18M12 14v4M10 16h4"/></svg>캘린더에 저장하기</button>
+          </section>
+        </div>
+
+        <div class="social-post__actions">
+          <div>
+            <button class="icon-button" type="button" data-social-like aria-label="좋아요" aria-pressed="false"><svg class="heart-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.8 4.6c-2.2-2.2-5.8-2.2-8 0L12 5.4l-.8-.8a5.7 5.7 0 0 0-8 8L12 21l8.8-8.4a5.7 5.7 0 0 0 0-8Z"/></svg></button>
+            <button class="icon-button" type="button" data-comment-open aria-label="축하 댓글 남기기"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 9.4 9.4 0 0 1-3.8-.8L3 21l1.9-5.2A8.4 8.4 0 1 1 21 11.5Z"/></svg></button>
+            <button class="icon-button" type="button" data-share aria-label="게시물 공유"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m22 2-7 20-4-9-9-4 20-7Z"/><path d="M22 2 11 13"/></svg></button>
+          </div>
+          <button class="icon-button" type="button" data-save-post aria-label="게시물 저장" aria-pressed="false"><svg class="bookmark-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h12v18l-6-4-6 4V3Z"/></svg></button>
+        </div>
+
+        <div class="social-post__body">
+          <div class="social-post__likes"><strong data-social-likes>213</strong>명이 좋아합니다</div>
+          <p class="social-post__caption"><button type="button" class="social-post__account" data-account-feed>junho.chaebeen</button>우리의 봄날, 가장 소중한 사람들과 함께하고 싶어요.</p>
+          <p class="social-post__detail-line">2027. 03. 27 SAT · AM 11:00</p>
+          <div class="hashtags"><span>#savethedate</span><span>#20270327</span></div>
+          <button class="social-post__comment" type="button" data-comment-open><span>축하 댓글 모두 보기</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></button>
+          <time class="social-post__time">2027년 3월 27일</time>
+        </div>
+      </article>
+
+      <article class="social-post social-post--venue reveal" id="details" aria-labelledby="detailsTitle">
+        <header class="social-post__header">
+          <div class="social-post__avatar"><img src="./assets/detail-01.jpg" alt=""></div>
+          <div class="social-post__identity">
+            <button class="account account-button" type="button" data-feed-open>junho.chaebeen<svg class="verified" viewBox="0 0 24 24" aria-hidden="true"><path d="m12 1.8 2.4 1.8 3 .1 1 2.8 2.3 1.9-1 2.8 1 2.8-2.3 1.9-1 2.8-3 .1L12 22.2l-2.4-1.8-3-.1-1-2.8-2.3-1.9 1-2.8-1-2.8 2.3-1.9 1-2.8 3-.1L12 1.8Z"/><path d="m8.3 12.1 2.2 2.2 5-5.2" class="verified__check"/></svg></button>
+            <span>보라매공원 · 더에스비 웨딩홀</span>
+          </div>
+          <button class="icon-button" type="button" data-share aria-label="장소 게시물 공유"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m22 2-7 20-4-9-9-4 20-7Z"/><path d="M22 2 11 13"/></svg></button>
+        </header>
+
+        <div class="social-post__media social-post__media--portrait">
+          <button class="social-post__map-hit" type="button" data-map aria-label="네이버 지도에서 더에스비 웨딩홀 열기"></button>
+          <img src="./assets/couple-02.jpg" alt="꽃으로 장식된 웨딩홀 예식 공간">
+          <div class="social-post__location-pin"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/></svg>THE VENUE</div>
+        </div>
+
+        <div class="social-post__actions">
+          <div>
+            <button class="icon-button" type="button" data-social-like aria-label="좋아요" aria-pressed="false"><svg class="heart-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.8 4.6c-2.2-2.2-5.8-2.2-8 0L12 5.4l-.8-.8a5.7 5.7 0 0 0-8 8L12 21l8.8-8.4a5.7 5.7 0 0 0 0-8Z"/></svg></button>
+            <button class="icon-button" type="button" data-comment-open aria-label="축하 댓글 남기기"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 9.4 9.4 0 0 1-3.8-.8L3 21l1.9-5.2A8.4 8.4 0 1 1 21 11.5Z"/></svg></button>
+            <button class="icon-button" type="button" data-share aria-label="게시물 공유"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m22 2-7 20-4-9-9-4 20-7Z"/><path d="M22 2 11 13"/></svg></button>
+          </div>
+          <button class="icon-button" type="button" data-save-post aria-label="게시물 저장" aria-pressed="false"><svg class="bookmark-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h12v18l-6-4-6 4V3Z"/></svg></button>
+        </div>
+
+        <div class="social-post__body">
+          <div class="social-post__likes"><strong data-social-likes>198</strong>명이 좋아합니다</div>
+          <p class="social-post__caption"><button type="button" class="social-post__account" data-account-feed>junho.chaebeen</button>오시는 길 · 보라매공원 인근, 더에스비 웨딩홀입니다.</p>
+          <h2 class="social-post__caption-title" id="detailsTitle">더에스비 웨딩홀</h2>
+          <p class="social-post__location-copy"><span data-location-detail>서울 동작구 보라매로5길 15<br>전문건설회관 3층</span></p>
+          <button class="social-post__map" type="button" data-map><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/></svg>네이버 지도에서 보기</button>
+          <div class="social-post__facts">
+            <span><small>DATE</small>2027. 03. 27 SAT · AM 11:00</span>
+            <span><small>PARENTS</small>혼주 소개는 준비 중입니다</span>
+          </div>
+          <div class="hashtags"><span>#오시는길</span><span>#더에스비웨딩홀</span><span>#보라매공원</span></div>
+          <button class="social-post__comment" type="button" data-comment-open><span>축하 댓글 모두 보기</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></button>
+          <time class="social-post__time">2027년 3월 27일</time>
+        </div>
+      </article>
+
+      <article class="social-post social-post--moments reveal" aria-labelledby="galleryTitle">
+        <header class="social-post__header">
+          <div class="social-post__avatar"><img src="./assets/detail-01.jpg" alt=""></div>
+          <div class="social-post__identity">
+            <button class="account account-button" type="button" data-feed-open>junho.chaebeen<svg class="verified" viewBox="0 0 24 24" aria-hidden="true"><path d="m12 1.8 2.4 1.8 3 .1 1 2.8 2.3 1.9-1 2.8 1 2.8-2.3 1.9-1 2.8-3 .1L12 22.2l-2.4-1.8-3-.1-1-2.8-2.3-1.9 1-2.8-1-2.8 2.3-1.9 1-2.8 3-.1L12 1.8Z"/><path d="m8.3 12.1 2.2 2.2 5-5.2" class="verified__check"/></svg></button>
+            <span>little moments</span>
+          </div>
+          <button class="icon-button" type="button" data-share aria-label="순간들 게시물 공유"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m22 2-7 20-4-9-9-4 20-7Z"/><path d="M22 2 11 13"/></svg></button>
+        </header>
+
+        <div class="social-post__media social-post__media--grid">
+          <span class="social-post__grid-count">9 PHOTOS</span>
+          <div class="gallery">
+          <button type="button" data-lightbox="./assets/couple-01.jpg" aria-label="사진 크게 보기">
+            <img src="./assets/couple-01.jpg" alt="결혼식장에서 풍선을 드는 신랑 신부">
+          </button>
+          <button type="button" data-lightbox="./assets/couple-02.jpg" aria-label="사진 크게 보기">
+            <img src="./assets/couple-02.jpg" alt="야외 예식 공간">
+          </button>
+          <button type="button" data-lightbox="./assets/detail-02.jpg" aria-label="사진 크게 보기">
+            <img src="./assets/detail-02.jpg" alt="웨딩 테이블 꽃장식">
+          </button>
+          <button type="button" data-lightbox="./assets/hero.jpg" aria-label="사진 크게 보기">
+            <img src="./assets/hero.jpg" alt="신부의 꽃다발">
+          </button>
+          <button type="button" data-lightbox="./assets/venue-02.jpg" aria-label="사진 크게 보기">
+            <img src="./assets/venue-02.jpg" alt="예식장 가든">
+          </button>
+          <button type="button" data-lightbox="./assets/couple-03.jpg" aria-label="사진 크게 보기">
+            <img src="./assets/couple-03.jpg" alt="꽃다발을 든 신부">
+          </button>
+          <button type="button" data-lightbox="./assets/detail-01.jpg" aria-label="사진 크게 보기">
+            <img src="./assets/detail-01.jpg" alt="결혼반지를 끼고 손을 맞잡은 신랑 신부">
+          </button>
+          <button type="button" data-lightbox="./assets/venue-02.jpg" aria-label="사진 크게 보기">
+            <img src="./assets/venue-02.jpg" alt="초록빛 야외 예식장">
+          </button>
+          <button type="button" data-lightbox="./assets/hero.jpg" aria-label="사진 크게 보기">
+            <img src="./assets/hero.jpg" alt="햇살 속 웨딩 부케">
+          </button>
+          </div>
+        </div>
+
+        <div class="social-post__actions">
+          <div>
+            <button class="icon-button" type="button" data-social-like aria-label="좋아요" aria-pressed="false"><svg class="heart-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.8 4.6c-2.2-2.2-5.8-2.2-8 0L12 5.4l-.8-.8a5.7 5.7 0 0 0-8 8L12 21l8.8-8.4a5.7 5.7 0 0 0 0-8Z"/></svg></button>
+            <button class="icon-button" type="button" data-comment-open aria-label="축하 댓글 남기기"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 9.4 9.4 0 0 1-3.8-.8L3 21l1.9-5.2A8.4 8.4 0 1 1 21 11.5Z"/></svg></button>
+            <button class="icon-button" type="button" data-share aria-label="게시물 공유"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m22 2-7 20-4-9-9-4 20-7Z"/><path d="M22 2 11 13"/></svg></button>
+          </div>
+          <button class="icon-button" type="button" data-save-post aria-label="게시물 저장" aria-pressed="false"><svg class="bookmark-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h12v18l-6-4-6 4V3Z"/></svg></button>
+        </div>
+
+        <div class="social-post__body">
+          <div class="social-post__likes"><strong data-social-likes>241</strong>명이 좋아합니다</div>
+          <p class="social-post__caption"><button type="button" class="social-post__account" data-account-feed>junho.chaebeen</button>좋아하는 것을 닮아가며, 오래오래 함께 걷겠습니다.</p>
+          <h2 class="social-post__caption-title" id="galleryTitle">우리의 순간들</h2>
+          <p class="social-post__hint"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".8" fill="currentColor" stroke="none"/></svg>사진을 누르면 크게 볼 수 있어요.</p>
+          <div class="hashtags"><span>#우리의순간들</span><span>#weddingday</span><span>#20270327</span></div>
+          <button class="social-post__comment" type="button" data-comment-open><span>축하 댓글 모두 보기</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></button>
+          <time class="social-post__time">2027년 3월 27일</time>
+        </div>
+      </article>
+
+      <section class="share-section reveal" aria-labelledby="shareTitle">
+        <div class="share-section__ornament" aria-hidden="true">
+          <span></span><i>✦</i><span></span>
+        </div>
+        <p class="section-heading__kicker">WITH LOVE</p>
+        <h2 id="shareTitle">우리의 시작을<br>함께 축복해 주세요.</h2>
+        <p>소중한 분께 이 초대장을 전해 주세요.</p>
+        <button class="primary-button" type="button" data-share>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m22 2-7 20-4-9-9-4 20-7Z"/><path d="M22 2 11 13"/></svg>
+          청첩장 공유하기
+        </button>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="footer__wordmark">junho.marries.chaebeen</div>
+      <p>27 MARCH 2027 · JUNHO &amp; CHAEBEEN</p>
+      <small><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.8 4.6c-2.2-2.2-5.8-2.2-8 0L12 5.4l-.8-.8a5.7 5.7 0 0 0-8 8L12 21l8.8-8.4a5.7 5.7 0 0 0 0-8Z"/></svg> made with love · photography from Unsplash</small>
+    </footer>
+
+    <nav class="bottom-nav" aria-label="주요 메뉴">
+      <button class="bottom-nav__item bottom-nav__item--active" type="button" data-scroll-top aria-label="홈">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3.2 10.4 8.8-7.2 8.8 7.2v9.1a1.2 1.2 0 0 1-1.2 1.2h-4.8v-6.8H9.2v6.8H4.4a1.2 1.2 0 0 1-1.2-1.2v-9.1Z"/></svg>
+        <span class="sr-only">홈</span>
+      </button>
+      <button class="bottom-nav__item" type="button" data-calendar aria-label="캘린더 저장">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="4.5" width="17" height="16" rx="4"/><path d="M8 2.8v3.4M16 2.8v3.4"/><path d="m10.2 11.1 4.5 2.9-4.5 2.9v-5.8Z"/></svg>
+        <span class="sr-only">캘린더</span>
+      </button>
+      <button class="bottom-nav__item" type="button" data-share aria-label="공유하기">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m21.5 2.8-7.6 18-3.2-7.2-7.2-3.2 18-7.6Z"/><path d="M21.5 2.8 10.7 13.6"/></svg>
+        <span class="sr-only">공유</span>
+      </button>
+      <button class="bottom-nav__item" type="button" data-scroll-details aria-label="예식 정보">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m15.4 15.4 5 5"/></svg>
+        <span class="sr-only">예식 정보 찾기</span>
+      </button>
+      <button class="bottom-nav__item bottom-nav__profile" type="button" data-account-feed aria-label="junho.chaebeen 계정 피드 보기">
+        <span class="bottom-nav__avatar"><img src="./assets/detail-01.jpg" alt=""></span>
+        <span class="sr-only">계정 피드</span>
+      </button>
+    </nav>
+  </div>
+
+  <dialog class="story-dialog" id="storyDialog">
+    <div class="story-viewer">
+      <div class="story-progress" aria-hidden="true">
+        <span></span><span></span><span></span><span></span>
+      </div>
+      <div class="story-viewer__header">
+        <div class="story-viewer__profile">
+          <img src="./assets/detail-01.jpg" alt="">
+          <div>
+            <button class="story-account" type="button" data-account-feed aria-label="junho.chaebeen 계정 피드 보기">junho.chaebeen</button>
+            <span id="storyTime">방금 전</span>
+          </div>
+        </div>
+        <button class="story-viewer__close" type="button" data-close-story aria-label="스토리 닫기">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg>
+        </button>
+      </div>
+      <img class="story-viewer__image" id="storyImage" src="./assets/hero.jpg" alt="웨딩 스토리 사진">
+      <div class="story-viewer__shade"></div>
+      <div class="story-viewer__content" id="storyContent"></div>
+      <button class="story-viewer__tap story-viewer__tap--prev" type="button" data-story-step="-1" aria-label="이전 스토리"></button>
+      <button class="story-viewer__tap story-viewer__tap--next" type="button" data-story-step="1" aria-label="다음 스토리"></button>
+    </div>
+  </dialog>
+
+  <dialog class="lightbox" id="lightboxDialog">
+    <button class="lightbox__close" type="button" data-close-lightbox aria-label="사진 닫기">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg>
+    </button>
+    <img id="lightboxImage" src="./assets/hero.jpg" alt="확대한 웨딩 사진">
+  </dialog>
+
+  <dialog class="feed-dialog" id="feedDialog">
+    <div class="feed-profile" id="feedProfile">
+      <header class="feed-profile__topbar">
+        <button class="icon-button" type="button" data-close-feed aria-label="피드 닫기">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>
+        </button>
+        <button class="feed-profile__account" type="button" data-feed-home aria-label="계정 피드 처음으로">
+          junho.chaebeen
+          <svg class="verified" viewBox="0 0 24 24" aria-label="공식 계정">
+            <path d="m12 1.8 2.4 1.8 3 .1 1 2.8 2.3 1.9-1 2.8 1 2.8-2.3 1.9-1 2.8-3 .1L12 22.2l-2.4-1.8-3-.1-1-2.8-2.3-1.9 1-2.8-1-2.8 2.3-1.9 1-2.8 3-.1L12 1.8Z"/>
+            <path d="m8.3 12.1 2.2 2.2 5-5.2" class="verified__check"/>
+          </svg>
+        </button>
+        <button class="icon-button" type="button" data-share aria-label="피드 공유">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m22 2-7 20-4-9-9-4 20-7Z"/><path d="M22 2 11 13"/></svg>
+        </button>
+      </header>
+
+      <div class="feed-profile__scroll">
+        <section class="feed-profile__intro">
+          <div class="feed-profile__avatar">
+            <img src="./assets/detail-01.jpg" alt="준호와 채빈의 프로필 사진">
+            <span class="feed-profile__avatar-plus" aria-hidden="true">+</span>
+          </div>
+          <div class="feed-profile__stats" aria-label="계정 정보">
+            <div><strong>9</strong><span>게시물</span></div>
+            <div><strong>327</strong><span>팔로워</span></div>
+            <div><strong>1</strong><span>팔로우</span></div>
+          </div>
+        </section>
+
+        <div class="feed-profile__bio">
+          <strong>준호 <i>&amp;</i> 채빈</strong>
+          <p>우리의 새로운 시작<br>2027. 03. 27 · SAT · 11 AM</p>
+          <button type="button" class="feed-profile__location" data-feed-location>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/></svg>
+            보라매공원 · 더에스비 웨딩홀
+          </button>
+        </div>
+
+        <div class="feed-profile__buttons">
+          <button type="button" id="followButton">팔로우</button>
+          <button type="button" id="feedMessageButton">메시지</button>
+        </div>
+
+        <section class="feed-highlights" aria-label="피드 하이라이트">
+          <button type="button" data-feed-highlight="0">
+            <span><img src="./assets/hero.jpg" alt=""></span>
+            <small>our story</small>
+          </button>
+          <button type="button" data-feed-highlight="1">
+            <span><img src="./assets/couple-02.jpg" alt=""></span>
+            <small>the day</small>
+          </button>
+          <button type="button" data-feed-highlight="2">
+            <span><img src="./assets/detail-01.jpg" alt=""></span>
+            <small>our rings</small>
+          </button>
+          <button type="button" data-feed-highlight="3">
+            <span><img src="./assets/couple-03.jpg" alt=""></span>
+            <small>with love</small>
+          </button>
+        </section>
+
+        <div class="feed-profile__tabs" role="tablist" aria-label="피드 보기">
+          <button class="is-active" type="button" role="tab" aria-selected="true" data-feed-tab="posts">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+            게시물
+          </button>
+          <button type="button" role="tab" aria-selected="false" data-feed-tab="saved">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h12v18l-6-4-6 4V3Z"/></svg>
+            저장됨
+          </button>
+        </div>
+
+        <section class="feed-puzzle" id="feedPuzzle" aria-label="준호와 채빈의 3 곱하기 3 퍼즐 피드"></section>
+
+        <footer class="feed-profile__footer">
+          <span>J <i>&amp;</i> C</span>
+          <small>2027. 03. 27 · THE BEGINNING OF FOREVER</small>
+        </footer>
+      </div>
+    </div>
+
+    <section class="feed-post-view" id="feedPostView" aria-label="선택한 피드 게시물">
+      <header class="feed-profile__topbar">
+        <button class="icon-button" type="button" data-close-feed-post aria-label="피드로 돌아가기">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>
+        </button>
+        <button class="feed-profile__account" type="button" data-feed-home aria-label="계정 피드로 돌아가기">
+          junho.chaebeen
+          <svg class="verified" viewBox="0 0 24 24" aria-label="공식 계정">
+            <path d="m12 1.8 2.4 1.8 3 .1 1 2.8 2.3 1.9-1 2.8 1 2.8-2.3 1.9-1 2.8-3 .1L12 22.2l-2.4-1.8-3-.1-1-2.8-2.3-1.9 1-2.8-1-2.8 2.3-1.9 1-2.8 3-.1L12 1.8Z"/>
+            <path d="m8.3 12.1 2.2 2.2 5-5.2" class="verified__check"/>
+          </svg>
+        </button>
+        <button class="icon-button" type="button" data-share aria-label="게시물 공유">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m22 2-7 20-4-9-9-4 20-7Z"/><path d="M22 2 11 13"/></svg>
+        </button>
+      </header>
+      <div class="feed-post-view__scroll">
+        <img id="feedPostImage" src="./assets/hero.jpg" alt="선택한 웨딩 피드 사진">
+        <div class="feed-post-view__actions">
+          <div>
+            <button class="icon-button" type="button" id="feedLikeButton" aria-label="좋아요" aria-pressed="false">
+              <svg class="heart-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.8 4.6c-2.2-2.2-5.8-2.2-8 0L12 5.4l-.8-.8a5.7 5.7 0 0 0-8 8L12 21l8.8-8.4a5.7 5.7 0 0 0 0-8Z"/></svg>
+            </button>
+            <button class="icon-button" type="button" data-feed-comment aria-label="축하 댓글 남기기">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 9.4 9.4 0 0 1-3.8-.8L3 21l1.9-5.2A8.4 8.4 0 1 1 21 11.5Z"/></svg>
+            </button>
+          </div>
+          <button class="icon-button" type="button" data-share aria-label="게시물 공유">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m22 2-7 20-4-9-9-4 20-7Z"/><path d="M22 2 11 13"/></svg>
+          </button>
+        </div>
+        <div class="feed-post-view__copy">
+          <strong><span id="feedPostLikes">184</span>명이 좋아합니다</strong>
+          <p><button class="feed-post-account" type="button" data-feed-home>junho.chaebeen</button> <span id="feedPostCaption"></span></p>
+          <div class="hashtags">
+            <span>#준호채빈</span><span>#우리의결혼식</span><span>#20270327</span>
+          </div>
+          <button class="feed-post-view__comments" type="button" data-feed-comment>
+            <span id="feedPostComments">축하 댓글 0개 모두 보기</span>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
+          </button>
+          <time id="feedPostTime">2027년 3월 27일</time>
+        </div>
+      </div>
+    </section>
+  </dialog>
+
+  <dialog class="sheet" id="commentDialog">
+    <form class="sheet__panel" id="commentForm">
+      <div class="sheet__handle" aria-hidden="true"></div>
+      <div class="sheet__header">
+        <div>
+          <span class="mono-label">CONGRATULATIONS</span>
+          <h2>축하의 마음을 전해주세요</h2>
+        </div>
+        <button class="icon-button" type="button" data-close-sheet aria-label="댓글창 닫기">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg>
+        </button>
+      </div>
+      <label class="sr-only" for="guestName">이름</label>
+      <input id="guestName" name="name" type="text" maxlength="20" placeholder="이름" autocomplete="name">
+      <label class="sr-only" for="guestMessage">축하 메시지</label>
+      <textarea id="guestMessage" name="message" maxlength="180" placeholder="따뜻한 축하 한마디를 남겨주세요." required></textarea>
+      <div class="sheet__form-footer">
+        <span><b id="messageLength">0</b> / 180</span>
+        <button class="primary-button primary-button--small" type="submit">남기기</button>
+      </div>
+      <div class="saved-comments" id="savedComments" aria-live="polite"></div>
+    </form>
+  </dialog>
+
+  <dialog class="sheet menu-sheet" id="menuDialog">
+    <div class="sheet__panel">
+      <div class="sheet__handle" aria-hidden="true"></div>
+      <div class="menu-sheet__title">
+        <span class="menu-sheet__wordmark">junho.marries.chaebeen</span>
+        <p>2027. 03. 27 · 11:00 AM</p>
+      </div>
+      <button type="button" data-calendar>
+        <span class="menu-sheet__icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 10h18"/></svg></span>
+        <span><strong>캘린더에 저장</strong><small>결혼식 일정을 잊지 않도록</small></span>
+      </button>
+      <button type="button" data-share>
+        <span class="menu-sheet__icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m22 2-7 20-4-9-9-4 20-7Z"/><path d="M22 2 11 13"/></svg></span>
+        <span><strong>청첩장 공유</strong><small>소중한 사람에게 전하기</small></span>
+      </button>
+      <button type="button" data-copy-link>
+        <span class="menu-sheet__icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.5.5l2-2a5 5 0 0 0-7-7l-1.2 1.2"/><path d="M14 11a5 5 0 0 0-7.5-.5l-2 2a5 5 0 0 0 7 7l1.2-1.2"/></svg></span>
+        <span><strong>링크 복사</strong><small>초대 링크를 복사합니다</small></span>
+      </button>
+      <button class="menu-sheet__close" type="button" data-close-sheet>닫기</button>
+    </div>
+  </dialog>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="./script.js"></script>
+</body>
+</html>

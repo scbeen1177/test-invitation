@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#ffffff">
+  <meta name="description" content="junho.chaebeen의 웨딩 퍼즐 피드">
+  <title>junho.chaebeen · Wedding Feed</title>
+  <link rel="preload" href="./assets/detail-01.jpg" as="image">
+  <link rel="stylesheet" href="./styles.css">
+  <link rel="stylesheet" href="./feed.css">
+</head>
+<body class="account-page-body">
+  <div class="account-page-shell">
+    <header class="account-topbar">
+      <button class="account-topbar__back" type="button" id="feedBackButton" aria-label="청첩장으로 돌아가기">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>
+      </button>
+      <div class="account-topbar__name">
+        junho.chaebeen
+        <svg class="verified" viewBox="0 0 24 24" aria-label="공식 계정">
+          <path d="m12 1.8 2.4 1.8 3 .1 1 2.8 2.3 1.9-1 2.8 1 2.8-2.3 1.9-1 2.8-3 .1L12 22.2l-2.4-1.8-3-.1-1-2.8-2.3-1.9 1-2.8-1-2.8 2.3-1.9 1-2.8 3-.1L12 1.8Z"/>
+          <path d="m8.3 12.1 2.2 2.2 5-5.2" class="verified__check"/>
+        </svg>
+      </div>
+      <button class="account-topbar__share" type="button" data-share aria-label="계정 피드 공유">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m22 2-7 20-4-9-9-4 20-7Z"/><path d="M22 2 11 13"/></svg>
+      </button>
+    </header>
+
+    <main class="account-content">
+      <section class="feed-profile__intro" aria-label="프로필">
+        <div class="feed-profile__avatar">
+          <img src="./assets/detail-01.jpg" alt="준호와 채빈의 프로필 사진">
+          <span class="feed-profile__avatar-plus" aria-hidden="true">+</span>
+        </div>
+        <div class="feed-profile__stats">
+          <div><strong>9</strong><span>게시물</span></div>
+          <div><strong>327</strong><span>팔로워</span></div>
+          <div><strong>1</strong><span>팔로우</span></div>
+        </div>
+      </section>
+
+      <section class="feed-profile__bio account-bio">
+        <strong>준호 <i>&amp;</i> 채빈</strong>
+        <p>우리의 새로운 시작<br>2027. 03. 27 · SAT · 11 AM</p>
+        <button type="button" class="feed-profile__location" data-map>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/></svg>
+          보라매공원 · 더에스비 웨딩홀
+        </button>
+      </section>
+
+      <div class="feed-profile__buttons account-buttons">
+        <button type="button" id="followButton">팔로우</button>
+        <button type="button" data-share>메시지</button>
+      </div>
+
+      <section class="feed-highlights" aria-label="피드 하이라이트">
+        <button type="button" data-highlight="0">
+          <span><img src="./assets/hero.jpg" alt=""></span>
+          <small>our story</small>
+        </button>
+        <button type="button" data-highlight="1">
+          <span><img src="./assets/couple-02.jpg" alt=""></span>
+          <small>the day</small>
+        </button>
+        <button type="button" data-highlight="2">
+          <span><img src="./assets/detail-01.jpg" alt=""></span>
+          <small>our rings</small>
+        </button>
+        <button type="button" data-highlight="3">
+          <span><img src="./assets/couple-03.jpg" alt=""></span>
+          <small>with love</small>
+        </button>
+      </section>
+
+      <div class="feed-profile__tabs" role="tablist" aria-label="피드 보기">
+        <button class="is-active" type="button" role="tab" aria-selected="true" data-tab="posts">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+          게시물
+        </button>
+        <button type="button" role="tab" aria-selected="false" data-tab="saved">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h12v18l-6-4-6 4V3Z"/></svg>
+          저장됨
+        </button>
+      </div>
+
+      <section class="feed-puzzle account-grid" id="accountFeedGrid" aria-label="준호와 채빈의 3 곱하기 3 퍼즐 피드"></section>
+
+      <footer class="account-page-footer">
+        <span>J <i>&amp;</i> C</span>
+        <small>2027. 03. 27 · THE BEGINNING OF FOREVER</small>
+        <a href="./index.html">청첩장으로 돌아가기</a>
+      </footer>
+    </main>
+
+    <nav class="bottom-nav" aria-label="주요 메뉴">
+      <button class="bottom-nav__item" type="button" id="feedHomeButton" aria-label="청첩장 처음으로">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3.2 10.4 8.8-7.2 8.8 7.2v9.1a1.2 1.2 0 0 1-1.2 1.2h-4.8v-6.8H9.2v6.8H4.4a1.2 1.2 0 0 1-1.2-1.2v-9.1Z"/></svg>
+        <span class="sr-only">홈</span>
+      </button>
+      <button class="bottom-nav__item" type="button" data-navigate="calendar" aria-label="결혼식 날짜 보기">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="4.5" width="17" height="16" rx="4"/><path d="M8 2.8v3.4M16 2.8v3.4"/><path d="m10.2 11.1 4.5 2.9-4.5 2.9v-5.8Z"/></svg>
+        <span class="sr-only">날짜</span>
+      </button>
+      <button class="bottom-nav__item" type="button" data-share aria-label="공유하기">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m21.5 2.8-7.6 18-3.2-7.2-7.2-3.2 18-7.6Z"/><path d="M21.5 2.8 10.7 13.6"/></svg>
+        <span class="sr-only">공유</span>
+      </button>
+      <button class="bottom-nav__item" type="button" data-navigate="details" aria-label="오시는 길 보기">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m15.4 15.4 5 5"/></svg>
+        <span class="sr-only">오시는 길</span>
+      </button>
+      <button class="bottom-nav__item bottom-nav__profile bottom-nav__item--active" type="button" aria-current="page" aria-label="현재 계정 피드">
+        <span class="bottom-nav__avatar"><img src="./assets/detail-01.jpg" alt=""></span>
+      </button>
+    </nav>
+  </div>
+
+  <dialog class="feed-lightbox" id="feedLightbox">
+    <button class="feed-lightbox__close" type="button" data-close-lightbox aria-label="사진 닫기">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg>
+    </button>
+    <img id="feedLightboxImage" src="./assets/hero.jpg" alt="확대한 웨딩 사진">
+  </dialog>
+
+  <div class="toast" id="feedToast" role="status" aria-live="polite"></div>
+  <script src="./feed.js"></script>
+</body>
+</html>
