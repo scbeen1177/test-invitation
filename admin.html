@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="robots" content="noindex,nofollow">
+  <meta name="theme-color" content="#ffffff">
+  <title>junho.chaebeen · 사진 관리자</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="./admin.css">
+</head>
+<body>
+  <header class="admin-header">
+    <a class="admin-brand" href="./feed.html" aria-label="계정 피드로 돌아가기">
+      <span>junho.chaebeen</span>
+      <small>PHOTO ADMIN</small>
+    </a>
+    <div class="admin-header__actions">
+      <span class="admin-local-badge">LOCAL ONLY</span>
+      <a href="./feed.html">피드 미리보기</a>
+    </div>
+  </header>
+
+  <main class="admin-layout">
+    <aside class="admin-sidebar" aria-label="게시물 목록">
+      <div class="admin-sidebar__heading">
+        <h1>등록 사진</h1>
+        <span id="adminEditCount">0 / 11 편집됨</span>
+      </div>
+      <div class="admin-photo-list" id="adminPhotoList"></div>
+    </aside>
+
+    <section class="admin-editor" aria-labelledby="editorTitle">
+      <header class="admin-editor__header">
+        <div>
+          <span class="admin-kicker">PHOTO EDITOR</span>
+          <h2 id="editorTitle">게시물 01</h2>
+        </div>
+        <span class="admin-save-state" id="adminSaveState">불러오는 중</span>
+      </header>
+
+      <div class="admin-stage">
+        <img id="adminPreviewImage" src="./images/KakaoTalk_20261025_205325815.jpg" alt="선택한 게시물 사진 미리보기">
+      </div>
+
+      <div class="admin-editor__body">
+        <section class="admin-photo-actions" aria-label="사진 파일">
+          <div>
+            <strong>사진 교체</strong>
+            <p>선택한 사진은 이 브라우저 안에만 저장됩니다.</p>
+          </div>
+          <div class="admin-photo-actions__buttons">
+            <input id="adminFileInput" type="file" accept="image/*" hidden>
+            <button class="admin-button admin-button--dark" type="button" id="adminChooseFile">사진 선택</button>
+            <button class="admin-button" type="button" id="adminResetPhoto">원본 사진</button>
+          </div>
+        </section>
+
+        <section class="admin-controls" aria-label="사진 편집">
+          <label class="admin-range">
+            <span><strong>확대</strong><output id="adminZoomOutput">100%</output></span>
+            <input id="adminZoom" type="range" min="1" max="2" step="0.02" value="1">
+          </label>
+          <label class="admin-range">
+            <span><strong>가로 위치</strong><output id="adminXOutput">0</output></span>
+            <input id="adminX" type="range" min="-35" max="35" step="1" value="0">
+          </label>
+          <label class="admin-range">
+            <span><strong>세로 위치</strong><output id="adminYOutput">0</output></span>
+            <input id="adminY" type="range" min="-35" max="35" step="1" value="0">
+          </label>
+          <div class="admin-rotate">
+            <strong>회전</strong>
+            <div>
+              <button class="admin-icon-button" type="button" id="adminRotateLeft" aria-label="왼쪽으로 90도 회전">↶</button>
+              <output id="adminRotationOutput">0°</output>
+              <button class="admin-icon-button" type="button" id="adminRotateRight" aria-label="오른쪽으로 90도 회전">↷</button>
+            </div>
+          </div>
+        </section>
+
+        <label class="admin-caption">
+          <span>게시물 문구</span>
+          <textarea id="adminCaption" maxlength="120" rows="3"></textarea>
+        </label>
+
+        <div class="admin-editor__footer">
+          <button class="admin-button admin-button--quiet" type="button" id="adminResetEdit">편집 초기화</button>
+          <button class="admin-button admin-button--dark" type="button" id="adminSaveButton">로컬에 저장</button>
+        </div>
+        <p class="admin-note">이 페이지는 공개 메뉴에 연결되지 않은 로컬 관리 화면입니다. 변경 내용은 현재 브라우저의 IndexedDB에 저장됩니다.</p>
+      </div>
+    </section>
+  </main>
+
+  <div class="admin-toast" id="adminToast" role="status" aria-live="polite"></div>
+  <script src="./feed-data.js"></script>
+  <script src="./admin-store.js"></script>
+  <script src="./admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#ffffff">
+  <meta name="description" content="junho.chaebeen의 웨딩 게시물 연속 피드">
+  <title>junho.chaebeen · Wedding Feed</title>
+  <link rel="icon" href="data:,">
+  <link rel="preload" href="./images/KakaoTalk_20261025_205325815.jpg" as="image">
+  <link rel="stylesheet" href="./styles.css">
+  <link rel="stylesheet" href="./post.css">
+</head>
+<body class="post-detail-body">
+  <div class="post-detail-shell">
+    <header class="post-detail-topbar">
+      <button class="post-detail-topbar__button" type="button" id="postBackButton" aria-label="피드로 돌아가기">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>
+      </button>
+      <div class="post-detail-topbar__heading">
+        <div class="post-detail-topbar__title">게시물</div>
+        <span>junho.chaebeen</span>
+      </div>
+      <span class="post-detail-topbar__spacer" aria-hidden="true"></span>
+    </header>
+
+    <main class="post-detail-main" id="postStream" aria-label="준호와 채빈의 웨딩 게시물">
+      <div class="post-stream" id="postStreamList"></div>
+    </main>
+  </div>
+
+  <div class="toast" id="postToast" role="status" aria-live="polite"></div>
+  <script src="./feed-data.js"></script>
+  <script src="./admin-store.js"></script>
+  <script src="./feed-story.js"></script>
+  <script src="./post.js"></script>
+</body>
+</html>

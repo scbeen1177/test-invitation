@@ -74,103 +74,118 @@ const state = {
 
 const stories = [
   {
-    image: "./assets/hero.jpg",
-    time: "2027년 봄",
-    small: "SAVE THE DATE",
+    image: "./images/KakaoTalk_20261025_205325815.jpg",
+    time: "오늘",
+    small: "WE'RE GETTING MARRIED",
     title: "우리, 결혼합니다",
     text: "서로의 가장 좋은 계절이 되어<br>같은 방향으로 걷기로 했습니다.",
     date: "2027. 03. 27 · SAT · 11 AM"
   },
   {
-    image: "./assets/couple-02.jpg",
-    time: "결혼식 안내",
+    image: "./images/KakaoTalk_20261025_205325815_03.jpg",
+    time: "결혼식 날짜",
     small: "THE WEDDING DAY",
     title: "2027. 03. 27.",
     text: "토요일 오전 11시<br>소중한 걸음으로 함께해 주세요.",
     date: "SATURDAY, 11:00 AM"
   },
   {
-    image: "./assets/couple-02.jpg",
-    time: "장소 안내",
-    small: "THE PLACE",
-    title: "더에스비 웨딩홀",
-    text: "보라매공원 인근<br>전문건설회관 3층에서 만나요.",
-    date: "SEOUL · BORAMAE PARK"
+    image: "./images/KakaoTalk_20261025_205325815_02.jpg",
+    time: "예식 안내",
+    small: "CEREMONY",
+    title: "AM 11:00",
+    text: "예식은 더에스비 웨딩홀 3층에서<br>오전 11시에 시작됩니다.",
+    date: "PLEASE ARRIVE 20 MIN EARLY"
   },
   {
-    image: "./assets/couple-03.jpg",
-    time: "우리의 약속",
+    image: "./assets/couple-02.jpg",
+    time: "오시는 길",
+    small: "THE VENUE",
+    title: "더에스비 웨딩홀",
+    text: "서울 동작구 보라매로5길 15<br>전문건설회관 3층",
+    date: "BORAMAE PARK · SEOUL"
+  },
+  {
+    image: "./assets/venue-01.jpg",
+    time: "장소 안내",
+    small: "LOCATION",
+    title: "보라매공원 옆",
+    text: "지도 버튼을 눌러 정확한 위치를<br>확인하실 수 있어요.",
+    date: "SEOUL · BORAMAE"
+  },
+  {
+    image: "./images/KakaoTalk_20261025_205325815_09.jpg",
+    time: "우리의 초대",
     small: "WITH LOVE",
-    title: "오래, 함께",
-    text: "좋아하는 것을 닮아가며<br>오래오래 함께 걷겠습니다.",
-    date: "JUNHO & CHAEBEEN"
+    title: "함께해 주세요",
+    text: "우리의 첫날을 빛내 주실<br>소중한 분들을 초대합니다.",
+    date: "JUNHO & CHAEBEEN · 2027"
   }
 ];
 
 const feedPosts = [
   {
-    image: "./assets/hero.jpg",
-    caption: "서로의 가장 좋은 계절이 되어, 같은 방향으로 걷기로 했습니다.",
+    image: "./images/puzzle/tile-01.jpg",
+    caption: "a lifetime of us",
     likes: 184,
     comments: 12,
     time: "2027년 3월 27일"
   },
   {
-    image: "./assets/couple-01.jpg",
-    caption: "우리의 새로운 시작을 가장 가까운 곳에서 함께해 주세요.",
+    image: "./images/puzzle/tile-02.jpg",
+    caption: "JUNHO & CHAEBEEN",
     likes: 172,
     comments: 8,
     time: "2027년 3월 27일"
   },
   {
-    image: "./assets/couple-02.jpg",
-    caption: "봄빛이 머무는 보라매공원에서, 소중한 걸음으로 만나요.",
+    image: "./images/puzzle/tile-03.jpg",
+    caption: "27 . 03 . 2027",
     likes: 203,
     comments: 15,
     time: "2027년 3월 27일"
   },
   {
-    image: "./assets/couple-02.jpg",
-    caption: "좋아하는 것을 닮아가며 오래오래 함께 걷겠습니다.",
+    image: "./images/puzzle/tile-04.jpg",
+    caption: "우리의 가장 아름다운 봄",
     likes: 227,
     comments: 21,
     time: "2027년 3월 27일"
   },
   {
-    image: "./assets/detail-01.jpg",
-    caption: "두 손을 맞잡고 약속하는 날.",
+    image: "./images/puzzle/tile-05.jpg",
+    caption: "서로를 바라보는 순간",
     likes: 198,
     comments: 11,
     time: "2027년 3월 27일"
   },
   {
-    image: "./assets/detail-02.jpg",
-    caption: "꽃으로 전하는 우리의 마음을 받아주세요.",
+    image: "./images/puzzle/tile-06.jpg",
+    caption: "함께라서 더 빛나는 날",
     likes: 166,
     comments: 7,
     time: "2027년 3월 27일"
   },
   {
-    image: "./assets/venue-02.jpg",
-    caption: "초록빛 사이에서 시작되는 우리의 봄날.",
+    image: "./images/puzzle/tile-07.jpg",
+    caption: "손끝에 전해지는 마음",
     likes: 191,
     comments: 10,
     time: "2027년 3월 27일"
   },
   {
-    image: "./assets/couple-03.jpg",
-    caption: "오늘보다 더 사랑하는 내일을 함께 만들겠습니다.",
+    image: "./images/puzzle/tile-08.jpg",
+    caption: "같은 방향으로 걷는 우리",
     likes: 241,
     comments: 24,
     time: "2027년 3월 27일"
   },
   {
-    image: "./assets/hero.jpg",
-    caption: "2027. 03. 27 SAT · AM 11:00 · save the date",
+    image: "./images/puzzle/tile-09.jpg",
+    caption: "a lifetime of us · to be continued",
     likes: 154,
     comments: 6,
-    time: "2027년 3월 27일",
-    design: true
+    time: "2027년 3월 27일"
   }
 ];
 
@@ -462,6 +477,7 @@ function setupStoryDday() {
   const number = $("#storyDdayNumber");
   const caption = $("#storyDdayCaption");
   const label = $("#storyDdayLabel");
+  if (!button || !number || !caption || !label) return;
   const seoulDate = new Intl.DateTimeFormat("en-US", {
     timeZone: "Asia/Seoul",
     year: "numeric",
@@ -570,6 +586,15 @@ function renderStory() {
   });
 }
 
+function buildStoryProgress() {
+  const progress = $("#storyProgress");
+  if (!progress) return;
+  progress.replaceChildren();
+  stories.forEach(() => {
+    progress.append(document.createElement("span"));
+  });
+}
+
 function startStoryTimer() {
   window.clearTimeout(state.storyTimer);
   state.storyTimer = window.setTimeout(() => {
@@ -601,6 +626,7 @@ function stepStory(direction) {
 }
 
 function setupDialogs() {
+  buildStoryProgress();
   $$("[data-story]").forEach((button) => {
     button.addEventListener("click", () => {
       if (elements.feedDialog.open) elements.feedDialog.close();
@@ -611,6 +637,12 @@ function setupDialogs() {
     button.addEventListener("click", () => stepStory(Number(button.dataset.storyStep)));
   });
   $("[data-close-story]").addEventListener("click", () => elements.storyDialog.close());
+  $$("[data-open-message]").forEach((button) => {
+    button.addEventListener("click", () => {
+      elements.storyDialog.close();
+      window.location.assign("./message.html?from=index");
+    });
+  });
   elements.storyDialog.addEventListener("close", () => {
     window.clearTimeout(state.storyTimer);
     $$(".story-progress span").forEach((bar) => bar.classList.remove("is-active"));
@@ -923,6 +955,13 @@ function setupSocialPosts() {
 function setupMenu() {
   $("#moreButton").addEventListener("click", () => elements.menuDialog.showModal());
   $("#postMoreButton").addEventListener("click", () => elements.menuDialog.showModal());
+  $("#newPostButton").addEventListener("click", () => showToast("새 게시물은 우리의 순간들에서 확인할 수 있어요."));
+  $$("[data-menu]").forEach((button) => {
+    button.addEventListener("click", () => {
+      elements.storyDialog.close();
+      elements.menuDialog.showModal();
+    });
+  });
 }
 
 function setupActions() {
@@ -986,3 +1025,7 @@ setupMenu();
 setupActions();
 setupReveal();
 setupKeyboard();
+
+if (new URLSearchParams(window.location.search).get("story") === "1") {
+  window.setTimeout(() => openStory(0), 120);
+}

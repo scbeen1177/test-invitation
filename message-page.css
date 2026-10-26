@@ -1,0 +1,21 @@
+body.message-page-body {
+  min-height: 100dvh;
+  margin: 0;
+  overflow: hidden;
+  background: #fff;
+}
+
+.message-page-shell {
+  position: relative;
+  margin: 0 auto;
+}
+
+@media (min-width: 700px) {
+  body.message-page-body {
+    background: #fff;
+  }
+
+  .message-page-shell {
+    box-shadow: 0 0 50px rgba(0, 0, 0, .08);
+  }
+}

@@ -1,0 +1,3566 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Google</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      height: 100%;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      font-size: 14px;
+      color: #202124;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    a {
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    /* ===== 홈 화면 ===== */
+    #home {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .top-nav {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 15px;
+      padding: 6px 18px;
+      height: 60px;
+    }
+
+    .top-nav a {
+      color: rgba(0, 0, 0, 0.87);
+      font-size: 13px;
+    }
+
+    .top-nav .apps {
+      width: 24px;
+      height: 24px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #5f6368;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+
+    .top-nav .apps:hover {
+      background: rgba(60, 64, 67, 0.08);
+    }
+
+    .sign-in {
+      background: #1a73e8;
+      color: #fff !important;
+      font-family: "Google Sans", Roboto, Arial, sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      padding: 9px 23px;
+      border-radius: 4px;
+      letter-spacing: 0.25px;
+      line-height: 16px;
+      text-decoration: none;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .sign-in:hover {
+      background: #1b66c9;
+      box-shadow: 0 1px 3px 1px rgba(66, 64, 67, 0.15), 0 1px 2px 0 rgba(60, 64, 67, 0.3);
+      text-decoration: none;
+    }
+
+    .main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-top: 109px;
+    }
+
+    .logo {
+      width: 272px;
+      height: 92px;
+      margin-bottom: 26px;
+    }
+
+    /* 검색창 공통 */
+    .search-box {
+      display: flex;
+      align-items: center;
+      width: 584px;
+      max-width: 92%;
+      min-height: 44px;
+      border: 1px solid #dfe1e5;
+      border-radius: 24px;
+      padding: 5px 8px 0 14px;
+      transition: box-shadow 0.2s;
+      background: #fff;
+    }
+
+    .search-box:hover {
+      box-shadow: 0 1px 6px rgba(32, 33, 36, 0.28);
+      border-color: rgba(223, 225, 229, 0);
+    }
+
+    .search-box:focus-within {
+      box-shadow: 0 1px 6px rgba(32, 33, 36, 0.28);
+      border-color: rgba(223, 225, 229, 0);
+    }
+
+    .search-icon {
+      display: flex;
+      align-items: center;
+      padding-right: 13px;
+      margin-top: -5px;
+      color: #9aa0a6;
+    }
+
+    .search-box input {
+      flex: 1;
+      border: none;
+      outline: none;
+      font-size: 16px;
+      height: 34px;
+      line-height: 34px;
+      color: rgba(0, 0, 0, 0.87);
+      margin-top: -5px;
+      min-width: 0;
+    }
+
+    .search-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding-left: 4px;
+      margin-top: -5px;
+    }
+
+    .icon-btn {
+      width: 24px;
+      height: 24px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      color: #5f6368;
+      background: none;
+      border: none;
+      padding: 0;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 12px;
+      margin-top: 29px;
+    }
+
+    .buttons button {
+      background-color: #f8f9fa;
+      border: 1px solid #f8f9fa;
+      border-radius: 4px;
+      color: #3c4043;
+      font-family: Arial, sans-serif;
+      font-size: 14px;
+      padding: 0 16px;
+      height: 36px;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .buttons button:hover {
+      box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+      background-color: #f8f9fa;
+      border: 1px solid #dadce0;
+      color: #202124;
+    }
+
+    .language {
+      margin-top: 28px;
+      font-size: small;
+    }
+
+    .language a {
+      padding: 0 3px;
+      color: #1a0dab;
+    }
+
+    /* ===== 검색 결과 화면 ===== */
+    #results {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .results-header {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      padding: 18px 28px 0;
+      border-bottom: 1px solid #ebebeb;
+      flex-wrap: wrap;
+    }
+
+    .results-header .small-logo {
+      width: 92px;
+      height: 30px;
+      flex-shrink: 0;
+    }
+
+    .results-header .search-box {
+      width: 690px;
+      max-width: 55vw;
+      min-width: 280px;
+      flex: 1;
+      min-height: 44px;
+      border-radius: 24px;
+      margin-bottom: 14px;
+    }
+
+    .results-header .header-right {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-left: auto;
+      margin-bottom: 14px;
+    }
+
+    .header-right .apps {
+      width: 24px;
+      height: 24px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #5f6368;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+
+    .header-right .apps:hover {
+      background: rgba(60, 64, 67, 0.08);
+    }
+
+    .tabs {
+      display: flex;
+      gap: 0;
+      padding: 0 28px;
+      border-bottom: 1px solid #ebebeb;
+      margin-top: 0;
+    }
+
+    .tab {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 14px 11px;
+      color: #5f6368;
+      font-size: 13px;
+      cursor: pointer;
+      border-bottom: 3px solid transparent;
+    }
+
+    .tab.active {
+      color: #1a73e8;
+      border-bottom-color: #1a73e8;
+    }
+
+    .tab:hover {
+      color: #1a73e8;
+    }
+
+    .results-main {
+      display: flex;
+      align-items: flex-start;
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 28px;
+    }
+
+    .results-body {
+      flex: 1;
+      min-width: 0;
+      max-width: 652px;
+      padding: 12px 0 0;
+    }
+
+    /* 오른쪽 지식 패널 */
+    .rhs {
+      flex-shrink: 0;
+      width: 370px;
+      padding: 12px 0 0 28px;
+    }
+
+    .kp-card {
+      border: 1px solid #dfe1e5;
+      border-radius: 16px;
+      background: #fff;
+      overflow: hidden;
+      margin-bottom: 20px;
+    }
+
+    .kp-media {
+      position: relative;
+    }
+
+    .kp-media img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .kp-media .kp-media-label {
+      position: absolute;
+      bottom: 10px;
+      right: 12px;
+      background: rgba(0, 0, 0, 0.55);
+      color: #fff;
+      font-size: 11px;
+      padding: 4px 8px;
+      border-radius: 4px;
+      letter-spacing: 0.3px;
+    }
+
+    .kp-content {
+      padding: 16px 16px 12px;
+    }
+
+    .kp-title {
+      font-size: 26px;
+      font-weight: 400;
+      color: #202124;
+      line-height: 1.25;
+    }
+
+    .kp-sub {
+      font-size: 13px;
+      color: #70757a;
+      margin-top: 2px;
+    }
+
+    .kp-desc {
+      margin-top: 14px;
+      font-size: 14px;
+      line-height: 1.58;
+      color: #4d5156;
+    }
+
+    .kp-desc a {
+      color: #1a0dab;
+    }
+
+    .kp-buttons {
+      display: flex;
+      gap: 8px;
+      margin-top: 16px;
+      flex-wrap: wrap;
+    }
+
+    .kp-buttons button {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border: 1px solid #dadce0;
+      border-radius: 100px;
+      background: #fff;
+      color: #1a73e8;
+      font-family: "Google Sans", Roboto, Arial, sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      height: 40px;
+      padding: 0 16px;
+      cursor: pointer;
+    }
+
+    .kp-buttons button:hover {
+      background: #f6fafe;
+      border-color: #d2e3fc;
+    }
+
+    .kp-subhead {
+      font-size: 16px;
+      font-weight: 400;
+      color: #202124;
+      margin: 4px 0 14px;
+    }
+
+    .kp-thumbs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px 12px;
+    }
+
+    .kp-thumb {
+      width: 76px;
+      text-align: center;
+      cursor: pointer;
+    }
+
+    .kp-thumb .circle {
+      width: 64px;
+      height: 64px;
+      margin: 0 auto 6px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      overflow: hidden;
+      transition: transform 0.15s;
+    }
+
+    .kp-thumb:hover .circle {
+      transform: scale(1.08);
+    }
+
+    .kp-thumb .label {
+      font-size: 12px;
+      line-height: 1.25;
+      color: #3c4043;
+      word-break: keep-all;
+    }
+
+    @media (max-width: 960px) {
+      .results-main {
+        flex-direction: column;
+      }
+
+      .rhs {
+        width: 100%;
+        padding: 12px 0 0;
+      }
+    }
+
+    .results-count {
+      color: #70757a;
+      font-size: 14px;
+      line-height: 43px;
+    }
+
+    .result {
+      margin-bottom: 28px;
+    }
+
+    .result .site {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      color: #202124;
+      margin-bottom: 3px;
+    }
+
+    .result .favicon {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 12px;
+      font-weight: bold;
+      flex-shrink: 0;
+    }
+
+    .result .site .domain {
+      color: #202124;
+    }
+
+    .result h3 {
+      font-size: 20px;
+      font-weight: 400;
+      line-height: 1.3;
+      margin-bottom: 3px;
+    }
+
+    .result h3 a {
+      color: #1a0dab;
+    }
+
+    .result h3 a:visited {
+      color: #681da8;
+    }
+
+    .result .snippet {
+      font-size: 14px;
+      line-height: 1.58;
+      color: #4d5156;
+    }
+
+    .result .snippet .date {
+      color: #70757a;
+    }
+
+    /* 관련 검색어 */
+    .related {
+      margin: 32px 0 20px;
+    }
+
+    .related h3 {
+      font-size: 18px;
+      font-weight: 400;
+      color: #202124;
+      margin-bottom: 16px;
+    }
+
+    .related-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px 16px;
+    }
+
+    .related-grid a {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: #f1f3f4;
+      border-radius: 100px;
+      padding: 8px 16px;
+      color: #202124;
+      font-size: 14px;
+    }
+
+    .related-grid a:hover {
+      text-decoration: none;
+      background: #e8eaed;
+    }
+
+    /* 페이지네이션 */
+    .pagination {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px 0 40px;
+      gap: 4px;
+    }
+
+    .pagination .goooo {
+      color: #4285f4;
+      font-size: 20px;
+      letter-spacing: 1px;
+    }
+
+    .pagination .pages {
+      display: flex;
+      gap: 12px;
+      color: #4285f4;
+      font-size: 13px;
+    }
+
+    /* 푸터 */
+    .footer {
+      background: #f2f2f2;
+      font-size: 14px;
+      color: #70757a;
+    }
+
+    .footer .country {
+      padding: 15px 30px;
+      border-bottom: 1px solid #dadce0;
+      font-size: 15px;
+    }
+
+    .footer .links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      padding: 15px 30px;
+    }
+
+    .footer .links a {
+      color: #70757a;
+      padding: 0 15px;
+    }
+
+    .footer .links a:first-child {
+      padding-left: 0;
+    }
+
+    .footer .links a:last-child {
+      padding-right: 0;
+    }
+
+    .footer .links .group {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    /* ===== 검색 결과의 Instagram 링크 ===== */
+    .ig-result {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin: 4px 0 26px;
+      padding: 14px 16px;
+      border: 1px solid #dfe1e5;
+      border-radius: 16px;
+      background:
+        radial-gradient(circle at 100% 0%, rgba(214, 41, 118, 0.08), transparent 42%),
+        radial-gradient(circle at 0% 100%, rgba(79, 91, 213, 0.07), transparent 45%),
+        #fff;
+      color: #202124;
+      transition: box-shadow 0.2s, border-color 0.2s, transform 0.2s;
+    }
+
+    .ig-result:hover {
+      text-decoration: none;
+      border-color: #e3c7d3;
+      box-shadow: 0 8px 24px rgba(32, 33, 36, 0.1);
+      transform: translateY(-1px);
+    }
+
+    .ig-result-thumb {
+      width: 96px;
+      height: 96px;
+      flex: 0 0 auto;
+      border-radius: 12px;
+      overflow: hidden;
+      background: #f6ece3;
+      box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.04);
+    }
+
+    .ig-result-thumb svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .ig-result-copy {
+      display: block;
+      min-width: 0;
+    }
+
+    .ig-result-eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 12px;
+      color: #70757a;
+      margin-bottom: 4px;
+    }
+
+    .ig-glyph {
+      width: 18px;
+      height: 18px;
+      flex: 0 0 auto;
+      border-radius: 5px;
+      background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285aeb 90%);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .ig-glyph svg {
+      width: 11px;
+      height: 11px;
+      display: block;
+    }
+
+    .ig-result-title {
+      display: block;
+      font-size: 19px;
+      line-height: 1.3;
+      color: #1a0dab;
+      margin-bottom: 3px;
+      word-break: keep-all;
+      overflow-wrap: anywhere;
+    }
+
+    .ig-result:hover .ig-result-title {
+      text-decoration: underline;
+    }
+
+    .ig-result-desc {
+      display: block;
+      font-size: 13px;
+      line-height: 1.55;
+      color: #4d5156;
+      word-break: keep-all;
+      overflow-wrap: anywhere;
+    }
+
+    .ig-result-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      margin-top: 7px;
+      font-size: 12px;
+      font-weight: 700;
+      color: #c13584;
+      letter-spacing: 0.1px;
+    }
+
+    .kp-buttons .ig-kp-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* ===== Instagram 프로필 화면 ===== */
+    body.ig-locked {
+      overflow: hidden;
+    }
+
+    #instagram {
+      position: fixed;
+      inset: 0;
+      z-index: 80;
+      overflow-y: auto;
+      overflow-x: hidden;
+      background: #fafafa;
+      color: #262626;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Malgun Gothic", "Apple SD Gothic Neo", sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .ig-topbar {
+      position: sticky;
+      top: 0;
+      z-index: 6;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 0 20px;
+      background: rgba(255, 255, 255, 0.96);
+      border-bottom: 1px solid #dbdbdb;
+      backdrop-filter: blur(10px);
+    }
+
+    .ig-back {
+      width: 36px;
+      height: 36px;
+      flex: 0 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 0;
+      border-radius: 50%;
+      background: transparent;
+      color: #262626;
+      cursor: pointer;
+    }
+
+    .ig-back:hover {
+      background: #f2f2f2;
+    }
+
+    .ig-wordmark {
+      font-family: "Segoe Script", "Brush Script MT", "Snell Roundhand", cursive;
+      font-size: 27px;
+      font-weight: 600;
+      letter-spacing: -0.6px;
+      color: #262626;
+      line-height: 1;
+      transform: translateY(-2px);
+      user-select: none;
+    }
+
+    .ig-top-search {
+      position: relative;
+      width: 268px;
+      height: 36px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      background: #efefef;
+      border-radius: 8px;
+      padding: 0 10px;
+      gap: 6px;
+      color: #8e8e8e;
+    }
+
+    .ig-top-search svg {
+      flex: 0 0 auto;
+    }
+
+    .ig-top-search input {
+      width: 100%;
+      border: 0;
+      outline: 0;
+      background: transparent;
+      font-family: inherit;
+      font-size: 14px;
+      color: #262626;
+    }
+
+    .ig-top-search input::placeholder {
+      color: #8e8e8e;
+    }
+
+    .ig-top-actions {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      margin-left: auto;
+    }
+
+    .ig-top-actions button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+      border: 0;
+      background: transparent;
+      color: #262626;
+      cursor: pointer;
+    }
+
+    .ig-main {
+      width: 100%;
+      max-width: 935px;
+      margin: 0 auto;
+      padding: 30px 20px 60px;
+    }
+
+    .ig-profile {
+      display: flex;
+      align-items: center;
+      gap: clamp(28px, 6vw, 78px);
+      padding: 4px 0 24px;
+    }
+
+    .ig-avatar-ring {
+      width: 158px;
+      height: 158px;
+      flex: 0 0 auto;
+      padding: 4px;
+      border-radius: 50%;
+      background: conic-gradient(from 200deg, #feda75, #fa7e1e, #d62976, #962fbf, #4f5bd5, #feda75);
+      display: flex;
+    }
+
+    .ig-avatar {
+      flex: 1;
+      padding: 3px;
+      border-radius: 50%;
+      background: #fafafa;
+    }
+
+    .ig-avatar svg {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      display: block;
+    }
+
+    .ig-profile-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .ig-username-row {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 18px;
+    }
+
+    .ig-username {
+      margin-right: 4px;
+      font-size: 20px;
+      font-weight: 400;
+      letter-spacing: -0.2px;
+    }
+
+    .ig-btn {
+      height: 32px;
+      padding: 0 16px;
+      border: 0;
+      border-radius: 8px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .ig-btn.primary {
+      background: #0095f6;
+      color: #fff;
+    }
+
+    .ig-btn.primary:hover {
+      background: #1877f2;
+    }
+
+    .ig-btn.secondary {
+      background: #efefef;
+      color: #262626;
+    }
+
+    .ig-btn.secondary:hover {
+      background: #e4e4e4;
+    }
+
+    .ig-more {
+      width: 32px;
+      height: 32px;
+      border: 0;
+      border-radius: 50%;
+      background: transparent;
+      color: #262626;
+      font-size: 15px;
+      letter-spacing: 1px;
+      cursor: pointer;
+    }
+
+    .ig-more:hover {
+      background: #f2f2f2;
+    }
+
+    .ig-stats {
+      display: flex;
+      gap: 36px;
+      margin: 0 0 16px;
+      padding: 0;
+      list-style: none;
+      font-size: 15px;
+    }
+
+    .ig-stats strong {
+      font-weight: 600;
+    }
+
+    .ig-bio {
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .ig-bio .ig-name {
+      font-weight: 600;
+      margin-bottom: 1px;
+    }
+
+    .ig-verified {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 14px;
+      height: 14px;
+      margin-left: 2px;
+      border-radius: 50%;
+      background: #0095f6;
+      color: #fff;
+      font-size: 9px;
+      vertical-align: 1px;
+    }
+
+    .ig-bio a {
+      color: #00376b;
+      font-weight: 600;
+    }
+
+    .ig-bio a:hover {
+      text-decoration: underline;
+    }
+
+    .ig-highlights {
+      display: flex;
+      gap: 26px;
+      padding: 6px 4px 20px;
+      border-bottom: 1px solid #dbdbdb;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+
+    .ig-highlights::-webkit-scrollbar {
+      display: none;
+    }
+
+    .ig-highlight {
+      width: 84px;
+      flex: 0 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 7px;
+      padding: 0;
+      border: 0;
+      background: transparent;
+      color: #262626;
+      font-family: inherit;
+      cursor: pointer;
+    }
+
+    .ig-highlight-ring {
+      width: 74px;
+      height: 74px;
+      padding: 2px;
+      border: 1px solid #dbdbdb;
+      border-radius: 50%;
+      display: block;
+      transition: transform 0.18s, border-color 0.18s;
+    }
+
+    .ig-highlight:hover .ig-highlight-ring {
+      transform: scale(1.04);
+      border-color: #b8b8b8;
+    }
+
+    .ig-highlight-ring svg {
+      width: 100%;
+      height: 100%;
+      border: 3px solid #fafafa;
+      border-radius: 50%;
+      display: block;
+    }
+
+    .ig-highlight .label {
+      max-width: 84px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .ig-grid-tabs {
+      display: flex;
+      justify-content: center;
+      gap: 44px;
+      margin-bottom: 4px;
+      border-bottom: 1px solid #dbdbdb;
+    }
+
+    .ig-grid-tab {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: -1px;
+      padding: 15px 2px 13px;
+      border: 0;
+      border-bottom: 1px solid transparent;
+      background: transparent;
+      color: #8e8e8e;
+      font-family: inherit;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.6px;
+      cursor: pointer;
+    }
+
+    .ig-grid-tab.active {
+      color: #262626;
+      border-bottom-color: #262626;
+    }
+
+    .ig-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 4px;
+    }
+
+    .ig-tile {
+      position: relative;
+      aspect-ratio: 1;
+      padding: 0;
+      border: 0;
+      background: #efefef;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .ig-tile > svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+      transition: transform 0.35s ease;
+    }
+
+    .ig-tile:hover > svg {
+      transform: scale(1.035);
+    }
+
+    .ig-tile-overlay {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 22px;
+      background: rgba(0, 0, 0, 0.34);
+      color: #fff;
+      font-size: 15px;
+      font-weight: 600;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+
+    .ig-tile:hover .ig-tile-overlay,
+    .ig-tile:focus-visible .ig-tile-overlay {
+      opacity: 1;
+    }
+
+    .ig-tile-overlay span {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .ig-tile.ig-filtered {
+      display: none;
+    }
+
+    .ig-endnote {
+      padding: 36px 20px 10px;
+      text-align: center;
+      color: #8e8e8e;
+      font-size: 12px;
+      line-height: 1.9;
+      letter-spacing: 0.2px;
+    }
+
+    .ig-endnote strong {
+      display: block;
+      margin-bottom: 5px;
+      color: #8a6d5c;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 18px;
+      font-weight: 400;
+      letter-spacing: 2px;
+    }
+
+    .ig-bottomnav {
+      display: none;
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 9;
+      height: 52px;
+      align-items: center;
+      justify-content: space-around;
+      background: #fff;
+      border-top: 1px solid #dbdbdb;
+    }
+
+    .ig-bottomnav button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 6px;
+      border: 0;
+      background: transparent;
+      color: #262626;
+      cursor: pointer;
+    }
+
+    .ig-bottomnav .me {
+      width: 24px;
+      height: 24px;
+      padding: 1px;
+      border-radius: 50%;
+      background: conic-gradient(from 200deg, #feda75, #fa7e1e, #d62976, #962fbf, #4f5bd5, #feda75);
+    }
+
+    .ig-bottomnav .me svg {
+      width: 100%;
+      height: 100%;
+      border: 1px solid #fff;
+      border-radius: 50%;
+      display: block;
+    }
+
+    /* 게시물 모달 */
+    .ig-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 120;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      background: rgba(0, 0, 0, 0.68);
+    }
+
+    .ig-modal.hidden,
+    .ig-sheet.hidden,
+    .ig-sheet-backdrop.hidden {
+      display: none;
+    }
+
+    .ig-post {
+      display: flex;
+      width: min(1040px, 100%);
+      max-height: 88vh;
+      background: #fff;
+      border-radius: 6px;
+      overflow: hidden;
+      box-shadow: 0 24px 70px rgba(0, 0, 0, 0.4);
+    }
+
+    .ig-post-media {
+      flex: 1 1 58%;
+      min-width: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #000;
+      overflow: hidden;
+    }
+
+    .ig-post-media svg {
+      width: 100%;
+      height: 100%;
+      max-height: 88vh;
+      display: block;
+    }
+
+    .ig-post-panel {
+      width: 390px;
+      flex: 0 0 390px;
+      max-height: 88vh;
+      display: flex;
+      flex-direction: column;
+      background: #fff;
+    }
+
+    .ig-post-head {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 16px;
+      border-bottom: 1px solid #efefef;
+    }
+
+    .ig-mini-avatar {
+      width: 32px;
+      height: 32px;
+      flex: 0 0 auto;
+      padding: 1.5px;
+      border-radius: 50%;
+      background: conic-gradient(from 200deg, #feda75, #fa7e1e, #d62976, #962fbf, #4f5bd5, #feda75);
+    }
+
+    .ig-mini-avatar svg {
+      width: 100%;
+      height: 100%;
+      border: 1px solid #fff;
+      border-radius: 50%;
+      display: block;
+    }
+
+    .ig-post-head .name {
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 1.3;
+    }
+
+    .ig-post-head .place {
+      color: #8e8e8e;
+      font-size: 12px;
+      line-height: 1.4;
+    }
+
+    .ig-post-close {
+      width: 30px;
+      height: 30px;
+      margin-left: auto;
+      border: 0;
+      border-radius: 50%;
+      background: transparent;
+      color: #262626;
+      font-size: 24px;
+      line-height: 1;
+      cursor: pointer;
+    }
+
+    .ig-post-close:hover {
+      background: #f2f2f2;
+    }
+
+    .ig-post-close:focus,
+    .ig-sheet-close:focus {
+      outline: none;
+    }
+
+    .ig-post-close:focus-visible,
+    .ig-sheet-close:focus-visible {
+      outline: 2px solid #0095f6;
+      outline-offset: 2px;
+    }
+
+    .ig-post-scroll {
+      flex: 1;
+      overflow-y: auto;
+      padding: 2px 16px 16px;
+    }
+
+    .ig-caption {
+      display: flex;
+      gap: 10px;
+      padding: 14px 0 12px;
+      font-size: 14px;
+      line-height: 1.55;
+    }
+
+    .ig-caption p {
+      margin: 0;
+      white-space: pre-line;
+    }
+
+    .ig-caption .who,
+    .ig-comment .who {
+      font-weight: 600;
+    }
+
+    .ig-caption .tags {
+      margin-top: 6px;
+      color: #00376b;
+    }
+
+    .ig-comment {
+      display: flex;
+      gap: 10px;
+      padding: 7px 0;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .ig-comment .time {
+      display: block;
+      margin-top: 3px;
+      color: #8e8e8e;
+      font-size: 12px;
+    }
+
+    .ig-user-dot {
+      width: 32px;
+      height: 32px;
+      flex: 0 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      color: #fff;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .ig-actions {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 10px 16px 0;
+      border-top: 1px solid #efefef;
+    }
+
+    .ig-actions button {
+      display: flex;
+      padding: 0;
+      border: 0;
+      background: transparent;
+      color: #262626;
+      cursor: pointer;
+    }
+
+    .ig-actions .save {
+      margin-left: auto;
+    }
+
+    .ig-actions .liked svg {
+      fill: #ed4956;
+      stroke: #ed4956;
+    }
+
+    .ig-actions .saved svg {
+      fill: #262626;
+    }
+
+    .ig-likes {
+      padding: 8px 16px 2px;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .ig-post-date {
+      padding: 0 16px 14px;
+      color: #8e8e8e;
+      font-size: 11px;
+      letter-spacing: 0.3px;
+    }
+
+    /* 하이라이트 상세 시트 */
+    .ig-sheet-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 125;
+      background: rgba(0, 0, 0, 0.5);
+    }
+
+    .ig-sheet {
+      position: fixed;
+      left: 50%;
+      bottom: 0;
+      z-index: 130;
+      width: min(480px, 100%);
+      max-height: 86vh;
+      overflow-y: auto;
+      padding: 8px 0 26px;
+      border-radius: 18px 18px 0 0;
+      background: #fff;
+      box-shadow: 0 -12px 44px rgba(0, 0, 0, 0.22);
+      transform: translateX(-50%);
+      animation: igSheetUp 0.28s ease;
+    }
+
+    @keyframes igSheetUp {
+      from {
+        transform: translate(-50%, 44px);
+        opacity: 0;
+      }
+      to {
+        transform: translate(-50%, 0);
+        opacity: 1;
+      }
+    }
+
+    .ig-sheet-grab {
+      width: 36px;
+      height: 4px;
+      margin: 0 auto 15px;
+      border-radius: 2px;
+      background: #dbdbdb;
+    }
+
+    .ig-sheet-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 0 20px 13px;
+    }
+
+    .ig-sheet-kicker {
+      display: block;
+      margin-bottom: 4px;
+      color: #8e8e8e;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 2px;
+    }
+
+    .ig-sheet-head h2 {
+      font-size: 21px;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+    }
+
+    .ig-sheet-close {
+      width: 30px;
+      height: 30px;
+      flex: 0 0 auto;
+      border: 0;
+      border-radius: 50%;
+      background: #f2f2f2;
+      color: #262626;
+      font-size: 20px;
+      line-height: 1;
+      cursor: pointer;
+    }
+
+    .ig-sheet-hero {
+      aspect-ratio: 16 / 9;
+      margin: 0 20px 18px;
+      border-radius: 12px;
+      overflow: hidden;
+      background: #f3e9e2;
+    }
+
+    .ig-sheet-hero svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .ig-sheet-body {
+      padding: 0 20px;
+    }
+
+    .ig-info-row {
+      display: flex;
+      gap: 16px;
+      padding: 13px 0;
+      border-bottom: 1px solid #efefef;
+      font-size: 14px;
+      line-height: 1.55;
+    }
+
+    .ig-info-row > span {
+      width: 52px;
+      flex: 0 0 auto;
+      color: #8e8e8e;
+    }
+
+    .ig-info-row strong {
+      font-weight: 600;
+    }
+
+    .ig-sheet-note {
+      margin: 14px 0 0;
+      color: #737373;
+      font-size: 13px;
+      line-height: 1.7;
+    }
+
+    .ig-sheet-actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 18px;
+    }
+
+    .ig-sheet-btn {
+      flex: 1;
+      min-width: 130px;
+      height: 42px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 0 14px;
+      border: 0;
+      border-radius: 9px;
+      background: #0095f6;
+      color: #fff;
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .ig-sheet-btn:hover {
+      background: #1877f2;
+      text-decoration: none;
+    }
+
+    .ig-sheet-btn.ghost {
+      background: #efefef;
+      color: #262626;
+    }
+
+    .ig-sheet-btn.ghost:hover {
+      background: #e4e4e4;
+    }
+
+    .ig-letter {
+      padding: 4px 4px 2px;
+      color: #3c3c3c;
+      font-size: 14px;
+      line-height: 1.9;
+      text-align: center;
+      white-space: pre-line;
+    }
+
+    .ig-signature {
+      margin-top: 14px;
+      color: #8a5a6a;
+      font-family: "Segoe Script", "Brush Script MT", cursive;
+      font-size: 22px;
+      text-align: center;
+    }
+
+    .ig-account {
+      margin-top: 10px;
+      padding: 14px;
+      border: 1px solid #efefef;
+      border-radius: 12px;
+      background: #fcfcfc;
+    }
+
+    .ig-account .bank {
+      color: #8e8e8e;
+      font-size: 12px;
+    }
+
+    .ig-account .num {
+      margin: 4px 0 2px;
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+    }
+
+    .ig-account .owner {
+      color: #737373;
+      font-size: 12px;
+    }
+
+    .ig-account button {
+      margin-top: 10px;
+      padding: 7px 12px;
+      border: 0;
+      border-radius: 7px;
+      background: #efefef;
+      color: #262626;
+      font-family: inherit;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .ig-account button:hover {
+      background: #e4e4e4;
+    }
+
+    .ig-toast {
+      position: fixed;
+      left: 50%;
+      bottom: 34px;
+      z-index: 200;
+      padding: 10px 18px;
+      border-radius: 100px;
+      background: rgba(38, 38, 38, 0.94);
+      color: #fff;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Malgun Gothic", sans-serif;
+      font-size: 13px;
+      opacity: 0;
+      pointer-events: none;
+      transform: translate(-50%, 18px);
+      transition: opacity 0.25s, transform 0.25s;
+    }
+
+    .ig-toast.show {
+      opacity: 1;
+      transform: translate(-50%, 0);
+    }
+
+    @media (max-width: 735px) {
+      .ig-topbar {
+        gap: 10px;
+        padding: 0 12px;
+      }
+
+      .ig-wordmark {
+        font-size: 24px;
+      }
+
+      .ig-top-search {
+        display: none;
+      }
+
+      .ig-main {
+        padding: 12px 0 82px;
+      }
+
+      .ig-profile {
+        align-items: flex-start;
+        gap: 20px;
+        padding: 8px 16px 18px;
+      }
+
+      .ig-avatar-ring {
+        width: 88px;
+        height: 88px;
+        padding: 3px;
+      }
+
+      .ig-username-row {
+        gap: 6px;
+        margin-bottom: 11px;
+      }
+
+      .ig-username {
+        width: 100%;
+        margin-bottom: 2px;
+        font-size: 18px;
+      }
+
+      .ig-btn {
+        flex: 1;
+        height: 30px;
+        padding: 0 8px;
+        font-size: 13px;
+      }
+
+      .ig-more {
+        display: none;
+      }
+
+      .ig-stats {
+        gap: 22px;
+        margin-bottom: 11px;
+        font-size: 13px;
+      }
+
+      .ig-bio {
+        font-size: 13px;
+      }
+
+      .ig-highlights {
+        gap: 14px;
+        padding: 4px 12px 14px;
+      }
+
+      .ig-highlight {
+        width: 68px;
+      }
+
+      .ig-highlight-ring {
+        width: 62px;
+        height: 62px;
+      }
+
+      .ig-highlight .label {
+        max-width: 68px;
+        font-size: 11px;
+      }
+
+      .ig-grid-tabs {
+        gap: 34px;
+      }
+
+      .ig-grid-tab {
+        padding: 12px 1px 11px;
+      }
+
+      .ig-grid {
+        gap: 2px;
+      }
+
+      .ig-tile-overlay {
+        display: none;
+      }
+
+      .ig-bottomnav {
+        display: flex;
+      }
+
+      .ig-modal {
+        padding: 0;
+        align-items: flex-end;
+      }
+
+      .ig-post {
+        flex-direction: column;
+        width: 100%;
+        height: 94vh;
+        max-height: 94vh;
+        border-radius: 0;
+        overflow: hidden;
+      }
+
+      .ig-post-media {
+        width: 100%;
+        height: 44vh;
+        flex: 0 0 44vh;
+      }
+
+      .ig-post-media svg {
+        height: 100%;
+        max-height: none;
+      }
+
+      .ig-post-panel {
+        width: 100%;
+        flex: 1 1 auto;
+        min-height: 0;
+        max-height: none;
+      }
+
+      .ig-post-scroll {
+        flex: 1;
+        min-height: 0;
+        max-height: none;
+      }
+
+      .ig-result {
+        gap: 12px;
+        padding: 12px;
+      }
+
+      .ig-result-thumb {
+        width: 72px;
+        height: 72px;
+      }
+
+      .ig-result-title {
+        font-size: 17px;
+      }
+
+      .ig-result-desc {
+        font-size: 12px;
+      }
+
+      .ig-toast {
+        bottom: 68px;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .results-header {
+        gap: 12px;
+        padding: 12px 14px 0;
+        flex-wrap: nowrap;
+      }
+
+      .results-header .small-logo {
+        width: 74px;
+        height: 24px;
+      }
+
+      .results-header .small-logo svg {
+        width: 100%;
+        height: 100%;
+      }
+
+      .results-header .search-box {
+        width: auto;
+        min-width: 0;
+        max-width: none;
+        height: auto;
+        min-height: 40px;
+        margin-bottom: 10px;
+        padding-left: 12px;
+      }
+
+      .results-header .search-actions {
+        display: none;
+      }
+
+      .results-header .header-right {
+        gap: 10px;
+        margin-bottom: 10px;
+      }
+
+      .results-header .header-right .sign-in {
+        display: none;
+      }
+
+      .tabs {
+        padding: 0 8px;
+        overflow-x: auto;
+        scrollbar-width: none;
+      }
+
+      .tabs::-webkit-scrollbar {
+        display: none;
+      }
+
+      .tab {
+        flex: 0 0 auto;
+        padding: 12px 12px 11px;
+        white-space: nowrap;
+      }
+
+      .results-main {
+        padding: 0 16px;
+      }
+
+      .results-count {
+        line-height: 36px;
+      }
+
+      .ig-result-title {
+        font-size: 16px;
+      }
+
+      .ig-result-eyebrow {
+        word-break: keep-all;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- ===== 홈 화면 ===== -->
+  <div id="home">
+    <nav class="top-nav">
+      <a href="#">Gmail</a>
+      <a href="#">이미지</a>
+      <span class="apps" title="Google 앱">
+        <svg focusable="false" viewBox="0 0 24 24" width="24" height="24">
+          <path d="M6,8c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2zM12,20c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2zM6,20c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2zM6,14c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2zM12,14c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2zM16,6c0,1.1 0.9,2 2,2s2,-0.9 2,-2 -0.9,-2 -2,-2 -2,0.9 -2,2zM12,8c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2zM18,14c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2zM18,20c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2z" fill="#5f6368"></path>
+        </svg>
+      </span>
+      <a href="#" class="sign-in">로그인</a>
+    </nav>
+
+    <main class="main">
+      <div class="logo">
+        <svg viewBox="0 0 272 92" width="272" height="92" xmlns="http://www.w3.org/2000/svg">
+          <path fill="#EA4335" d="M115.75 47.18c0 12.77-9.99 22.18-22.25 22.18s-22.25-9.41-22.25-22.18C71.25 34.32 81.24 25 93.5 25s22.25 9.32 22.25 22.18zm-9.74 0c0-7.98-5.79-13.44-12.51-13.44S80.99 39.2 80.99 47.18c0 7.9 5.79 13.44 12.51 13.44s12.51-5.55 12.51-13.44z"/>
+          <path fill="#FBBC05" d="M163.75 47.18c0 12.77-9.99 22.18-22.25 22.18s-22.25-9.41-22.25-22.18C119.25 34.32 129.24 25 141.5 25s22.25 9.32 22.25 22.18zm-9.74 0c0-7.98-5.79-13.44-12.51-13.44s-12.51 5.46-12.51 13.44c0 7.9 5.79 13.44 12.51 13.44s12.51-5.55 12.51-13.44z"/>
+          <path fill="#4285F4" d="M209.75 26.34v39.82c0 16.38-9.66 23.07-21.08 23.07-10.75 0-17.22-7.19-19.66-13.07l8.48-3.53c1.51 3.61 5.21 7.87 11.17 7.87 7.31 0 11.84-4.51 11.84-13v-3.19h-.34c-2.18 2.69-6.38 5.04-11.68 5.04-11.09 0-21.25-9.66-21.25-22.09 0-12.52 10.16-22.26 21.25-22.26 5.29 0 9.49 2.35 11.68 4.96h.34v-3.62h9.25zm-8.56 20.92c0-7.81-5.21-13.52-11.84-13.52-6.72 0-12.35 5.71-12.35 13.52 0 7.73 5.63 13.36 12.35 13.36 6.63 0 11.84-5.63 11.84-13.36z"/>
+          <path fill="#34A853" d="M225 3v65h-9.5V3h9.5z"/>
+          <path fill="#EA4335" d="M262.02 54.48l7.56 5.04c-2.44 3.61-8.32 9.83-18.48 9.83-12.6 0-22.01-9.74-22.01-22.18 0-13.19 9.49-22.18 20.92-22.18 11.51 0 17.14 9.16 18.98 14.11l1.01 2.52-29.65 12.28c2.27 4.45 5.8 6.72 10.75 6.72 4.96 0 8.4-2.44 10.92-6.14zm-23.27-7.98l19.82-8.23c-1.09-2.77-4.37-4.7-8.23-4.7-4.95 0-11.84 4.37-11.59 12.93z"/>
+          <path fill="#4285F4" d="M35.29 41.41V32H67c.31 1.64.47 3.58.47 5.68 0 7.06-1.93 15.79-8.15 22.01-6.05 6.3-13.78 9.66-24.02 9.66C16.32 69.35.36 53.89.36 34.91.36 15.93 16.32.47 35.3.47c10.5 0 17.98 4.12 23.6 9.49l-6.64 6.64c-4.03-3.78-9.49-6.72-16.97-6.72-13.86 0-24.7 11.17-24.7 25.03 0 13.86 10.84 25.03 24.7 25.03 8.99 0 14.11-3.61 17.39-6.89 2.66-2.66 4.41-6.46 5.1-11.65l-22.49.01z"/>
+        </svg>
+      </div>
+
+      <form class="search-box" id="home-search" autocomplete="off">
+        <span class="search-icon">
+          <svg focusable="false" viewBox="0 0 24 24" width="20" height="20">
+            <path d="M15.5 14h-.79l-.28-.27a6.5 6.5 0 1 0-.7.7l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0A4.5 4.5 0 1 1 14 9.5 4.5 4.5 0 0 1 9.5 14z" fill="#9aa0a6"></path>
+          </svg>
+        </span>
+        <input type="text" aria-label="Google 검색" autofocus>
+        <div class="search-actions">
+          <button type="button" class="icon-btn" title="음성으로 검색">
+            <svg focusable="false" viewBox="0 0 24 24" width="24" height="24">
+              <path fill="#4285f4" d="M12 15a3 3 0 0 0 3-3V6a3 3 0 0 0-6 0v6a3 3 0 0 0 3 3z"></path>
+              <path fill="#34a853" d="M11 18.92V21h2v-2.08a7 7 0 0 0 6-6.92h-2a5 5 0 0 1-10 0H5a7 7 0 0 0 6 6.92z"></path>
+              <path fill="#fbbc05" d="M12 14a2 2 0 0 0 2-2V7a2 2 0 0 0-4 0v5a2 2 0 0 0 2 2z"></path>
+              <path fill="#ea4335" d="M12 1a5 5 0 0 0-5 5v3h2V6a3 3 0 0 1 6 0v6a3 3 0 0 1-6 0V9H7v3a5 5 0 0 0 5 5 5 5 0 0 0 5-5V6a5 5 0 0 0-5-5z"></path>
+            </svg>
+          </button>
+          <button type="button" class="icon-btn" title="키보드 입력">
+            <svg focusable="false" viewBox="0 0 24 24" width="24" height="24">
+              <path fill="#5f6368" d="M20 5H4a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2zm-9 10H6v-2h5v2zm7 0h-5v-2h5v2zm-7-4H6V9h5v2zm7 0h-5V9h5v2z"></path>
+            </svg>
+          </button>
+        </div>
+      </form>
+
+      <div class="buttons">
+        <button type="button" id="btn-search">Google 검색</button>
+        <button type="button" id="btn-lucky">I'm Feeling Lucky</button>
+      </div>
+
+      <div class="language">
+        Google 제공 서비스: <a href="#">English</a>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="country">대한민국</div>
+      <div class="links">
+        <div class="group">
+          <a href="#">광고</a>
+          <a href="#">비즈니스</a>
+          <a href="#">검색의 작동 원리</a>
+        </div>
+        <div class="group">
+          <a href="#">개인정보처리방침</a>
+          <a href="#">약관</a>
+          <a href="#">설정</a>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <!-- ===== 검색 결과 화면 ===== -->
+  <div id="results" class="hidden">
+    <div class="results-header">
+      <a href="#" class="small-logo" id="logo-home">
+        <svg viewBox="0 0 272 92" width="92" height="30" xmlns="http://www.w3.org/2000/svg">
+          <path fill="#EA4335" d="M115.75 47.18c0 12.77-9.99 22.18-22.25 22.18s-22.25-9.41-22.25-22.18C71.25 34.32 81.24 25 93.5 25s22.25 9.32 22.25 22.18zm-9.74 0c0-7.98-5.79-13.44-12.51-13.44S80.99 39.2 80.99 47.18c0 7.9 5.79 13.44 12.51 13.44s12.51-5.55 12.51-13.44z"/>
+          <path fill="#FBBC05" d="M163.75 47.18c0 12.77-9.99 22.18-22.25 22.18s-22.25-9.41-22.25-22.18C119.25 34.32 129.24 25 141.5 25s22.25 9.32 22.25 22.18zm-9.74 0c0-7.98-5.79-13.44-12.51-13.44s-12.51 5.46-12.51 13.44c0 7.9 5.79 13.44 12.51 13.44s12.51-5.55 12.51-13.44z"/>
+          <path fill="#4285F4" d="M209.75 26.34v39.82c0 16.38-9.66 23.07-21.08 23.07-10.75 0-17.22-7.19-19.66-13.07l8.48-3.53c1.51 3.61 5.21 7.87 11.17 7.87 7.31 0 11.84-4.51 11.84-13v-3.19h-.34c-2.18 2.69-6.38 5.04-11.68 5.04-11.09 0-21.25-9.66-21.25-22.09 0-12.52 10.16-22.26 21.25-22.26 5.29 0 9.49 2.35 11.68 4.96h.34v-3.62h9.25zm-8.56 20.92c0-7.81-5.21-13.52-11.84-13.52-6.72 0-12.35 5.71-12.35 13.52 0 7.73 5.63 13.36 12.35 13.36 6.63 0 11.84-5.63 11.84-13.36z"/>
+          <path fill="#34A853" d="M225 3v65h-9.5V3h9.5z"/>
+          <path fill="#EA4335" d="M262.02 54.48l7.56 5.04c-2.44 3.61-8.32 9.83-18.48 9.83-12.6 0-22.01-9.74-22.01-22.18 0-13.19 9.49-22.18 20.92-22.18 11.51 0 17.14 9.16 18.98 14.11l1.01 2.52-29.65 12.28c2.27 4.45 5.8 6.72 10.75 6.72 4.96 0 8.4-2.44 10.92-6.14zm-23.27-7.98l19.82-8.23c-1.09-2.77-4.37-4.7-8.23-4.7-4.95 0-11.84 4.37-11.59 12.93z"/>
+          <path fill="#4285F4" d="M35.29 41.41V32H67c.31 1.64.47 3.58.47 5.68 0 7.06-1.93 15.79-8.15 22.01-6.05 6.3-13.78 9.66-24.02 9.66C16.32 69.35.36 53.89.36 34.91.36 15.93 16.32.47 35.3.47c10.5 0 17.98 4.12 23.6 9.49l-6.64 6.64c-4.03-3.78-9.49-6.72-16.97-6.72-13.86 0-24.7 11.17-24.7 25.03 0 13.86 10.84 25.03 24.7 25.03 8.99 0 14.11-3.61 17.39-6.89 2.66-2.66 4.41-6.46 5.1-11.65l-22.49.01z"/>
+        </svg>
+      </a>
+
+      <form class="search-box" id="results-search" autocomplete="off">
+        <span class="search-icon">
+          <svg focusable="false" viewBox="0 0 24 24" width="20" height="20">
+            <path d="M15.5 14h-.79l-.28-.27a6.5 6.5 0 1 0-.7.7l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0A4.5 4.5 0 1 1 14 9.5 4.5 4.5 0 0 1 9.5 14z" fill="#9aa0a6"></path>
+          </svg>
+        </span>
+        <input type="text" aria-label="검색">
+        <div class="search-actions">
+          <button type="button" class="icon-btn" title="음성으로 검색">
+            <svg focusable="false" viewBox="0 0 24 24" width="24" height="24">
+              <path fill="#4285f4" d="M12 15a3 3 0 0 0 3-3V6a3 3 0 0 0-6 0v6a3 3 0 0 0 3 3z"></path>
+              <path fill="#34a853" d="M11 18.92V21h2v-2.08a7 7 0 0 0 6-6.92h-2a5 5 0 0 1-10 0H5a7 7 0 0 0 6 6.92z"></path>
+              <path fill="#fbbc05" d="M12 14a2 2 0 0 0 2-2V7a2 2 0 0 0-4 0v5a2 2 0 0 0 2 2z"></path>
+              <path fill="#ea4335" d="M12 1a5 5 0 0 0-5 5v3h2V6a3 3 0 0 1 6 0v6a3 3 0 0 1-6 0V9H7v3a5 5 0 0 0 5 5 5 5 0 0 0 5-5V6a5 5 0 0 0-5-5z"></path>
+            </svg>
+          </button>
+          <button type="button" class="icon-btn" title="키보드 입력">
+            <svg focusable="false" viewBox="0 0 24 24" width="24" height="24">
+              <path fill="#5f6368" d="M20 5H4a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2zm-9 10H6v-2h5v2zm7 0h-5v-2h5v2zm-7-4H6V9h5v2zm7 0h-5V9h5v2z"></path>
+            </svg>
+          </button>
+        </div>
+      </form>
+
+      <div class="header-right">
+        <span class="apps" title="Google 앱">
+          <svg focusable="false" viewBox="0 0 24 24" width="24" height="24">
+            <path d="M6,8c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2zM12,20c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2zM6,20c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2zM6,14c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2zM12,14c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2zM16,6c0,1.1 0.9,2 2,2s2,-0.9 2,-2 -0.9,-2 -2,-2 -2,0.9 -2,2zM12,8c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2zM18,14c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2zM18,20c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2z" fill="#5f6368"></path>
+          </svg>
+        </span>
+        <a href="#" class="sign-in">로그인</a>
+      </div>
+    </div>
+
+    <div class="tabs">
+      <div class="tab active">전체</div>
+      <div class="tab">이미지</div>
+      <div class="tab">동영상</div>
+      <div class="tab">뉴스</div>
+      <div class="tab">쇼핑</div>
+      <div class="tab">더보기</div>
+    </div>
+
+    <div class="results-main">
+      <div class="results-body">
+        <div class="results-count" id="results-count"></div>
+        <a href="#instagram" class="ig-result" id="ig-result-link">
+          <span class="ig-result-thumb" id="ig-result-thumb" aria-hidden="true"></span>
+          <span class="ig-result-copy">
+            <span class="ig-result-eyebrow">
+              <span class="ig-glyph" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2">
+                  <rect x="3" y="3" width="18" height="18" rx="5"></rect>
+                  <circle cx="12" cy="12" r="4"></circle>
+                  <circle cx="17.4" cy="6.6" r="0.6" fill="#fff"></circle>
+                </svg>
+              </span>
+              <span id="ig-result-handle">Instagram · @minjun.seoyeon</span>
+            </span>
+            <span class="ig-result-title" id="ig-result-title">민준 ♥ 서연 — 우리의 결혼 이야기</span>
+            <span class="ig-result-desc" id="ig-result-desc">2026. 11. 21. SAT · PM 2:00 · 아모르웨딩홀<br>청첩장, 예식 정보, 오시는 길까지 인스타그램에서 만나보세요.</span>
+            <span class="ig-result-cta">프로필 보기 →</span>
+          </span>
+        </a>
+        <div id="results-list"></div>
+
+      <div class="related">
+        <h3>관련 검색어</h3>
+        <div class="related-grid" id="related-grid"></div>
+      </div>
+
+        <div class="pagination">
+          <div class="goooo">Gooooooooooooooogle</div>
+          <div class="pages">
+            <span>1</span>
+            <span>2</span>
+            <span>3</span>
+            <span>4</span>
+            <span>5</span>
+            <span>다음</span>
+          </div>
+        </div>
+      </div>
+
+      <aside class="rhs">
+        <div class="kp-card">
+          <div class="kp-media">
+            <svg viewBox="0 0 372 230" width="100%" height="auto" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="결혼반지 일러스트">
+              <defs>
+                <linearGradient id="kp-bg" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0" stop-color="#fff1f2"/>
+                  <stop offset="1" stop-color="#f8d5da"/>
+                </linearGradient>
+                <linearGradient id="kp-gold" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0" stop-color="#f6d77d"/>
+                  <stop offset="1" stop-color="#c89b3c"/>
+                </linearGradient>
+              </defs>
+              <rect width="372" height="230" fill="url(#kp-bg)"/>
+              <circle cx="156" cy="120" r="60" fill="none" stroke="url(#kp-gold)" stroke-width="13"/>
+              <circle cx="216" cy="120" r="60" fill="none" stroke="url(#kp-gold)" stroke-width="13"/>
+              <path d="M186 148c-4.5-9-13.5-14.5-23-14.5-12.5 0-21.5 9.5-21.5 21 0 20.5 44.5 35.5 44.5 35.5s44.5-15 44.5-35.5c0-11.5-9-21-21.5-21-9.5 0-18.5 5.5-23 14.5z" fill="#e85a71"/>
+              <text x="186" y="208" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" letter-spacing="2" fill="#9b5d73">MARRIAGE</text>
+            </svg>
+            <span class="kp-media-label">결혼</span>
+          </div>
+
+          <div class="kp-content">
+            <h2 class="kp-title">결혼</h2>
+            <div class="kp-sub">혼인 · 두 사람의 새로운 시작</div>
+            <p class="kp-desc">
+              결혼(結婚)은 두 사람이 가족을 이루기 위해 맺는 법률적·사회적 결합을 뜻한다.
+              대한민국에서는 <a href="#" onclick="return false">혼인신고</a>를 통해 법률상 부부가 되며,
+              전통 혼례부터 스몰웨딩까지 다양한 형태로 치러진다.
+            </p>
+            <div class="kp-buttons">
+              <button>
+                <svg viewBox="0 0 24 24" width="18" height="18"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zM4.2 12h3.2a15 15 0 0 0 1.4-5.9A8 8 0 0 0 4.2 12zm7.8-8c.9 0 2.1 2.2 2.6 5H9.4C9.9 6.2 11.1 4 12 4zm2.6 7c-.1 1-.2 1.7-.3 2H9.7a14 14 0 0 1-.3-2h5.2zM9.4 15h5.2c-.5 2.8-1.7 5-2.6 5-.9 0-2.1-2.2-2.6-5zm-1.6 0a15 15 0 0 0-1.4 5.9A8 8 0 0 0 4.2 15H7.8zm7.4 0h3.6a8 8 0 0 1-2.2 5.9A15 15 0 0 0 15.2 15zm-.6-2h4.4a8 8 0 0 0-2.2-5.9A15 15 0 0 0 15.2 13h-.6zM9.4 13a14 14 0 0 1-.3-2h5.8c.1.7.2 1.4.3 2H9.4z" fill="#1a73e8"/></svg>
+                웹사이트
+              </button>
+              <button>
+                <svg viewBox="0 0 24 24" width="18" height="18"><path d="M12 2C8.1 2 5 5.1 5 9c0 5.2 7 13 7 13s7-7.8 7-13c0-3.9-3.1-7-7-7zm0 9.5A2.5 2.5 0 1 1 12 6a2.5 2.5 0 0 1 0 5.5z" fill="#1a73e8"/></svg>
+                지도
+              </button>
+              <button>
+                <svg viewBox="0 0 24 24" width="18" height="18"><path d="M17 3H7a2 2 0 0 0-2 2v16l7-4 7 4V5a2 2 0 0 0-2-2z" fill="#1a73e8"/></svg>
+                저장
+              </button>
+              <button>
+                <svg viewBox="0 0 24 24" width="18" height="18"><path d="M18 16.1c-.8 0-1.4.3-2 .8l-7-4.1c.1-.2.1-.5.1-.8s0-.6-.1-.8l7-4.1c.5.5 1.2.8 2 .8a3 3 0 1 0-3-3c0 .2 0 .5.1.8l-7 4.1A3 3 0 1 0 7 15c.8 0 1.4-.3 2-.8l7 4.1c-.1.2-.1.5-.1.8a3 3 0 1 0 6 0 3 3 0 0 0-3-3z" fill="#1a73e8"/></svg>
+                공유
+              </button>
+              <button type="button" id="ig-kp-link" aria-label="인스타그램으로 결혼 이야기 보기">
+                <span class="ig-glyph ig-kp-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2">
+                    <rect x="3" y="3" width="18" height="18" rx="5"></rect>
+                    <circle cx="12" cy="12" r="4"></circle>
+                    <circle cx="17.4" cy="6.6" r="0.6" fill="#fff"></circle>
+                  </svg>
+                </span>
+                Instagram
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="kp-card">
+          <div class="kp-content">
+            <h3 class="kp-subhead">사람들이 많이 찾은 항목</h3>
+            <div class="kp-thumbs">
+              <div class="kp-thumb">
+                <div class="circle" style="background:#fde8e8">💍</div>
+                <div class="label">혼인신고</div>
+              </div>
+              <div class="kp-thumb">
+                <div class="circle" style="background:#fef3d9">👰</div>
+                <div class="label">웨딩드레스</div>
+              </div>
+              <div class="kp-thumb">
+                <div class="circle" style="background:#fce8f0">🎂</div>
+                <div class="label">예식장</div>
+              </div>
+              <div class="kp-thumb">
+                <div class="circle" style="background:#e3f2fd">✈️</div>
+                <div class="label">신혼여행</div>
+              </div>
+              <div class="kp-thumb">
+                <div class="circle" style="background:#e8f5e9">💌</div>
+                <div class="label">청첩장</div>
+              </div>
+              <div class="kp-thumb">
+                <div class="circle" style="background:#f3e5f5">💐</div>
+                <div class="label">부케</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </div>
+
+    <footer class="footer">
+      <div class="country">대한민국</div>
+      <div class="links">
+        <div class="group">
+          <a href="#">도움말</a>
+          <a href="#">의견 보내기</a>
+          <a href="#">개인정보처리방침</a>
+          <a href="#">약관</a>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <!-- ===== Instagram 프로필 화면 ===== -->
+  <div id="instagram" class="hidden" aria-label="인스타그램 결혼 프로필">
+    <header class="ig-topbar">
+      <button type="button" class="ig-back" id="ig-back" aria-label="검색 결과로 돌아가기">
+        <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M19 12H5"></path>
+          <path d="m12 19-7-7 7-7"></path>
+        </svg>
+      </button>
+      <div class="ig-wordmark" aria-label="Instagram">Instagram</div>
+      <div class="ig-top-search">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="7"></circle>
+          <path d="m20 20-4-4"></path>
+        </svg>
+        <input type="text" id="ig-search" placeholder="결혼 준비 검색" aria-label="게시물 검색">
+      </div>
+      <div class="ig-top-actions">
+        <button type="button" id="ig-noti" aria-label="알림">
+          <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round">
+            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"></path>
+          </svg>
+        </button>
+        <button type="button" id="ig-dm" aria-label="메시지">
+          <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round">
+            <path d="M22 2 11 13"></path>
+            <path d="M22 2l-7 20-4-9-9-4 20-7z"></path>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <main class="ig-main">
+      <section class="ig-profile">
+        <div class="ig-avatar-ring" title="민준 &amp; 서연의 결혼 프로필">
+          <div class="ig-avatar" id="ig-avatar"></div>
+        </div>
+        <div class="ig-profile-info">
+          <div class="ig-username-row">
+            <h1 class="ig-username" id="ig-username">minjun.seoyeon</h1>
+            <button type="button" class="ig-btn primary" id="ig-invite">청첩장 보기</button>
+            <button type="button" class="ig-btn secondary" id="ig-share">공유하기</button>
+            <button type="button" class="ig-more" aria-label="더 보기">•••</button>
+          </div>
+          <ul class="ig-stats">
+            <li><strong>9</strong> 게시물</li>
+            <li><strong>214</strong> 팔로워</li>
+            <li><strong>2</strong> 팔로잉</li>
+          </ul>
+          <div class="ig-bio">
+            <div class="ig-name" id="ig-profile-name">민준 &amp; 서연 <span class="ig-verified" aria-label="확인된 계정">✓</span></div>
+            <div id="ig-profile-date">2026. 11. 21. SAT · PM 2:00</div>
+            <div id="ig-profile-venue">아모르웨딩홀 3F 그랜드홀</div>
+            <div>서로의 가장 좋은 날을 함께합니다 🤍</div>
+            <a href="#" id="ig-bio-link">our-wedding-day.com</a>
+          </div>
+        </div>
+      </section>
+
+      <nav class="ig-highlights" id="ig-highlights" aria-label="결혼 하이라이트"></nav>
+
+      <div class="ig-grid-tabs" role="tablist" aria-label="프로필 탭">
+        <button type="button" class="ig-grid-tab active" role="tab" aria-selected="true">
+          <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="3" width="7" height="7"></rect>
+            <rect x="14" y="3" width="7" height="7"></rect>
+            <rect x="3" y="14" width="7" height="7"></rect>
+            <rect x="14" y="14" width="7" height="7"></rect>
+          </svg>
+          게시물
+        </button>
+        <button type="button" class="ig-grid-tab" role="tab" aria-selected="false">
+          <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round">
+            <rect x="3" y="3" width="18" height="18" rx="5"></rect>
+            <path d="m8 3 8 18"></path>
+            <path d="m10 9 5 3-5 3z"></path>
+          </svg>
+          릴스
+        </button>
+        <button type="button" class="ig-grid-tab" role="tab" aria-selected="false">
+          <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round">
+            <path d="M6 3h12a1 1 0 0 1 1 1v17l-7-4-7 4V4a1 1 0 0 1 1-1z"></path>
+          </svg>
+          저장됨
+        </button>
+        <button type="button" class="ig-grid-tab" role="tab" aria-selected="false">
+          <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round">
+            <rect x="3" y="3" width="18" height="18" rx="2"></rect>
+            <circle cx="12" cy="9" r="3"></circle>
+            <path d="M6.5 20c.6-3.2 2.6-5 5.5-5s4.9 1.8 5.5 5"></path>
+          </svg>
+          태그됨
+        </button>
+      </div>
+
+      <div class="ig-grid" id="ig-grid" aria-label="결혼 사진 게시물"></div>
+
+      <div class="ig-endnote">
+        <strong id="ig-endnote-monogram">M &amp; S</strong>
+        <span id="ig-endnote-text">2026. 11. 21. SAT · SEOUL<br>#민준서연_결혼합니다</span>
+      </div>
+
+      <nav class="ig-bottomnav" aria-label="인스타그램 하단 메뉴">
+        <button type="button" id="ig-nav-home" aria-label="검색 결과로 돌아가기">
+          <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+            <path d="M3 10.5 12 3l9 7.5V21a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1z"></path>
+          </svg>
+        </button>
+        <button type="button" id="ig-nav-search" aria-label="검색">
+          <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="7"></circle>
+            <path d="m20 20-4-4"></path>
+          </svg>
+        </button>
+        <button type="button" id="ig-nav-reels" aria-label="릴스">
+          <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round">
+            <rect x="3" y="3" width="18" height="18" rx="5"></rect>
+            <path d="m8 3 8 18"></path>
+            <path d="m10 9 5 3-5 3z"></path>
+          </svg>
+        </button>
+        <button type="button" id="ig-nav-shop" aria-label="쇼핑">
+          <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round">
+            <path d="M5 7h14l1 14H4L5 7z"></path>
+            <path d="M9 7V5a3 3 0 0 1 6 0v2"></path>
+          </svg>
+        </button>
+        <button type="button" id="ig-nav-me" aria-label="프로필">
+          <span class="me" id="ig-nav-avatar"></span>
+        </button>
+      </nav>
+    </main>
+
+    <div class="ig-modal hidden" id="ig-post-modal" role="dialog" aria-modal="true" aria-label="게시물 상세">
+      <article class="ig-post">
+        <div class="ig-post-media" id="ig-post-media"></div>
+        <div class="ig-post-panel">
+          <div class="ig-post-head">
+            <span class="ig-mini-avatar" id="ig-post-avatar" aria-hidden="true"></span>
+            <div>
+              <div class="name">minjun.seoyeon</div>
+              <div class="place" id="ig-post-place">아모르웨딩홀</div>
+            </div>
+            <button type="button" class="ig-post-close" id="ig-post-close" aria-label="게시물 닫기">×</button>
+          </div>
+          <div class="ig-post-scroll" id="ig-post-scroll"></div>
+          <div class="ig-actions">
+            <button type="button" id="ig-like-btn" aria-label="좋아요">
+              <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round">
+                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"></path>
+              </svg>
+            </button>
+            <button type="button" id="ig-comment-btn" aria-label="댓글">
+              <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round">
+                <path d="M21 11.5a8.4 8.4 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.4 8.4 0 0 1-3.8-.9L3 21l1.9-5.7a8.4 8.4 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6A8.4 8.4 0 0 1 12.5 3h.5a8.5 8.5 0 0 1 8 8z"></path>
+              </svg>
+            </button>
+            <button type="button" id="ig-post-share" aria-label="공유">
+              <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round">
+                <path d="M22 2 11 13"></path>
+                <path d="M22 2l-7 20-4-9-9-4 20-7z"></path>
+              </svg>
+            </button>
+            <button type="button" class="save" id="ig-save-btn" aria-label="저장">
+              <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round">
+                <path d="M6 3h12a1 1 0 0 1 1 1v17l-7-4-7 4V4a1 1 0 0 1 1-1z"></path>
+              </svg>
+            </button>
+          </div>
+          <div class="ig-likes" id="ig-post-likes"></div>
+          <div class="ig-post-date" id="ig-post-date"></div>
+        </div>
+      </article>
+    </div>
+
+    <div class="ig-sheet-backdrop hidden" id="ig-sheet-backdrop"></div>
+    <div class="ig-sheet hidden" id="ig-sheet" role="dialog" aria-modal="true" aria-label="결혼 상세 정보"></div>
+    <div class="ig-toast" id="ig-toast" role="status" aria-live="polite"></div>
+  </div>
+
+  <script>
+    // 결혼 관련 검색 결과(장식용 데모 데이터)
+    const RESULTS = [
+      {
+        letter: "ㄴ",
+        color: "#4e9a51",
+        domain: "namu.wiki › 결혼",
+        title: "결혼 - 나무위키",
+        snippet: "결혼(結婚)은 두 사람이 부부 관계를 맺는 것을 뜻한다. 한국에서는 혼인신고를 통해 법률상 부부가 되며, 전통 혼례부터 최근의 스몰웨딩까지 다양한 형태로 이루어진다.",
+        date: "2025. 8. 12."
+      },
+      {
+        letter: "정",
+        color: "#1a73e8",
+        domain: "www.gov.kr › 민원안내 › 가족관계",
+        title: "혼인신고 방법 및 구비서류 - 정부24",
+        snippet: "혼인신고는 혼인 당사자 일방의 주소지 또는 현재지의 시·구·읍·면사무소에서 할 수 있으며, 신분증과 혼인신고서, 필요한 경우 증인 서명이 필요합니다.",
+        date: "2026. 1. 5."
+      },
+      {
+        letter: "웨",
+        color: "#ea4335",
+        domain: "www.wedding.co.kr › 준비가이드",
+        title: "결혼식 준비 체크리스트 12개월 완벽 가이드",
+        snippet: "상견례부터 예식장 계약, 스드메(스튜디오·드레스·메이크업) 예약, 청첩장, 신혼여행까지. 결혼식 D-365일부터 당일까지 단계별 준비 체크리스트를 확인하세요.",
+        date: "2025. 11. 20."
+      },
+      {
+        letter: "가",
+        color: "#fbbc05",
+        domain: "www.gayeon.com › 결혼정보",
+        title: "결혼정보회사 가연 - 나에게 맞는 인연 찾기",
+        snippet: "결혼을 진지하게 생각하는 미혼남녀를 위한 맞춤 매칭 서비스. 전문 커플매니저의 1:1 상담과 검증된 프로필로 신뢰할 수 있는 만남을 주선해 드립니다.",
+        date: "2026. 3. 2."
+      },
+      {
+        letter: "신",
+        color: "#34a853",
+        domain: "www.hf.go.kr › 주택도시기금",
+        title: "신혼부부 전세자금대출 - 주택도시기금",
+        snippet: "신혼부부의 주거 안정을 위한 전세자금 대출 안내. 부부 합산 소득과 혼인 기간에 따라 최대 대출 한도와 금리 우대 혜택을 받을 수 있습니다.",
+        date: "2026. 2. 14."
+      },
+      {
+        letter: "예",
+        color: "#4285f4",
+        domain: "blog.naver.com › wedding_plan",
+        title: "2026년 결혼 평균 비용, 예식장·스드메 총정리",
+        snippet: "예식장 대관료부터 웨딩촬영, 드레스, 메이크업, 한복까지. 최근 결혼 준비 비용 통계와 절약 팁을 실제 견적 기준으로 정리한 포스팅입니다.",
+        date: "2025. 12. 30."
+      },
+      {
+        letter: "청",
+        color: "#ea4335",
+        domain: "www.mcard.co.kr › 모바일청첩장",
+        title: "모바일 청첩장 무료 제작 - 결혼식 초대",
+        snippet: "사진과 예식 정보를 담아 간편하게 만드는 모바일 청첩장. 카카오톡으로 바로 공유하고, 참석 여부와 축의금까지 한 번에 관리할 수 있습니다.",
+        date: "2026. 4. 8."
+      },
+      {
+        letter: "신",
+        color: "#fbbc05",
+        domain: "www.honeymoon.co.kr › 추천",
+        title: "신혼여행지 추천 TOP 10 - 계절별 베스트",
+        snippet: "몰디브, 발리, 하와이부터 국내 제주까지. 예산과 시즌에 맞춘 신혼여행지 추천과 항공·리조트 예약 꿀팁을 소개합니다.",
+        date: "2026. 5. 1."
+      }
+    ];
+
+    const RELATED = [
+      "결혼식 준비 체크리스트",
+      "혼인신고 필요서류",
+      "결혼 평균 비용",
+      "신혼부부 전세자금대출",
+      "스몰웨딩 예식장",
+      "신혼여행지 추천",
+      "모바일 청첩장 만들기",
+      "결혼정보회사 순위"
+    ];
+
+    const home = document.getElementById("home");
+    const results = document.getElementById("results");
+    const homeSearch = document.getElementById("home-search");
+    const resultsSearch = document.getElementById("results-search");
+    const homeInput = homeSearch.querySelector("input");
+    const resultsInput = resultsSearch.querySelector("input");
+    const resultsList = document.getElementById("results-list");
+    const resultsCount = document.getElementById("results-count");
+    const relatedGrid = document.getElementById("related-grid");
+
+    function renderResults(query) {
+      const q = (query || "결혼").trim() || "결혼";
+      resultsInput.value = q;
+      resultsCount.textContent =
+        "검색결과 약 2,150,000,000개 (0.42초)";
+
+      resultsList.innerHTML = RESULTS.map(function (r) {
+        return (
+          '<div class="result">' +
+            '<div class="site">' +
+              '<span class="favicon" style="background:' + r.color + '">' + r.letter + "</span>" +
+              '<span class="domain">' + r.domain + "</span>" +
+            "</div>" +
+            '<h3><a href="#" onclick="return false">' + r.title + "</a></h3>" +
+            '<div class="snippet">' +
+              '<span class="date">' + r.date + " — </span>" + r.snippet +
+            "</div>" +
+          "</div>"
+        );
+      }).join("");
+
+      relatedGrid.innerHTML = RELATED.map(function (t) {
+        return '<a href="#" onclick="return false">' +
+          '<svg focusable="false" viewBox="0 0 24 24" width="16" height="16"><path d="M15.5 14h-.79l-.28-.27a6.5 6.5 0 1 0-.7.7l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0A4.5 4.5 0 1 1 14 9.5 4.5 4.5 0 0 1 9.5 14z" fill="#70757a"></path></svg>' +
+          t +
+        "</a>";
+      }).join("");
+    }
+
+    function showResults(query) {
+      home.classList.add("hidden");
+      results.classList.remove("hidden");
+      renderResults(query);
+      window.scrollTo(0, 0);
+      resultsInput.focus();
+    }
+
+    function showHome() {
+      results.classList.add("hidden");
+      home.classList.remove("hidden");
+      homeInput.value = "";
+      homeInput.focus();
+      window.scrollTo(0, 0);
+    }
+
+    homeSearch.addEventListener("submit", function (e) {
+      e.preventDefault();
+      showResults(homeInput.value);
+    });
+
+    resultsSearch.addEventListener("submit", function (e) {
+      e.preventDefault();
+      renderResults(resultsInput.value);
+      window.scrollTo(0, 0);
+    });
+
+    document.getElementById("btn-search").addEventListener("click", function () {
+      showResults(homeInput.value);
+    });
+
+    document.getElementById("btn-lucky").addEventListener("click", function () {
+      showResults("결혼식 준비");
+    });
+
+    document.getElementById("logo-home").addEventListener("click", function (e) {
+      e.preventDefault();
+      showHome();
+    });
+
+    // 탭 클릭 시 전체 탭 활성화
+    document.querySelectorAll(".tab").forEach(function (tab) {
+      tab.addEventListener("click", function () {
+        document.querySelectorAll(".tab").forEach(function (t) {
+          t.classList.remove("active");
+        });
+        tab.classList.add("active");
+      });
+    });
+
+    /* ============================================================
+       Instagram 결혼 프로필
+       실제 예식 정보는 아래 WEDDING에서,
+       피드 문구는 IG_POSTS에서 바꿀 수 있습니다.
+       ============================================================ */
+    const WEDDING = {
+      groom: "민준",
+      bride: "서연",
+      username: "minjun.seoyeon",
+      dateShort: "2026. 11. 21. SAT",
+      timeShort: "오후 2:00",
+      dateLong: "2026년 11월 21일 토요일",
+      startISO: "2026-11-21T14:00:00+09:00",
+      endISO: "2026-11-21T16:00:00+09:00",
+      monogram: "M & S",
+      venue: "아모르웨딩홀",
+      hall: "3층 그랜드홀",
+      address: "서울특별시 강남구 봉은사로 123",
+      site: "our-wedding-day.com",
+      hashtag: "#민준서연_결혼합니다",
+      greeting:
+        "서로가 마주 보던 순간부터\n" +
+        "같은 곳을 바라보게 되었습니다.\n\n" +
+        "저희 두 사람, 이제 한 걸음을 함께 내딛으려 합니다.\n" +
+        "소중한 분들을 모시고 기쁨을 나누고 싶습니다.\n\n" +
+        "따뜻한 마음으로 축복해 주시면 감사하겠습니다.",
+      accounts: [
+        { side: "신랑 측", bank: "신한은행", number: "110-000-000000", owner: "민준" },
+        { side: "신부 측", bank: "국민은행", number: "000-0000-000000", owner: "서연" }
+      ]
+    };
+
+    function googleCalendarDate(value) {
+      return new Date(value)
+        .toISOString()
+        .replace(/[-:]/g, "")
+        .replace(/\.\d{3}/, "");
+    }
+
+    const IG_CALENDAR_URL =
+      "https://calendar.google.com/calendar/render?action=TEMPLATE" +
+      "&text=" + encodeURIComponent(WEDDING.groom + " ♥ " + WEDDING.bride + " 결혼식") +
+      "&dates=" + googleCalendarDate(WEDDING.startISO) + "/" + googleCalendarDate(WEDDING.endISO) +
+      "&location=" + encodeURIComponent(WEDDING.venue + " " + WEDDING.hall + ", " + WEDDING.address) +
+      "&details=" + encodeURIComponent("모바일 청첩장에서 확인한 예식 정보입니다.");
+
+    const IG_MAP_URL =
+      "https://map.naver.com/p/search/" +
+      encodeURIComponent(WEDDING.venue + " " + WEDDING.address);
+
+    function weddingScene(name, size) {
+      const gid = "igscene" + size;
+      const shadow =
+        '<filter id="' + gid + 'sh" x="-30%" y="-30%" width="160%" height="160%">' +
+          '<feDropShadow dx="0" dy="14" stdDeviation="16" flood-color="#6d4d3b" flood-opacity="0.22"/>' +
+        '</filter>';
+      const gold =
+        '<linearGradient id="' + gid + 'gold" x1="0" y1="0" x2="1" y2="1">' +
+          '<stop stop-color="#f6e3a8"/>' +
+          '<stop offset="0.45" stop-color="#d7b15f"/>' +
+          '<stop offset="1" stop-color="#a97a2f"/>' +
+        '</linearGradient>';
+
+      switch (name) {
+        case "monogram":
+          return '<svg viewBox="0 0 200 200" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="민준과 서연의 모노그램">' +
+            '<defs>' +
+              '<linearGradient id="' + gid + 'bg" x1="0" y1="0" x2="1" y2="1">' +
+                '<stop stop-color="#f8ebe6"/>' +
+                '<stop offset="1" stop-color="#e8c9c8"/>' +
+              '</linearGradient>' +
+            '</defs>' +
+            '<rect width="200" height="200" fill="url(#' + gid + 'bg)"/>' +
+            '<circle cx="52" cy="36" r="46" fill="#fff" opacity="0.22"/>' +
+            '<circle cx="166" cy="172" r="58" fill="#c98f94" opacity="0.16"/>' +
+            '<circle cx="100" cy="100" r="76" fill="none" stroke="#fff" stroke-opacity="0.66"/>' +
+            '<path d="M54 148c14-22 30-34 46-36M146 52c-14 22-30 34-46 36" fill="none" stroke="#fff" stroke-opacity="0.5" stroke-width="1.4"/>' +
+            '<text x="100" y="105" text-anchor="middle" font-family="Georgia, serif" font-size="38" fill="#8c5f62" letter-spacing="2">' + escapeHtml(WEDDING.monogram) + '</text>' +
+            '<text x="100" y="132" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" letter-spacing="3" fill="#a67f80">2026.11.21</text>' +
+            '<circle cx="100" cy="151" r="3" fill="#b98a8d"/>' +
+          '</svg>';
+
+        case "invite":
+          return '<svg viewBox="0 0 600 600" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="결혼 청첩장 일러스트">' +
+            '<defs>' +
+              '<linearGradient id="' + gid + 'bg" x1="0" y1="0" x2="1" y2="1">' +
+                '<stop stop-color="#f7ede5"/>' +
+                '<stop offset="1" stop-color="#e4cdc0"/>' +
+              '</linearGradient>' +
+              gold + shadow +
+            '</defs>' +
+            '<rect width="600" height="600" fill="url(#' + gid + 'bg)"/>' +
+            '<circle cx="96" cy="74" r="150" fill="#fff" opacity="0.2"/>' +
+            '<circle cx="512" cy="530" r="190" fill="#cfa996" opacity="0.18"/>' +
+            '<circle cx="70" cy="470" r="7" fill="#fff" opacity="0.5"/>' +
+            '<circle cx="96" cy="510" r="4" fill="#fff" opacity="0.42"/>' +
+            '<circle cx="528" cy="92" r="5" fill="#fff" opacity="0.55"/>' +
+            '<g transform="rotate(-7 300 300)" filter="url(#' + gid + 'sh)">' +
+              '<rect x="146" y="74" width="308" height="452" rx="4" fill="#fffdf9"/>' +
+              '<rect x="163" y="91" width="274" height="418" fill="none" stroke="#ddc7a9" stroke-width="1.2"/>' +
+              '<text x="300" y="166" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" letter-spacing="4" fill="#b19473">WE ARE GETTING MARRIED</text>' +
+              '<text x="300" y="272" text-anchor="middle" font-family="Georgia, serif" font-size="60" fill="#6f5547" letter-spacing="4">' + escapeHtml(WEDDING.monogram) + '</text>' +
+              '<path d="M228 304h144" stroke="#d8bfa0" stroke-width="1"/>' +
+              '<text x="300" y="354" text-anchor="middle" font-family="Georgia, serif" font-size="30" fill="#8a6d5c" letter-spacing="2">2026.11.21</text>' +
+              '<text x="300" y="386" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" letter-spacing="3" fill="#9a7b66">SATURDAY · 2 PM</text>' +
+              '<path d="M300 424c-5-9-15-14-24-14-12 0-20 8-20 19 0 17 31 31 44 40 13-9 44-23 44-40 0-11-8-19-20-19-9 0-19 5-24 14z" fill="#c98f94" opacity="0.88"/>' +
+              '<text x="300" y="497" text-anchor="middle" font-family="Georgia, serif" font-size="12" letter-spacing="3" fill="#9a7b66">SEOUL</text>' +
+              '<path d="M186 128c20 16 20 39 0 55M414 472c-20-16-20-39 0-55" fill="none" stroke="#cdb696" stroke-width="1.2"/>' +
+              '<circle cx="186" cy="183" r="3" fill="#c9a98e"/>' +
+              '<circle cx="414" cy="417" r="3" fill="#c9a98e"/>' +
+            '</g>' +
+            '<g fill="#c9a98e" opacity="0.5">' +
+              '<ellipse cx="68" cy="546" rx="34" ry="11" transform="rotate(-24 68 546)"/>' +
+              '<ellipse cx="104" cy="570" rx="30" ry="9" transform="rotate(16 104 570)"/>' +
+              '<ellipse cx="532" cy="46" rx="30" ry="9" transform="rotate(-18 532 46)"/>' +
+            '</g>' +
+          '</svg>';
+
+        case "rings":
+          return '<svg viewBox="0 0 600 600" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="결혼반지 일러스트">' +
+            '<defs>' +
+              '<linearGradient id="' + gid + 'bg" x1="0" y1="0" x2="1" y2="1">' +
+                '<stop stop-color="#f2e5e1"/>' +
+                '<stop offset="1" stop-color="#d9b9b5"/>' +
+              '</linearGradient>' +
+              gold +
+              '<radialGradient id="' + gid + 'glow" cx="50%" cy="40%" r="60%">' +
+                '<stop stop-color="#fff" stop-opacity="0.55"/>' +
+                '<stop offset="1" stop-color="#fff" stop-opacity="0"/>' +
+              '</radialGradient>' +
+              '<filter id="' + gid + 'soft" x="-40%" y="-40%" width="180%" height="180%">' +
+                '<feGaussianBlur stdDeviation="18"/>' +
+              '</filter>' +
+              shadow +
+            '</defs>' +
+            '<rect width="600" height="600" fill="url(#' + gid + 'bg)"/>' +
+            '<circle cx="300" cy="290" r="250" fill="url(#' + gid + 'glow)"/>' +
+            '<ellipse cx="302" cy="476" rx="164" ry="26" fill="#8c5e58" opacity="0.2" filter="url(#' + gid + 'soft)"/>' +
+            '<g filter="url(#' + gid + 'sh)">' +
+              '<circle cx="246" cy="304" r="86" fill="none" stroke="url(#' + gid + 'gold)" stroke-width="15"/>' +
+              '<circle cx="354" cy="304" r="86" fill="none" stroke="url(#' + gid + 'gold)" stroke-width="15"/>' +
+              '<circle cx="246" cy="304" r="86" fill="none" stroke="#fff8e8" stroke-opacity="0.65" stroke-width="2"/>' +
+              '<circle cx="354" cy="304" r="86" fill="none" stroke="#fff8e8" stroke-opacity="0.65" stroke-width="2"/>' +
+            '</g>' +
+            '<g fill="#fff8e8">' +
+              '<path d="M430 196l4 12 12 4-12 4-4 12-4-12-12-4 12-4z" opacity="0.9"/>' +
+              '<path d="M166 402l3 8 8 3-8 3-3 8-3-8-8-3 8-3z" opacity="0.7"/>' +
+              '<circle cx="462" cy="390" r="3" opacity="0.8"/>' +
+              '<circle cx="146" cy="208" r="2" opacity="0.7"/>' +
+            '</g>' +
+            '<text x="300" y="512" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" letter-spacing="6" fill="#8c6560">FOREVER &amp; EVER</text>' +
+          '</svg>';
+
+        case "bouquet":
+          return '<svg viewBox="0 0 600 600" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="웨딩 부케 일러스트">' +
+            '<defs>' +
+              '<linearGradient id="' + gid + 'bg" x1="0" y1="0" x2="1" y2="1">' +
+                '<stop stop-color="#f8e9e9"/>' +
+                '<stop offset="1" stop-color="#eacdd3"/>' +
+              '</linearGradient>' +
+              '<radialGradient id="' + gid + 'petal" cx="35%" cy="30%" r="70%">' +
+                '<stop stop-color="#fbe1e4"/>' +
+                '<stop offset="1" stop-color="#e2a3ad"/>' +
+              '</radialGradient>' +
+            '</defs>' +
+            '<rect width="600" height="600" fill="url(#' + gid + 'bg)"/>' +
+            '<circle cx="110" cy="90" r="140" fill="#fff" opacity="0.2"/>' +
+            '<g stroke="#7e9274" stroke-width="5" fill="none" stroke-linecap="round">' +
+              '<path d="M300 500C300 430 290 360 258 300"/>' +
+              '<path d="M300 500c4-76 16-140 52-196"/>' +
+              '<path d="M300 500c-6-60-34-136-84-170"/>' +
+              '<path d="M300 500c8-54 44-112 92-138"/>' +
+            '</g>' +
+            '<g fill="#8fa082" opacity="0.9">' +
+              '<ellipse cx="252" cy="392" rx="34" ry="13" transform="rotate(-34 252 392)"/>' +
+              '<ellipse cx="350" cy="374" rx="36" ry="13" transform="rotate(32 350 374)"/>' +
+              '<ellipse cx="222" cy="332" rx="30" ry="11" transform="rotate(-52 222 332)"/>' +
+              '<ellipse cx="402" cy="322" rx="31" ry="11" transform="rotate(42 402 322)"/>' +
+              '<ellipse cx="294" cy="440" rx="27" ry="10" transform="rotate(-12 294 440)"/>' +
+            '</g>' +
+            '<g>' +
+              '<g transform="translate(252 268)">' +
+                '<circle cx="-22" cy="-14" r="24" fill="url(#' + gid + 'petal)"/>' +
+                '<circle cx="22" cy="-14" r="24" fill="url(#' + gid + 'petal)"/>' +
+                '<circle cx="-22" cy="18" r="24" fill="url(#' + gid + 'petal)"/>' +
+                '<circle cx="22" cy="18" r="24" fill="url(#' + gid + 'petal)"/>' +
+                '<circle cx="0" cy="2" r="22" fill="#f6c9cf"/>' +
+                '<circle cx="0" cy="2" r="9" fill="#e3a2ad"/>' +
+              '</g>' +
+              '<g transform="translate(362 244) scale(.86)">' +
+                '<circle cx="-22" cy="-14" r="24" fill="url(#' + gid + 'petal)"/>' +
+                '<circle cx="22" cy="-14" r="24" fill="url(#' + gid + 'petal)"/>' +
+                '<circle cx="-22" cy="18" r="24" fill="url(#' + gid + 'petal)"/>' +
+                '<circle cx="22" cy="18" r="24" fill="url(#' + gid + 'petal)"/>' +
+                '<circle cx="0" cy="2" r="22" fill="#f6c9cf"/>' +
+                '<circle cx="0" cy="2" r="9" fill="#e3a2ad"/>' +
+              '</g>' +
+              '<g transform="translate(314 340) scale(.78)">' +
+                '<circle cx="-22" cy="-14" r="24" fill="url(#' + gid + 'petal)"/>' +
+                '<circle cx="22" cy="-14" r="24" fill="url(#' + gid + 'petal)"/>' +
+                '<circle cx="-22" cy="18" r="24" fill="url(#' + gid + 'petal)"/>' +
+                '<circle cx="22" cy="18" r="24" fill="url(#' + gid + 'petal)"/>' +
+                '<circle cx="0" cy="2" r="22" fill="#f6c9cf"/>' +
+                '<circle cx="0" cy="2" r="9" fill="#e3a2ad"/>' +
+              '</g>' +
+              '<g transform="translate(188 330) scale(.62)">' +
+                '<circle cx="-22" cy="-14" r="24" fill="#fff6f7"/>' +
+                '<circle cx="22" cy="-14" r="24" fill="#fff6f7"/>' +
+                '<circle cx="-22" cy="18" r="24" fill="#fff6f7"/>' +
+                '<circle cx="22" cy="18" r="24" fill="#fff6f7"/>' +
+                '<circle cx="0" cy="2" r="12" fill="#e9c4c9"/>' +
+              '</g>' +
+              '<g transform="translate(410 344) scale(.56)">' +
+                '<circle cx="-22" cy="-14" r="24" fill="#fff6f7"/>' +
+                '<circle cx="22" cy="-14" r="24" fill="#fff6f7"/>' +
+                '<circle cx="-22" cy="18" r="24" fill="#fff6f7"/>' +
+                '<circle cx="22" cy="18" r="24" fill="#fff6f7"/>' +
+                '<circle cx="0" cy="2" r="12" fill="#e9c4c9"/>' +
+              '</g>' +
+            '</g>' +
+            '<path d="M262 466c20-16 56-16 76 0-6 22-20 34-38 34s-32-12-38-34z" fill="#f4e3dd" opacity="0.95"/>' +
+            '<path d="M276 500c8 24 4 38-6 50M324 500c-8 24-4 38 6 50" fill="none" stroke="#d8b9b4" stroke-width="2"/>' +
+            '<text x="300" y="90" text-anchor="middle" font-family="Georgia, serif" font-style="italic" font-size="28" fill="#a5757c" opacity="0.9">with love</text>' +
+          '</svg>';
+
+        case "venue":
+          return '<svg viewBox="0 0 600 600" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="예식장 아치 일러스트">' +
+            '<defs>' +
+              '<linearGradient id="' + gid + 'sky" x1="0" y1="0" x2="0" y2="1">' +
+                '<stop stop-color="#f8e3d6"/>' +
+                '<stop offset="0.62" stop-color="#f2cfc2"/>' +
+                '<stop offset="1" stop-color="#e9beb0"/>' +
+              '</linearGradient>' +
+            '</defs>' +
+            '<rect width="600" height="600" fill="url(#' + gid + 'sky)"/>' +
+            '<circle cx="438" cy="142" r="62" fill="#fff3df" opacity="0.95"/>' +
+            '<circle cx="438" cy="142" r="94" fill="#fff3df" opacity="0.18"/>' +
+            '<path d="M0 466c90-54 168-66 286-40 120 27 216 10 314-32v206H0z" fill="#dfb3a8" opacity="0.55"/>' +
+            '<path d="M0 512c108-46 196-42 300-12 112 32 190 8 300-34v134H0z" fill="#d3a196" opacity="0.5"/>' +
+            '<path d="M184 512V304c0-66 52-118 116-118s116 52 116 118v208" fill="#fdf7ef" opacity="0.94"/>' +
+            '<path d="M208 512V306c0-52 41-94 92-94s92 42 92 94v206" fill="none" stroke="#c7a088" stroke-width="3"/>' +
+            '<path d="M300 512V238" stroke="#e4cbb8" stroke-width="1.2"/>' +
+            '<path d="M196 512h208" stroke="#b58b79" stroke-width="3" opacity="0.55"/>' +
+            '<g>' +
+              '<ellipse cx="180" cy="492" rx="46" ry="18" fill="#8fa082"/>' +
+              '<ellipse cx="420" cy="492" rx="46" ry="18" fill="#8fa082"/>' +
+              '<circle cx="162" cy="470" r="17" fill="#e9a9b2"/>' +
+              '<circle cx="194" cy="458" r="13" fill="#f4c3c8"/>' +
+              '<circle cx="434" cy="470" r="17" fill="#e9a9b2"/>' +
+              '<circle cx="402" cy="458" r="13" fill="#f4c3c8"/>' +
+              '<circle cx="160" cy="450" r="9" fill="#fff4ee"/>' +
+              '<circle cx="438" cy="450" r="9" fill="#fff4ee"/>' +
+            '</g>' +
+            '<text x="300" y="552" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" letter-spacing="5" fill="#8d675d">A NEW BEGINNING</text>' +
+          '</svg>';
+
+        case "champagne":
+          return '<svg viewBox="0 0 600 600" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="샴페인 잔 일러스트">' +
+            '<defs>' +
+              '<linearGradient id="' + gid + 'bg" x1="0" y1="0" x2="1" y2="1">' +
+                '<stop stop-color="#24333a"/>' +
+                '<stop offset="1" stop-color="#4a3b45"/>' +
+              '</linearGradient>' +
+              gold +
+            '</defs>' +
+            '<rect width="600" height="600" fill="url(#' + gid + 'bg)"/>' +
+            '<circle cx="300" cy="210" r="220" fill="#e9c98d" opacity="0.08"/>' +
+            '<path d="M0 470h600" stroke="#c9a872" stroke-opacity="0.35"/>' +
+            '<g fill="none" stroke="url(#' + gid + 'gold)" stroke-width="4" stroke-linejoin="round">' +
+              '<path d="M172 248h108c0 58-23 86-54 86s-54-28-54-86z"/>' +
+              '<path d="M226 334v112M186 450h80"/>' +
+              '<path d="M320 248h108c0 58-23 86-54 86s-54-28-54-86z"/>' +
+              '<path d="M374 334v112M334 450h80"/>' +
+            '</g>' +
+            '<g fill="#f1d69b" opacity="0.22">' +
+              '<path d="M176 252h100c-2 28-9 48-20 60H196c-11-12-18-32-20-60z"/>' +
+              '<path d="M324 252h100c-2 28-9 48-20 60H344c-11-12-18-32-20-60z"/>' +
+            '</g>' +
+            '<g fill="#f6dfab">' +
+              '<circle cx="230" cy="198" r="5"/>' +
+              '<circle cx="252" cy="176" r="3" opacity="0.8"/>' +
+              '<circle cx="202" cy="220" r="2.5" opacity="0.7"/>' +
+              '<circle cx="376" cy="192" r="5"/>' +
+              '<circle cx="396" cy="168" r="3" opacity="0.8"/>' +
+              '<circle cx="352" cy="216" r="2.5" opacity="0.7"/>' +
+            '</g>' +
+            '<path d="M494 152l4 13 13 4-13 4-4 13-4-13-13-4 13-4z" fill="#f6dfab" opacity="0.85"/>' +
+            '<text x="300" y="524" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" letter-spacing="6" fill="#dfc18c">CHEERS TO US</text>' +
+          '</svg>';
+
+        case "cake":
+          return '<svg viewBox="0 0 600 600" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="웨딩 케이크 일러스트">' +
+            '<defs>' +
+              '<linearGradient id="' + gid + 'bg" x1="0" y1="0" x2="1" y2="1">' +
+                '<stop stop-color="#f9e9e5"/>' +
+                '<stop offset="1" stop-color="#efd2ce"/>' +
+              '</linearGradient>' +
+              shadow +
+            '</defs>' +
+            '<rect width="600" height="600" fill="url(#' + gid + 'bg)"/>' +
+            '<circle cx="120" cy="100" r="150" fill="#fff" opacity="0.22"/>' +
+            '<ellipse cx="300" cy="492" rx="180" ry="26" fill="#b7807d" opacity="0.2"/>' +
+            '<g filter="url(#' + gid + 'sh)">' +
+              '<rect x="186" y="348" width="228" height="112" rx="8" fill="#fffaf5"/>' +
+              '<rect x="216" y="264" width="168" height="94" rx="7" fill="#fffdf9"/>' +
+              '<rect x="248" y="196" width="104" height="78" rx="6" fill="#fffaf5"/>' +
+            '</g>' +
+            '<g stroke="#d9bd91" stroke-width="2" fill="none">' +
+              '<path d="M190 390h220M190 428h220M220 300h160M252 232h96"/>' +
+              '<path d="M206 470v-20M394 470v-20"/>' +
+            '</g>' +
+            '<g>' +
+              '<circle cx="268" cy="186" r="17" fill="#eaa9b2"/>' +
+              '<circle cx="292" cy="176" r="14" fill="#f4c3c8"/>' +
+              '<circle cx="318" cy="184" r="16" fill="#eaa9b2"/>' +
+              '<circle cx="340" cy="174" r="11" fill="#fff4ee"/>' +
+              '<ellipse cx="278" cy="192" rx="18" ry="8" fill="#8fa082"/>' +
+              '<ellipse cx="326" cy="192" rx="16" ry="7" fill="#8fa082"/>' +
+            '</g>' +
+            '<g fill="#fff4ee" opacity="0.9">' +
+              '<circle cx="176" cy="214" r="3"/>' +
+              '<circle cx="424" cy="244" r="4"/>' +
+              '<circle cx="446" cy="212" r="2.5"/>' +
+              '<circle cx="150" cy="300" r="2.5"/>' +
+            '</g>' +
+            '<text x="300" y="548" text-anchor="middle" font-family="Georgia, serif" font-style="italic" font-size="26" fill="#a5757c">just married</text>' +
+          '</svg>';
+
+        case "date":
+          return '<svg viewBox="0 0 600 600" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="결혼 날짜 2026년 11월 21일">' +
+            '<rect width="600" height="600" fill="#fbf7f1"/>' +
+            '<rect x="42" y="42" width="516" height="516" fill="none" stroke="#ddcdb8" stroke-width="1.2"/>' +
+            '<text x="300" y="178" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" letter-spacing="5" fill="#b79c7d">THE WEDDING OF</text>' +
+            '<text x="300" y="228" text-anchor="middle" font-family="Georgia, serif" font-size="24" letter-spacing="8" fill="#8b6c56">' + escapeHtml(WEDDING.monogram) + '</text>' +
+            '<text x="300" y="380" text-anchor="middle" font-family="Georgia, serif" font-size="124" fill="#6f5547">11.21</text>' +
+            '<path d="M214 414h172" stroke="#d8bfa0" stroke-width="1"/>' +
+            '<text x="300" y="456" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" letter-spacing="4" fill="#9a7b66">SATURDAY · 2 PM</text>' +
+            '<text x="300" y="492" text-anchor="middle" font-family="Georgia, serif" font-size="13" letter-spacing="4" fill="#a58a74">SEOUL · 2026</text>' +
+          '</svg>';
+
+        case "sky":
+          return '<svg viewBox="0 0 600 600" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="노을 하늘 일러스트">' +
+            '<defs>' +
+              '<linearGradient id="' + gid + 'bg" x1="0" y1="0" x2="0" y2="1">' +
+                '<stop stop-color="#4d5878"/>' +
+                '<stop offset="0.52" stop-color="#a88398"/>' +
+                '<stop offset="1" stop-color="#f0b9a2"/>' +
+              '</linearGradient>' +
+            '</defs>' +
+            '<rect width="600" height="600" fill="url(#' + gid + 'bg)"/>' +
+            '<circle cx="410" cy="246" r="54" fill="#ffe6c9" opacity="0.92"/>' +
+            '<circle cx="410" cy="246" r="92" fill="#ffe6c9" opacity="0.14"/>' +
+            '<g fill="#fff" opacity="0.75">' +
+              '<circle cx="120" cy="110" r="2.4"/>' +
+              '<circle cx="188" cy="168" r="1.6"/>' +
+              '<circle cx="276" cy="96" r="2"/>' +
+              '<circle cx="492" cy="132" r="1.7"/>' +
+              '<circle cx="532" cy="192" r="2.2"/>' +
+              '<circle cx="84" cy="224" r="1.5"/>' +
+            '</g>' +
+            '<path d="M148 300c18-14 34-14 52 0M252 268c14-11 27-11 41 0" fill="none" stroke="#5d546b" stroke-width="3" stroke-linecap="round"/>' +
+            '<path d="M0 456c90-38 160-28 248 6 92 36 200 26 352-26v164H0z" fill="#6b5d72" opacity="0.72"/>' +
+            '<path d="M0 500c126-28 210-12 302 14 108 30 190 18 298-18v104H0z" fill="#4f455c" opacity="0.72"/>' +
+            '<path d="M300 438c-14-25-44-39-70-30-23 8-34 31-24 53 12 27 54 49 94 79 40-30 82-52 94-79 10-22-1-45-24-53-26-9-56 5-70 30z" fill="#f6d6cf" opacity="0.16"/>' +
+            '<text x="300" y="540" text-anchor="middle" font-family="Georgia, serif" font-style="italic" font-size="24" fill="#fff0e4" opacity="0.9">always with you</text>' +
+          '</svg>';
+
+        case "heart":
+          return '<svg viewBox="0 0 600 600" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="하트와 결혼 날짜 일러스트">' +
+            '<defs>' +
+              '<linearGradient id="' + gid + 'bg" x1="0" y1="0" x2="1" y2="1">' +
+                '<stop stop-color="#f8f0e7"/>' +
+                '<stop offset="1" stop-color="#eeddd2"/>' +
+              '</linearGradient>' +
+              '<linearGradient id="' + gid + 'h" x1="0" y1="0" x2="1" y2="1">' +
+                '<stop stop-color="#e8b0b7"/>' +
+                '<stop offset="1" stop-color="#c77e8c"/>' +
+              '</linearGradient>' +
+              '<filter id="' + gid + 'hsh" x="-30%" y="-30%" width="160%" height="160%">' +
+                '<feDropShadow dx="0" dy="14" stdDeviation="16" flood-color="#9b6670" flood-opacity="0.28"/>' +
+              '</filter>' +
+            '</defs>' +
+            '<rect width="600" height="600" fill="url(#' + gid + 'bg)"/>' +
+            '<g opacity="0.75">' +
+              '<rect x="92" y="120" width="10" height="24" rx="2" fill="#d8a6ae" transform="rotate(24 92 120)"/>' +
+              '<rect x="500" y="160" width="9" height="22" rx="2" fill="#a9b7a0" transform="rotate(-32 500 160)"/>' +
+              '<rect x="128" y="458" width="10" height="24" rx="2" fill="#d9c08f" transform="rotate(-16 128 458)"/>' +
+              '<rect x="482" y="458" width="9" height="22" rx="2" fill="#d8a6ae" transform="rotate(38 482 458)"/>' +
+              '<circle cx="86" cy="320" r="5" fill="#d9c08f"/>' +
+              '<circle cx="522" cy="350" r="4" fill="#a9b7a0"/>' +
+            '</g>' +
+            '<path d="M300 452c-66-50-144-108-144-178 0-52 40-88 90-88 26 0 46 12 54 30 8-18 28-30 54-30 50 0 90 36 90 88 0 70-78 128-144 178z" fill="url(#' + gid + 'h)" filter="url(#' + gid + 'hsh)"/>' +
+            '<text x="300" y="292" text-anchor="middle" font-family="Georgia, serif" font-size="46" fill="#fff8f3" letter-spacing="3">' + escapeHtml(WEDDING.monogram) + '</text>' +
+            '<text x="300" y="330" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" letter-spacing="4" fill="#ffe9e6">2026.11.21</text>' +
+            '<text x="300" y="524" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" letter-spacing="5" fill="#a38474">WE ARE GETTING MARRIED</text>' +
+          '</svg>';
+
+        default:
+          return "";
+      }
+    }
+
+    const IG_POSTS = [
+      {
+        scene: "invite",
+        title: "우리의 청첩장이 도착했어요",
+        place: WEDDING.venue,
+        caption:
+          "우리의 청첩장이 도착했어요 💌\n\n" +
+          WEDDING.dateShort + " · " + WEDDING.timeShort + "\n" +
+          WEDDING.venue + " " + WEDDING.hall + "\n\n" +
+          "서로의 가장 좋은 날에\n소중한 분들을 초대합니다.",
+        tags: "#민준서연_결혼합니다 #weddinginvitation",
+        likes: 214,
+        comments: [
+          { who: "jiyoon_m", text: "청첩장 너무 예뻐요! 두 분 정말 축하해요 🤍", time: "2일" },
+          { who: "daily_flower", text: "11월 21일 꼭 갈게요 🌷", time: "1일" }
+        ]
+      },
+      {
+        scene: "rings",
+        title: "평생을 약속하는 반지",
+        place: "서울 · 강남",
+        caption:
+          "평생을 약속하는 반지가 도착했어요.\n" +
+          "우리의 첫 번째 약속 💍\n\n" +
+          WEDDING.hashtag,
+        tags: "#weddingrings #ourforever",
+        likes: 198,
+        comments: [
+          { who: "hello_sumin", text: "반지가 정말 우아해요 ✨", time: "3일" }
+        ]
+      },
+      {
+        scene: "bouquet",
+        title: "나의 부케",
+        place: "플라워 스튜디오",
+        caption:
+          "오늘은 부케를 골랐어요.\n" +
+          "하얀 꽃 사이로 우리의 봄이 피어나는 기분 🌷\n\n" +
+          WEDDING.dateShort + " " + WEDDING.venue + "에서 만나요.",
+        tags: "#weddingbouquet #floralwedding",
+        likes: 176,
+        comments: [
+          { who: "daily_flower", text: "부케 색감이 너무 사랑스러워요!", time: "4일" },
+          { who: "noh_yejin", text: "서연 님이랑 정말 잘 어울려요 🌸", time: "4일" }
+        ]
+      },
+      {
+        scene: "venue",
+        title: "예식장 공개",
+        place: WEDDING.venue,
+        caption:
+          "우리가 서약할 곳, " + WEDDING.venue + ".\n" +
+          "햇살이 길게 드는 오후 2시의 예식입니다.\n\n" +
+          WEDDING.address + "\n" +
+          WEDDING.hall,
+        tags: "#weddingvenue #결혼식장",
+        likes: 163,
+        comments: [
+          { who: "minjun_friend", text: "예식장 분위기 최고네요. 21일 날 뵐게요!", time: "5일" }
+        ]
+      },
+      {
+        scene: "date",
+        title: "2026.11.21",
+        place: "D-DAY",
+        caption:
+          "우리의 날이 조금씩 다가옵니다.\n" +
+          WEDDING.dateLong + ", " + WEDDING.timeShort + ".\n\n" +
+          "그날의 설렘을 오래 기억할 수 있도록\n" +
+          "정성껏 준비하고 있을게요 🤍",
+        tags: "#20261121 #savehedate",
+        likes: 241,
+        comments: [
+          { who: "jiyoon_m", text: "D-DAY 기다려져요! 🙌", time: "6일" },
+          { who: "wedding_planner_k", text: "카운트다운 시작합니다 ✨", time: "6일" }
+        ]
+      },
+      {
+        scene: "champagne",
+        title: "함께할 첫 잔",
+        place: WEDDING.venue,
+        caption:
+          "서로의 앞날을 축복하는 첫 잔.\n" +
+          "우리의 시작을 함께 건배해 주세요 🥂\n\n" +
+          WEDDING.dateShort + " " + WEDDING.timeShort,
+        tags: "#cheers #weddingday",
+        likes: 152,
+        comments: [
+          { who: "hello_sumin", text: "건배! 두 분의 앞날을 응원합니다 🥂", time: "1주" }
+        ]
+      },
+      {
+        scene: "cake",
+        title: "달콤한 예식 준비",
+        place: "웨딩 스튜디오",
+        caption:
+          "케이크 시식까지 완료.\n" +
+          "달콤한 순간을 손님들과 나눌 생각에 벌써 행복해요 🍰\n\n" +
+          WEDDING.hashtag,
+        tags: "#weddingcake #sweetmoment",
+        likes: 189,
+        comments: [
+          { who: "noh_yejin", text: "케이크 너무 예뻐요. 저도 한 조각 주세요 😋", time: "1주" }
+        ]
+      },
+      {
+        scene: "sky",
+        title: "같은 곳을 바라보며",
+        place: "서울",
+        caption:
+          "같은 하늘 아래, 같은 곳을 바라보며\n" +
+          "앞으로의 모든 계절을 함께 걷겠습니다.\n\n" +
+          "민준 ♥ 서연",
+        tags: "#alwayswithyou #우리의계절",
+        likes: 208,
+        comments: [
+          { who: "minjun_friend", text: "멋진 하늘만큼 멋진 부부 되세요 🌅", time: "1주" }
+        ]
+      },
+      {
+        scene: "heart",
+        title: "우리, 결혼합니다",
+        place: WEDDING.venue,
+        caption:
+          "우리, 결혼합니다 🤍\n\n" +
+          WEDDING.dateLong + " " + WEDDING.timeShort + "\n" +
+          WEDDING.venue + " " + WEDDING.hall + "\n\n" +
+          "소중한 분들을 초대합니다.",
+        tags: "#결혼합니다 #weddinginvitation",
+        likes: 256,
+        comments: [
+          { who: "jiyoon_m", text: "두 분 정말 축하드려요! 꼭 참석할게요 🤍", time: "1주" },
+          { who: "daily_flower", text: "사랑 가득한 결혼식이 되길 바라요 💐", time: "1주" }
+        ]
+      }
+    ];
+
+    const IG_HIGHLIGHTS = [
+      { key: "letter", label: "초대글", scene: "monogram" },
+      { key: "info", label: "예식 정보", scene: "date" },
+      { key: "map", label: "오시는 길", scene: "venue" },
+      { key: "gallery", label: "갤러리", scene: "bouquet" },
+      { key: "gift", label: "마음 전하실 곳", scene: "heart" }
+    ];
+
+    const igView = document.getElementById("instagram");
+    const igGrid = document.getElementById("ig-grid");
+    const igHighlights = document.getElementById("ig-highlights");
+    const igPostModal = document.getElementById("ig-post-modal");
+    const igSheet = document.getElementById("ig-sheet");
+    const igSheetBackdrop = document.getElementById("ig-sheet-backdrop");
+    const igSearch = document.getElementById("ig-search");
+    const igLikeBtn = document.getElementById("ig-like-btn");
+    const igSaveBtn = document.getElementById("ig-save-btn");
+    const igToast = document.getElementById("ig-toast");
+    const igLiked = new Set();
+    const igSaved = new Set();
+    let igCurrentPost = 0;
+    let igToastTimer = null;
+
+    function escapeHtml(value) {
+      return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;");
+    }
+
+    function showToast(message) {
+      igToast.textContent = message;
+      igToast.classList.add("show");
+      window.clearTimeout(igToastTimer);
+      igToastTimer = window.setTimeout(function () {
+        igToast.classList.remove("show");
+      }, 2400);
+    }
+
+    function renderInstagramProfile() {
+      document.getElementById("ig-result-handle").textContent =
+        "Instagram · @" + WEDDING.username;
+      document.getElementById("ig-result-title").textContent =
+        WEDDING.groom + " ♥ " + WEDDING.bride + " — 우리의 결혼 이야기";
+      document.getElementById("ig-result-desc").innerHTML =
+        escapeHtml(WEDDING.dateShort + " · " + WEDDING.timeShort + " · " + WEDDING.venue) +
+        "<br>청첩장, 예식 정보, 오시는 길까지 인스타그램에서 만나보세요.";
+      document.getElementById("ig-username").textContent = WEDDING.username;
+      document.getElementById("ig-profile-name").innerHTML =
+        escapeHtml(WEDDING.groom + " & " + WEDDING.bride) +
+        ' <span class="ig-verified" aria-label="확인된 계정">✓</span>';
+      document.getElementById("ig-profile-date").textContent =
+        WEDDING.dateShort + " · " + WEDDING.timeShort;
+      document.getElementById("ig-profile-venue").textContent =
+        WEDDING.venue + " " + WEDDING.hall;
+      document.getElementById("ig-bio-link").textContent = WEDDING.site;
+      document.getElementById("ig-endnote-monogram").textContent = WEDDING.monogram;
+      document.getElementById("ig-endnote-text").innerHTML =
+        escapeHtml(WEDDING.dateShort + " · SEOUL") +
+        "<br>" + escapeHtml(WEDDING.hashtag);
+
+      document.getElementById("ig-avatar").innerHTML = weddingScene("monogram", 1);
+      document.getElementById("ig-nav-avatar").innerHTML = weddingScene("monogram", 3);
+      document.getElementById("ig-result-thumb").innerHTML = weddingScene("invite", 2);
+
+      igHighlights.innerHTML = IG_HIGHLIGHTS.map(function (item, index) {
+        return (
+          '<button type="button" class="ig-highlight" data-sheet="' + item.key + '">' +
+            '<span class="ig-highlight-ring">' + weddingScene(item.scene, 100 + index) + "</span>" +
+            '<span class="label">' + escapeHtml(item.label) + "</span>" +
+          "</button>"
+        );
+      }).join("");
+
+      const heartIcon =
+        '<svg viewBox="0 0 24 24" width="18" height="18" fill="#fff" aria-hidden="true">' +
+          '<path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"></path>' +
+        "</svg>";
+      const commentIcon =
+        '<svg viewBox="0 0 24 24" width="18" height="18" fill="#fff" aria-hidden="true">' +
+          '<path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>' +
+        "</svg>";
+
+      igGrid.innerHTML = IG_POSTS.map(function (post, index) {
+        return (
+          '<button type="button" class="ig-tile" data-index="' + index + '" aria-label="' + escapeHtml(post.title) + ' 게시물 보기">' +
+            weddingScene(post.scene, 200 + index) +
+            '<span class="ig-tile-overlay">' +
+              "<span>" + heartIcon + post.likes + "</span>" +
+              "<span>" + commentIcon + post.comments.length + "</span>" +
+            "</span>" +
+          "</button>"
+        );
+      }).join("");
+    }
+
+    function openInstagram(pushHistory) {
+      home.classList.add("hidden");
+      results.classList.remove("hidden");
+      igView.classList.remove("hidden");
+      document.body.classList.add("ig-locked");
+      igView.scrollTop = 0;
+      if (pushHistory !== false) {
+        try {
+          history.pushState({ view: "instagram" }, "", "#instagram");
+        } catch (error) {
+          location.hash = "#instagram";
+        }
+      }
+    }
+
+    function closeInstagram(pushHistory) {
+      closePost();
+      closeSheet();
+      igView.classList.add("hidden");
+      document.body.classList.remove("ig-locked");
+      results.classList.remove("hidden");
+      window.scrollTo(0, 0);
+      if (pushHistory !== false) {
+        try {
+          history.replaceState({ view: "results" }, "", "#results");
+        } catch (error) {
+          location.hash = "#results";
+        }
+      }
+    }
+
+    function syncPostActions() {
+      const post = IG_POSTS[igCurrentPost];
+      const liked = igLiked.has(igCurrentPost);
+      const saved = igSaved.has(igCurrentPost);
+      const likeCount = post.likes + (liked ? 1 : 0);
+
+      igLikeBtn.classList.toggle("liked", liked);
+      igLikeBtn.setAttribute("aria-pressed", liked ? "true" : "false");
+      igSaveBtn.classList.toggle("saved", saved);
+      igSaveBtn.setAttribute("aria-pressed", saved ? "true" : "false");
+      document.getElementById("ig-post-likes").textContent =
+        likeCount.toLocaleString("ko-KR") + "명이 좋아합니다";
+    }
+
+    function openPost(index) {
+      const post = IG_POSTS[index];
+      if (!post) return;
+      igCurrentPost = index;
+
+      const colors = ["#c98f94", "#8fa082", "#b79c7d", "#9a8fb0"];
+      const comments = post.comments.map(function (comment, commentIndex) {
+        const initial = comment.who.charAt(0).toUpperCase();
+        return (
+          '<div class="ig-comment">' +
+            '<span class="ig-user-dot" style="background:' + colors[commentIndex % colors.length] + '">' + initial + "</span>" +
+            "<div>" +
+              '<span class="who">' + escapeHtml(comment.who) + "</span> " + escapeHtml(comment.text) +
+              '<span class="time">' + escapeHtml(comment.time) + "</span>" +
+            "</div>" +
+          "</div>"
+        );
+      }).join("");
+
+      document.getElementById("ig-post-media").innerHTML = weddingScene(post.scene, 400 + index);
+      document.getElementById("ig-post-avatar").innerHTML = weddingScene("monogram", 450);
+      document.getElementById("ig-post-place").textContent = post.place;
+      document.getElementById("ig-post-scroll").innerHTML =
+        '<div class="ig-caption">' +
+          '<span class="ig-user-dot" style="background:#c98f94">M</span>' +
+          "<div>" +
+            '<span class="who">minjun.seoyeon</span>' +
+            "<p>" + escapeHtml(post.caption) + "</p>" +
+            '<div class="tags">' + escapeHtml(post.tags) + "</div>" +
+          "</div>" +
+        "</div>" + comments;
+      document.getElementById("ig-post-date").textContent =
+        WEDDING.dateLong + " · " + post.place;
+
+      syncPostActions();
+      igPostModal.classList.remove("hidden");
+      document.getElementById("ig-post-close").focus();
+    }
+
+    function closePost() {
+      igPostModal.classList.add("hidden");
+    }
+
+    function sheetContent(key) {
+      if (key === "letter") {
+        return {
+          kicker: "OUR WEDDING",
+          title: "초대합니다",
+          hero: "",
+          body:
+            '<p class="ig-letter">' + escapeHtml(WEDDING.greeting) + "</p>" +
+            '<div class="ig-signature">' + escapeHtml(WEDDING.groom) + " &amp; " + escapeHtml(WEDDING.bride) + "</div>"
+        };
+      }
+
+      if (key === "info") {
+        return {
+          kicker: "WEDDING DAY",
+          title: "예식 정보",
+          hero: weddingScene("date", 500),
+          body:
+            '<div class="ig-info-row"><span>날짜</span><strong>' + escapeHtml(WEDDING.dateLong) + "</strong></div>" +
+            '<div class="ig-info-row"><span>시간</span><strong>' + escapeHtml(WEDDING.timeShort) + "</strong></div>" +
+            '<div class="ig-info-row"><span>장소</span><strong>' + escapeHtml(WEDDING.venue + " " + WEDDING.hall) + "<br>" + escapeHtml(WEDDING.address) + "</strong></div>" +
+            '<div class="ig-sheet-actions">' +
+              '<a class="ig-sheet-btn" href="' + escapeHtml(IG_CALENDAR_URL) + '" target="_blank" rel="noopener">캘린더에 저장</a>' +
+              '<button type="button" class="ig-sheet-btn ghost" data-copy="' + escapeHtml(WEDDING.address) + '">주소 복사</button>' +
+            "</div>"
+        };
+      }
+
+      if (key === "map") {
+        return {
+          kicker: "LOCATION",
+          title: "오시는 길",
+          hero: weddingScene("venue", 501),
+          body:
+            '<div class="ig-info-row"><span>주소</span><strong>' + escapeHtml(WEDDING.address) + "<br>" + escapeHtml(WEDDING.venue + " " + WEDDING.hall) + "</strong></div>" +
+            '<div class="ig-info-row"><span>지하철</span><strong>9호선 신논현역 4번 출구 도보 5분</strong></div>' +
+            '<div class="ig-info-row"><span>버스</span><strong>강남역 · 신논현역 정류장 하차</strong></div>' +
+            '<div class="ig-info-row"><span>주차</span><strong>건물 지하 주차장 이용 (2시간 무료)</strong></div>' +
+            '<p class="ig-sheet-note">예식 당일에는 교통이 혼잡할 수 있으니 여유 있게 출발해 주세요.</p>' +
+            '<div class="ig-sheet-actions">' +
+              '<a class="ig-sheet-btn" href="' + escapeHtml(IG_MAP_URL) + '" target="_blank" rel="noopener">네이버 지도</a>' +
+              '<button type="button" class="ig-sheet-btn ghost" data-copy="' + escapeHtml(WEDDING.address) + '">주소 복사</button>' +
+            "</div>"
+        };
+      }
+
+      if (key === "gift") {
+        const accounts = WEDDING.accounts.map(function (account) {
+          return (
+            '<div class="ig-account">' +
+              '<div class="bank">' + escapeHtml(account.side + " · " + account.bank) + "</div>" +
+              '<div class="num">' + escapeHtml(account.number) + "</div>" +
+              '<div class="owner">예금주 ' + escapeHtml(account.owner) + "</div>" +
+              '<button type="button" data-copy="' + escapeHtml(account.number) + '">계좌번호 복사</button>' +
+            "</div>"
+          );
+        }).join("");
+
+        return {
+          kicker: "WITH GRATITUDE",
+          title: "마음 전하실 곳",
+          hero: weddingScene("heart", 502),
+          body:
+            '<p class="ig-letter">따뜻한 마음만으로도 감사합니다.\n축하의 마음을 전하고 싶으신 분들을 위해 계좌를 남겨 둡니다.</p>' +
+            accounts
+        };
+      }
+
+      return null;
+    }
+
+    function openSheet(key) {
+      if (key === "gallery") {
+        closeSheet();
+        igGrid.scrollIntoView({ behavior: "smooth", block: "start" });
+        showToast("갤러리로 이동했어요");
+        return;
+      }
+
+      const content = sheetContent(key);
+      if (!content) return;
+
+      igSheet.innerHTML =
+        '<div class="ig-sheet-grab"></div>' +
+        '<div class="ig-sheet-head">' +
+          "<div>" +
+            '<span class="ig-sheet-kicker">' + escapeHtml(content.kicker) + "</span>" +
+            "<h2>" + escapeHtml(content.title) + "</h2>" +
+          "</div>" +
+          '<button type="button" class="ig-sheet-close" id="ig-sheet-close" aria-label="닫기">×</button>' +
+        "</div>" +
+        (content.hero ? '<div class="ig-sheet-hero">' + content.hero + "</div>" : "") +
+        '<div class="ig-sheet-body">' + content.body + "</div>";
+
+      igSheetBackdrop.classList.remove("hidden");
+      igSheet.classList.remove("hidden");
+      document.getElementById("ig-sheet-close").focus();
+    }
+
+    function closeSheet() {
+      igSheet.classList.add("hidden");
+      igSheetBackdrop.classList.add("hidden");
+    }
+
+    function copyText(text) {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(function () {
+          showToast("복사했어요");
+        }).catch(function () {
+          fallbackCopy(text);
+        });
+      } else {
+        fallbackCopy(text);
+      }
+    }
+
+    function fallbackCopy(text) {
+      const textarea = document.createElement("textarea");
+      textarea.value = text;
+      textarea.setAttribute("readonly", "");
+      textarea.style.position = "fixed";
+      textarea.style.left = "-9999px";
+      document.body.appendChild(textarea);
+      textarea.select();
+      try {
+        document.execCommand("copy");
+        showToast("복사했어요");
+      } catch (error) {
+        showToast("복사에 실패했어요");
+      }
+      document.body.removeChild(textarea);
+    }
+
+    function shareInvitation() {
+      const url = location.href.split("#")[0] + "#instagram";
+      if (navigator.share) {
+        navigator.share({
+          title: WEDDING.groom + " ♥ " + WEDDING.bride + " 결혼식",
+          text: WEDDING.dateShort + " · " + WEDDING.venue + " " + WEDDING.hall,
+          url: url
+        }).catch(function () {});
+      } else {
+        copyText(url);
+      }
+    }
+
+    document.getElementById("ig-result-link").addEventListener("click", function (event) {
+      event.preventDefault();
+      openInstagram(true);
+    });
+
+    document.getElementById("ig-kp-link").addEventListener("click", function (event) {
+      event.preventDefault();
+      openInstagram(true);
+    });
+
+    document.getElementById("ig-back").addEventListener("click", function () {
+      closeInstagram(true);
+    });
+
+    document.getElementById("ig-nav-home").addEventListener("click", function () {
+      closeInstagram(true);
+    });
+
+    document.getElementById("ig-invite").addEventListener("click", function () {
+      openSheet("info");
+    });
+
+    document.getElementById("ig-bio-link").addEventListener("click", function (event) {
+      event.preventDefault();
+      openSheet("info");
+    });
+
+    document.getElementById("ig-share").addEventListener("click", shareInvitation);
+
+    document.getElementById("ig-noti").addEventListener("click", function () {
+      showToast("새 알림 3개 · 축하 메시지가 도착했어요 🤍");
+    });
+
+    document.getElementById("ig-dm").addEventListener("click", function () {
+      showToast("축하 메시지를 보내 주세요 · @" + WEDDING.username);
+    });
+
+    document.querySelector(".ig-more").addEventListener("click", function () {
+      showToast("민준 ♥ 서연의 결혼 프로필입니다");
+    });
+
+    igGrid.addEventListener("click", function (event) {
+      const tile = event.target.closest(".ig-tile");
+      if (!tile) return;
+      openPost(Number(tile.dataset.index));
+    });
+
+    igHighlights.addEventListener("click", function (event) {
+      const highlight = event.target.closest(".ig-highlight");
+      if (!highlight) return;
+      openSheet(highlight.dataset.sheet);
+    });
+
+    document.getElementById("ig-post-close").addEventListener("click", closePost);
+
+    igPostModal.addEventListener("click", function (event) {
+      if (event.target === igPostModal) closePost();
+    });
+
+    igLikeBtn.addEventListener("click", function () {
+      if (igLiked.has(igCurrentPost)) {
+        igLiked.delete(igCurrentPost);
+      } else {
+        igLiked.add(igCurrentPost);
+      }
+      syncPostActions();
+    });
+
+    igSaveBtn.addEventListener("click", function () {
+      if (igSaved.has(igCurrentPost)) {
+        igSaved.delete(igCurrentPost);
+        showToast("저장을 취소했어요");
+      } else {
+        igSaved.add(igCurrentPost);
+        showToast("게시물을 저장했어요");
+      }
+      syncPostActions();
+    });
+
+    document.getElementById("ig-comment-btn").addEventListener("click", function () {
+      showToast("축하의 마음을 청첩장에서 전해 주세요 🤍");
+    });
+
+    document.getElementById("ig-post-share").addEventListener("click", shareInvitation);
+
+    document.getElementById("ig-sheet-backdrop").addEventListener("click", closeSheet);
+
+    document.addEventListener("click", function (event) {
+      const closeButton = event.target.closest("#ig-sheet-close");
+      if (closeButton) {
+        closeSheet();
+        return;
+      }
+
+      const copyButton = event.target.closest("[data-copy]");
+      if (copyButton) {
+        copyText(copyButton.getAttribute("data-copy"));
+      }
+    });
+
+    document.addEventListener("keydown", function (event) {
+      if (event.key !== "Escape") return;
+      if (!igSheet.classList.contains("hidden")) {
+        closeSheet();
+      } else if (!igPostModal.classList.contains("hidden")) {
+        closePost();
+      }
+    });
+
+    igSearch.addEventListener("input", function () {
+      const query = igSearch.value.trim().toLowerCase();
+      Array.from(igGrid.children).forEach(function (tile, index) {
+        const post = IG_POSTS[index];
+        const haystack = (post.title + " " + post.caption + " " + post.tags).toLowerCase();
+        tile.classList.toggle("ig-filtered", Boolean(query) && haystack.indexOf(query) === -1);
+      });
+    });
+
+    document.querySelectorAll(".ig-grid-tab").forEach(function (tab, index) {
+      tab.addEventListener("click", function () {
+        document.querySelectorAll(".ig-grid-tab").forEach(function (item) {
+          item.classList.remove("active");
+          item.setAttribute("aria-selected", "false");
+        });
+        tab.classList.add("active");
+        tab.setAttribute("aria-selected", "true");
+
+        if (index === 0) {
+          igGrid.scrollIntoView({ behavior: "smooth", block: "start" });
+        } else {
+          showToast("이 탭은 준비 중이에요");
+        }
+      });
+    });
+
+    document.getElementById("ig-nav-search").addEventListener("click", function () {
+      igGrid.scrollIntoView({ behavior: "smooth", block: "start" });
+      if (window.innerWidth > 735) igSearch.focus();
+      else showToast("피드에서 결혼 이야기를 둘러보세요");
+    });
+
+    document.getElementById("ig-nav-reels").addEventListener("click", function () {
+      showToast("릴스는 준비 중이에요");
+    });
+
+    document.getElementById("ig-nav-shop").addEventListener("click", function () {
+      showToast("쇼핑 탭은 준비 중이에요");
+    });
+
+    document.getElementById("ig-nav-me").addEventListener("click", function () {
+      igView.scrollTo({ top: 0, behavior: "smooth" });
+    });
+
+    window.addEventListener("popstate", function () {
+      if (location.hash === "#instagram") {
+        openInstagram(false);
+      } else if (!igView.classList.contains("hidden")) {
+        closeInstagram(false);
+      }
+    });
+
+    renderInstagramProfile();
+
+    if (location.hash === "#instagram") {
+      openInstagram(false);
+    }
+  </script>
+</body>
+</html>

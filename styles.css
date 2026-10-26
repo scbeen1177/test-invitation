@@ -17,8 +17,17 @@
   --sage: #879177;
   --sage-deep: #56604e;
   --white: #ffffff;
-  --serif: "Batang", "Nanum Myeongjo", "Noto Serif KR", Georgia, serif;
-  --sans: "Arial", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  --story-ring-gradient: linear-gradient(
+    225deg,
+    #a62cbc 0%,
+    #d92c83 27%,
+    #ea334f 45%,
+    #ed7931 68%,
+    #f4cf4a 100%
+  );
+  --ui-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --serif: var(--ui-sans);
+  --sans: var(--ui-sans);
   --script: "Grand Hotel", "Brush Script MT", cursive;
   --ease: cubic-bezier(.22, .8, .2, 1);
   --shadow: 0 24px 80px rgba(63, 48, 39, .13);
@@ -162,24 +171,25 @@ svg {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 60px;
+  height: 64px;
   padding: env(safe-area-inset-top) 12px 0;
   background: rgba(255, 255, 255, .92);
+  border-bottom: 1px solid rgba(15, 15, 15, .035);
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
 }
 
 .topbar__add {
   position: absolute;
-  left: 10px;
+  left: 17px;
 }
 
 .topbar__actions {
   position: absolute;
-  right: 8px;
+  right: 20px;
   display: flex;
   align-items: center;
-  gap: .05rem;
+  gap: .55rem;
 }
 
 .topbar__icon {
@@ -193,6 +203,7 @@ svg {
   border: 0;
   border-radius: 50%;
   transition: background .2s ease, transform .2s ease;
+  position: relative;
 }
 
 .topbar__icon:hover {
@@ -207,6 +218,47 @@ svg {
   width: 1.45rem;
   height: 1.45rem;
   stroke-width: 1.8;
+}
+
+.topbar .topbar__add {
+  position: absolute;
+  left: 17px;
+}
+
+.topbar__add svg {
+  stroke-width: 2.2;
+}
+
+.instagram-wordmark {
+  color: #050505;
+  font-family: "Grand Hotel", "Brush Script MT", cursive;
+  font-size: 2rem;
+  font-weight: 400;
+  letter-spacing: -.035em;
+  line-height: 1;
+  text-decoration: none;
+  transform: translateY(-2px);
+}
+
+.topbar__create {
+  margin-right: 0;
+}
+
+.topbar__create svg {
+  width: 1.15rem;
+  height: 1.65rem;
+  stroke-width: 2.15;
+}
+
+.topbar__badge {
+  position: absolute;
+  top: .48rem;
+  right: .48rem;
+  width: .45rem;
+  height: .45rem;
+  background: #ed4956;
+  border: 1.5px solid white;
+  border-radius: 50%;
 }
 
 .topbar__icon.is-liked .heart-icon {
@@ -275,7 +327,8 @@ svg {
 .story-rail {
   display: flex;
   gap: 1.05rem;
-  padding: 1.15rem 1.1rem 1.05rem;
+  min-height: 8.05rem;
+  padding: 1.05rem 1.2rem .95rem;
   overflow-x: auto;
   background: var(--white);
   scrollbar-width: none;
@@ -288,10 +341,10 @@ svg {
 
 .story {
   display: flex;
-  flex: 0 0 3.9rem;
+  flex: 0 0 4.45rem;
   flex-direction: column;
   align-items: center;
-  gap: .45rem;
+  gap: .48rem;
   padding: 0;
   background: transparent;
   border: 0;
@@ -302,11 +355,11 @@ svg {
 .story__ring {
   position: relative;
   display: grid;
-  width: 3.9rem;
-  height: 3.9rem;
-  padding: 2px;
+  width: 4.42rem;
+  height: 4.42rem;
+  padding: 3px;
   place-items: center;
-  background: linear-gradient(145deg, #c48384, #dcb7a8 48%, #89937b);
+  background: var(--story-ring-gradient);
   border-radius: 50%;
   transition: transform .25s var(--ease);
 }
@@ -317,8 +370,7 @@ svg {
 
 .story__ring::after {
   position: absolute;
-  width: 3.35rem;
-  height: 3.35rem;
+  inset: 3px;
   background: var(--paper);
   border-radius: 50%;
   content: "";
@@ -327,8 +379,8 @@ svg {
 .story__image {
   position: relative;
   z-index: 1;
-  width: 3.28rem;
-  height: 3.28rem;
+  width: 3.82rem;
+  height: 3.82rem;
   object-fit: cover;
   border: 2px solid var(--paper);
   border-radius: 50%;
@@ -384,17 +436,25 @@ svg {
 }
 
 .story__label {
-  max-width: 4.3rem;
+  max-width: 5.2rem;
   overflow: hidden;
-  color: #504b45;
-  font-family: var(--sans);
-  font-size: .68rem;
-  font-weight: 600;
-  letter-spacing: -.02em;
+  color: #0f0f0f;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-size: .72rem;
+  font-weight: 500;
+  letter-spacing: -.025em;
   line-height: 1.35;
   text-align: center;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.story--account {
+  margin-left: .03rem;
+}
+
+.story--account .story__ring {
+  background: var(--story-ring-gradient);
 }
 
 .story--date .story__ring {
@@ -433,8 +493,10 @@ svg {
   width: 2.4rem;
   height: 2.4rem;
   padding: 2px;
-  background: linear-gradient(145deg, #c27d7d, #c5a89e 55%, #869176);
+  background: var(--story-ring-gradient);
+  border: 0;
   border-radius: 50%;
+  cursor: pointer;
 }
 
 .avatar img {
@@ -951,9 +1013,9 @@ svg {
 }
 
 .social-post {
-  margin-top: .5rem;
+  margin-top: 0;
   background: var(--white);
-  border-top: 1px solid var(--line);
+  border-top: 0;
   scroll-margin-top: 4rem;
 }
 
@@ -969,8 +1031,10 @@ svg {
   height: 2.4rem;
   flex: 0 0 2.4rem;
   padding: 2px;
-  background: linear-gradient(145deg, #c27d7d, #c5a89e 55%, #869176);
+  background: var(--story-ring-gradient);
+  border: 0;
   border-radius: 50%;
+  cursor: pointer;
 }
 
 .social-post__avatar img {
@@ -1281,6 +1345,10 @@ svg {
 .social-post__media--grid .gallery {
   margin: 0;
   border-radius: 0;
+}
+
+.social-post__media--grid .gallery button {
+  aspect-ratio: 1287 / 1428;
 }
 
 .social-post__grid-count {
@@ -1993,7 +2061,7 @@ svg {
 .gallery {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 3px;
+  gap: 1px;
   margin-top: 1.45rem;
   overflow: hidden;
   border-radius: .45rem;
@@ -2229,16 +2297,16 @@ svg {
   padding: .28rem;
 }
 
-.bottom-nav__avatar {
+.bottom-nav__story-avatar {
   display: block;
-  width: 1.72rem;
-  height: 1.72rem;
-  padding: 1px;
-  background: linear-gradient(145deg, #d18388, #e2bea9 55%, #879477);
+  width: 1.9rem;
+  height: 1.9rem;
+  padding: 2px;
+  background: var(--story-ring-gradient);
   border-radius: 50%;
 }
 
-.bottom-nav__avatar img {
+.bottom-nav__story-avatar img {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -2259,13 +2327,13 @@ dialog::backdrop {
 
 .story-dialog {
   width: min(100%, 430px);
-  height: min(100dvh, 760px);
+  height: 100dvh;
   max-width: none;
   max-height: none;
   margin: auto;
   overflow: hidden;
   background: #111;
-  border-radius: .6rem;
+  border-radius: 0;
 }
 
 .story-viewer {
@@ -2296,12 +2364,13 @@ dialog::backdrop {
   top: max(.7rem, env(safe-area-inset-top));
   right: .75rem;
   left: .75rem;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  display: flex;
   gap: .22rem;
 }
 
 .story-progress span {
+  min-width: 0;
+  flex: 1;
   height: 2px;
   overflow: hidden;
   background: rgba(255, 255, 255, .35);
@@ -2341,10 +2410,21 @@ dialog::backdrop {
   color: white;
 }
 
+.story-viewer__actions {
+  display: flex;
+  align-items: center;
+  gap: .2rem;
+}
+
 .story-viewer__profile {
   display: flex;
   align-items: center;
   gap: .55rem;
+}
+
+.story-viewer__profile,
+.story-viewer__actions {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 }
 
 .story-viewer__profile img {
@@ -2387,6 +2467,23 @@ dialog::backdrop {
   cursor: pointer;
 }
 
+.story-viewer__menu {
+  display: grid;
+  width: 2.2rem;
+  height: 2.2rem;
+  padding: 0;
+  place-items: center;
+  color: white;
+  background: transparent;
+  border: 0;
+}
+
+.story-viewer__menu svg {
+  width: 1.45rem;
+  height: 1.45rem;
+  stroke-width: 1.8;
+}
+
 .story-viewer__close svg {
   width: 1.3rem;
   height: 1.3rem;
@@ -2396,10 +2493,18 @@ dialog::backdrop {
   position: absolute;
   z-index: 4;
   right: 1.5rem;
-  bottom: max(3rem, calc(env(safe-area-inset-bottom) + 2.2rem));
+  bottom: max(6.2rem, calc(env(safe-area-inset-bottom) + 5.4rem));
   left: 1.5rem;
   color: white;
   text-align: center;
+}
+
+.story-viewer__content.is-info-card {
+  bottom: max(8rem, calc(env(safe-area-inset-bottom) + 7.2rem));
+}
+
+.story-viewer__content.is-info-card h2 {
+  text-shadow: 0 2px 22px rgba(0, 0, 0, .35);
 }
 
 .story-viewer__content small {
@@ -2444,8 +2549,8 @@ dialog::backdrop {
 .story-viewer__tap {
   position: absolute;
   z-index: 3;
-  top: 3rem;
-  bottom: 2rem;
+  top: 4rem;
+  bottom: 4.2rem;
   width: 50%;
   background: transparent;
   border: 0;
@@ -2458,6 +2563,44 @@ dialog::backdrop {
 
 .story-viewer__tap--next {
   right: 0;
+}
+
+.story-viewer__reply {
+  position: absolute;
+  z-index: 7;
+  right: 8.75rem;
+  bottom: max(1.05rem, env(safe-area-inset-bottom));
+  left: .9rem;
+  height: 2.7rem;
+  padding: 0 1.05rem;
+  overflow: hidden;
+  color: rgba(255, 255, 255, .84);
+  background: rgba(18, 18, 18, .48);
+  border: 1px solid rgba(255, 255, 255, .72);
+  border-radius: 999px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-size: .76rem;
+  text-align: left;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.story-viewer__reactions {
+  position: absolute;
+  z-index: 7;
+  right: 1rem;
+  bottom: max(1.25rem, calc(env(safe-area-inset-bottom) + .2rem));
+  display: flex;
+  gap: .8rem;
+  color: white;
+}
+
+.story-viewer__reactions svg {
+  width: 1.6rem;
+  height: 1.6rem;
+  stroke-width: 1.8;
 }
 
 .lightbox {
@@ -2616,15 +2759,17 @@ dialog::backdrop {
   width: 5.1rem;
   height: 5.1rem;
   padding: 3px;
-  background: conic-gradient(from 210deg, #bb777c, #d6b3a4, #9ba58e, #bc777d);
+  background: var(--story-ring-gradient);
+  border: 0;
   border-radius: 50%;
+  cursor: pointer;
 }
 
 .feed-profile__avatar > img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border: 3px solid white;
+  border: 2px solid white;
   border-radius: 50%;
 }
 
@@ -2791,7 +2936,7 @@ dialog::backdrop {
 .feed-profile__tabs {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  border-bottom: 1px solid #efefef;
+  border-bottom: 0;
 }
 
 .feed-profile__tabs button {
@@ -2799,15 +2944,12 @@ dialog::backdrop {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: .35rem;
-  min-height: 2.75rem;
+  gap: 0;
+  min-height: 3rem;
   padding: 0;
   color: #979797;
   background: white;
   border: 0;
-  font-size: .61rem;
-  font-weight: 700;
-  letter-spacing: .03em;
   cursor: pointer;
 }
 
@@ -2831,20 +2973,25 @@ dialog::backdrop {
 }
 
 .feed-profile__tabs svg {
-  width: 1rem;
-  height: 1rem;
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.feed-profile__tabs button:nth-child(2) svg {
+  width: 1.4rem;
+  height: 1.4rem;
 }
 
 .feed-puzzle {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 2px;
+  gap: 1px;
   background: white;
 }
 
 .feed-puzzle__tile {
   position: relative;
-  aspect-ratio: 1;
+  aspect-ratio: 1287 / 1428;
   padding: 0;
   overflow: hidden;
   background: #eee8e2;

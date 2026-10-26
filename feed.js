@@ -1,20 +1,9 @@
 const MAP_URL = "https://map.naver.com/p/search/%EB%8D%94%EC%97%90%EC%8A%A4%EB%B9%84%20%EC%9B%A8%EB%94%A9%EC%BB%A8%EB%B2%A4%EC%85%98";
 
-const posts = [
-  { image: "./assets/hero.jpg", caption: "서로의 가장 좋은 계절이 되어, 같은 방향으로 걷기로 했습니다.", likes: 184 },
-  { image: "./assets/couple-01.jpg", caption: "우리의 새로운 시작을 가장 가까운 곳에서 함께해 주세요.", likes: 172 },
-  { image: "./assets/couple-02.jpg", caption: "봄빛이 머무는 보라매공원에서, 소중한 걸음으로 만나요.", likes: 203 },
-  { image: "./assets/couple-02.jpg", caption: "좋아하는 것을 닮아가며 오래오래 함께 걷겠습니다.", likes: 227 },
-  { image: "./assets/detail-01.jpg", caption: "두 손을 맞잡고 약속하는 날.", likes: 198 },
-  { image: "./assets/detail-02.jpg", caption: "꽃으로 전하는 우리의 마음을 받아주세요.", likes: 166 },
-  { image: "./assets/venue-02.jpg", caption: "초록빛 사이에서 시작되는 우리의 봄날.", likes: 191 },
-  { image: "./assets/couple-03.jpg", caption: "오늘보다 더 사랑하는 내일을 함께 만들겠습니다.", likes: 241 },
-  { image: "./assets/hero.jpg", caption: "2027. 03. 27 SAT · AM 11:00 · save the date", likes: 154, design: true }
-];
+const basePosts = window.WEDDING_POSTS;
+let posts = [];
 
 const grid = document.querySelector("#accountFeedGrid");
-const lightbox = document.querySelector("#feedLightbox");
-const lightboxImage = document.querySelector("#feedLightboxImage");
 const toast = document.querySelector("#feedToast");
 const followButton = document.querySelector("#followButton");
 
@@ -25,10 +14,9 @@ function showToast(message) {
   showToast.timer = window.setTimeout(() => toast.classList.remove("is-visible"), 2200);
 }
 
-function openLightbox(src, alt) {
-  lightboxImage.src = src;
-  lightboxImage.alt = alt;
-  lightbox.showModal();
+function openPost(index) {
+  sessionStorage.setItem("post-feed-origin", "true");
+  window.location.assign(`./post.html?tile=${index + 1}`);
 }
 
 function renderGrid() {
@@ -37,7 +25,7 @@ function renderGrid() {
     const button = document.createElement("button");
     button.type = "button";
     button.className = "feed-puzzle__tile";
-    button.setAttribute("aria-label", `${index + 1}번째 피드 사진 크게 보기`);
+    button.setAttribute("aria-label", `${index + 1}번째 피드 게시물 보기`);
 
     if (post.design) {
       button.classList.add("feed-puzzle__tile--design");
@@ -46,9 +34,10 @@ function renderGrid() {
       button.append(design);
     } else {
       const image = document.createElement("img");
-      image.src = post.image;
+      image.src = post.thumb || post.image;
       image.alt = post.caption;
       image.loading = "lazy";
+      image.style.cssText = window.WeddingAdminStore.imageStyle(post.edit);
       button.append(image);
     }
 
@@ -56,7 +45,7 @@ function renderGrid() {
     meta.className = "feed-puzzle__meta";
     meta.innerHTML = `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.8 4.6c-2.2-2.2-5.8-2.2-8 0L12 5.4l-.8-.8a5.7 5.7 0 0 0-8 8L12 21l8.8-8.4a5.7 5.7 0 0 0 0-8Z"/></svg><b>${post.likes}</b>`;
     button.append(meta);
-    button.addEventListener("click", () => openLightbox(post.image, post.caption));
+    button.addEventListener("click", () => openPost(index));
     grid.append(button);
   });
 }
@@ -84,15 +73,19 @@ async function shareFeed() {
 }
 
 document.querySelector("#feedBackButton").addEventListener("click", () => {
-  if (sessionStorage.getItem("invitation-feed-origin") === "true") {
-    window.history.back();
-  } else {
-    window.location.assign("./index.html");
-  }
+  window.location.assign("./index.html");
 });
 
 document.querySelector("#feedHomeButton").addEventListener("click", () => {
   window.location.assign("./index.html#top");
+});
+
+document.querySelector("#feedAccountButton").addEventListener("click", () => {
+  window.scrollTo({ top: 0, behavior: "smooth" });
+});
+
+document.querySelector("#profileStoryButton").addEventListener("click", () => {
+  window.openFeedStory(0);
 });
 
 document.querySelectorAll("[data-share]").forEach((button) => {
@@ -103,8 +96,20 @@ document.querySelectorAll("[data-map]").forEach((button) => {
   button.addEventListener("click", () => window.open(MAP_URL, "_blank", "noopener,noreferrer"));
 });
 
+document.querySelector("#messageButton").addEventListener("click", () => {
+  window.location.assign("./message.html?from=feed");
+});
+
+document.querySelector("#feedMoreButton").addEventListener("click", () => {
+  showToast("junho.chaebeen의 웨딩 피드입니다.");
+});
+
 document.querySelectorAll("[data-navigate]").forEach((button) => {
   button.addEventListener("click", () => {
+    if (button.dataset.navigate === "story") {
+      window.location.assign("./index.html?story=1");
+      return;
+    }
     const target = button.dataset.navigate === "calendar" ? "top" : "details";
     window.location.assign(`./index.html#${target}`);
   });
@@ -120,15 +125,14 @@ followButton.addEventListener("click", () => {
 
 document.querySelectorAll("[data-highlight]").forEach((button) => {
   button.addEventListener("click", () => {
-    const src = button.querySelector("img").src;
-    openLightbox(src, button.querySelector("small").textContent);
+    openPost(Number(button.dataset.highlight) * 3);
   });
 });
 
 document.querySelectorAll("[data-tab]").forEach((button) => {
   button.addEventListener("click", () => {
-    if (button.dataset.tab === "saved") {
-      showToast("저장한 게시물이 아직 없어요.");
+    if (button.dataset.tab === "tagged") {
+      showToast("태그된 게시물이 아직 없어요.");
       return;
     }
     document.querySelectorAll("[data-tab]").forEach((tab) => {
@@ -139,9 +143,13 @@ document.querySelectorAll("[data-tab]").forEach((button) => {
   });
 });
 
-document.querySelector("[data-close-lightbox]").addEventListener("click", () => lightbox.close());
-lightbox.addEventListener("click", (event) => {
-  if (event.target === lightbox || event.target === lightboxImage) lightbox.close();
-});
+async function initializeFeed() {
+  try {
+    posts = await window.WeddingAdminStore.mergePosts(basePosts);
+  } catch {
+    posts = basePosts;
+  }
+  renderGrid();
+}
 
-renderGrid();
+initializeFeed();

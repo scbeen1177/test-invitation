@@ -1,0 +1,334 @@
+body.post-detail-body {
+  min-height: 100vh;
+  background: #f4f4f4;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+.post-detail-shell {
+  width: min(100%, 540px);
+  min-height: 100vh;
+  margin: 0 auto;
+  background: #fff;
+}
+
+.post-detail-main {
+  min-height: calc(100dvh - 60px);
+}
+
+.post-detail-topbar {
+  position: sticky;
+  z-index: 20;
+  top: 0;
+  display: grid;
+  grid-template-columns: 3rem 1fr 3rem;
+  align-items: center;
+  height: 60px;
+  padding: env(safe-area-inset-top) .7rem 0;
+  background: transparent;
+  border-bottom: 0;
+}
+
+.post-detail-topbar::before {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(255, 255, 255, .36), rgba(255, 255, 255, .08));
+  content: "";
+  pointer-events: none;
+  backdrop-filter: blur(14px) saturate(1.12);
+  -webkit-backdrop-filter: blur(14px) saturate(1.12);
+  mask-image: linear-gradient(180deg, #000 0%, rgba(0, 0, 0, .7) 68%, transparent 100%);
+  -webkit-mask-image: linear-gradient(180deg, #000 0%, rgba(0, 0, 0, .7) 68%, transparent 100%);
+}
+
+.post-detail-topbar > * {
+  position: relative;
+  z-index: 1;
+}
+
+.post-detail-topbar__button {
+  display: grid;
+  width: 2.55rem;
+  height: 2.55rem;
+  padding: 0;
+  place-items: center;
+  color: #0f0f0f;
+  background: #fff;
+  border: 1px solid #d7d7d7;
+  border-radius: 50%;
+}
+
+.post-detail-topbar__button:hover {
+  background: rgba(0, 0, 0, .055);
+}
+
+.post-detail-topbar__button svg {
+  width: 1.4rem;
+  height: 1.4rem;
+}
+
+.post-detail-topbar__heading {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  line-height: 1.12;
+}
+
+.post-detail-topbar__title {
+  overflow: hidden;
+  font-size: .93rem;
+  font-weight: 700;
+  letter-spacing: -.025em;
+  text-align: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.post-detail-topbar__heading > span {
+  max-width: 100%;
+  margin-top: .08rem;
+  overflow: hidden;
+  color: #737373;
+  font-size: .64rem;
+  letter-spacing: -.015em;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.post-detail-topbar__spacer {
+  width: 2.55rem;
+  height: 2.55rem;
+  justify-self: end;
+}
+
+.post-stream {
+  padding-bottom: max(2rem, env(safe-area-inset-bottom));
+}
+
+.post-stream__post {
+  scroll-margin-top: 60px;
+  background: #fff;
+  border-bottom: 0;
+}
+
+.post-stream__header {
+  display: flex;
+  align-items: center;
+  gap: .72rem;
+  padding: .78rem 1rem;
+}
+
+.post-stream__avatar {
+  display: block;
+  width: 2.55rem;
+  height: 2.55rem;
+  flex: 0 0 2.55rem;
+  padding: 2px;
+  background: var(--story-ring-gradient);
+  border: 0;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.post-stream__avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border: 2px solid white;
+  border-radius: 50%;
+}
+
+.post-stream__identity {
+  display: flex;
+  min-width: 0;
+  flex: 1;
+  flex-direction: column;
+}
+
+.post-stream__identity a {
+  display: flex;
+  align-items: center;
+  gap: .24rem;
+  width: fit-content;
+  color: #0f0f0f;
+  font-size: .82rem;
+  font-weight: 700;
+  letter-spacing: -.02em;
+  text-decoration: none;
+}
+
+.post-stream__identity .verified {
+  width: .9rem;
+  height: .9rem;
+}
+
+.post-stream__identity > span {
+  margin-top: .05rem;
+  color: #676767;
+  font-size: .67rem;
+}
+
+.post-stream__more {
+  display: grid;
+  width: 2.3rem;
+  height: 2.3rem;
+  padding: 0;
+  place-items: center;
+  color: #0f0f0f;
+  background: transparent;
+  border: 0;
+}
+
+.post-stream__more svg {
+  width: 1.3rem;
+  height: 1.3rem;
+}
+
+.post-stream__media {
+  position: relative;
+  display: grid;
+  width: 100%;
+  margin: 0;
+  aspect-ratio: var(--media-ratio, 3 / 4);
+  min-height: 15rem;
+  max-height: 78dvh;
+  overflow: hidden;
+  place-items: center;
+  background:
+    radial-gradient(circle at 50% 38%, rgba(255, 255, 255, .75), transparent 52%),
+    #efede9;
+}
+
+.post-stream__media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.post-stream__counter {
+  position: absolute;
+  top: .8rem;
+  right: .8rem;
+  padding: .3rem .58rem;
+  color: white;
+  background: rgba(15, 15, 15, .48);
+  border-radius: 999px;
+  font-size: .58rem;
+  font-weight: 600;
+  letter-spacing: .04em;
+  backdrop-filter: blur(7px);
+  -webkit-backdrop-filter: blur(7px);
+}
+
+.post-stream__actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: .54rem .7rem .1rem;
+}
+
+.post-stream__actions > div {
+  display: flex;
+  align-items: center;
+}
+
+.post-stream__actions .icon-button {
+  width: 2.72rem;
+  height: 2.72rem;
+}
+
+.post-stream__actions .icon-button svg {
+  width: 1.58rem;
+  height: 1.58rem;
+  stroke-width: 1.8;
+}
+
+.post-stream__like.is-liked {
+  color: #ed4956;
+}
+
+.post-stream__like.is-liked svg {
+  fill: #ed4956;
+}
+
+.post-stream__save.is-saved svg {
+  fill: currentColor;
+}
+
+.post-stream__copy {
+  padding: 0 1rem 1.25rem;
+  color: #0f0f0f;
+}
+
+.post-stream__likes {
+  font-size: .79rem;
+  font-weight: 600;
+}
+
+.post-stream__caption {
+  margin: .55rem 0 0;
+  font-size: .82rem;
+  line-height: 1.55;
+}
+
+.post-stream__caption a {
+  margin-right: .24rem;
+  color: #0f0f0f;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.post-stream__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .28rem;
+  margin-top: .55rem;
+  color: #52658b;
+  font-size: .72rem;
+}
+
+.post-stream__memo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: .65rem;
+  padding: .65rem 0;
+  color: #777;
+  background: transparent;
+  border: 0;
+  border-top: 1px solid #efefef;
+  border-bottom: 1px solid #efefef;
+  font-size: .7rem;
+  text-align: left;
+}
+
+.post-stream__memo svg {
+  width: .95rem;
+  height: .95rem;
+}
+
+.post-stream__time {
+  display: block;
+  margin-top: .62rem;
+  color: #999;
+  font-size: .61rem;
+}
+
+@media (min-width: 700px) {
+  body.post-detail-body {
+    background: #fff;
+  }
+
+  .post-detail-shell {
+    width: min(100%, 620px);
+  }
+
+  .post-detail-body .toast {
+    left: 50%;
+  }
+}
