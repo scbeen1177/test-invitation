@@ -74,7 +74,7 @@ const state = {
 
 const stories = [
   {
-    image: "./images/KakaoTalk_20261025_205325815.jpg",
+    image: "./images/slide_2%202.JPG",
     time: "오늘",
     small: "WE'RE GETTING MARRIED",
     title: "우리, 결혼합니다",
@@ -82,7 +82,7 @@ const stories = [
     date: "2027. 03. 27 · SAT · 11 AM"
   },
   {
-    image: "./images/KakaoTalk_20261025_205325815_03.jpg",
+    image: "./images/slide_0%203.JPG",
     time: "결혼식 날짜",
     small: "THE WEDDING DAY",
     title: "2027. 03. 27.",
@@ -90,7 +90,7 @@ const stories = [
     date: "SATURDAY, 11:00 AM"
   },
   {
-    image: "./images/KakaoTalk_20261025_205325815_02.jpg",
+    image: "./images/slide_0%202.JPG",
     time: "예식 안내",
     small: "CEREMONY",
     title: "AM 11:00",
@@ -114,7 +114,7 @@ const stories = [
     date: "SEOUL · BORAMAE"
   },
   {
-    image: "./images/KakaoTalk_20261025_205325815_09.jpg",
+    image: "./images/slide_0%209.JPG",
     time: "우리의 초대",
     small: "WITH LOVE",
     title: "함께해 주세요",
@@ -1029,3 +1029,4 @@ setupKeyboard();
 if (new URLSearchParams(window.location.search).get("story") === "1") {
   window.setTimeout(() => openStory(0), 120);
 }
+

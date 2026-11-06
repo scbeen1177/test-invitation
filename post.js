@@ -56,7 +56,7 @@ function escapeHtml(value) {
 function avatarMarkup() {
   return `
     <button class="post-stream__avatar" type="button" data-post-story aria-label="junho.chaebeen 스토리 보기">
-      <img src="./images/KakaoTalk_20261025_205325815.jpg" alt="">
+      <img src="./images/slide_2%202.JPG" alt="">
     </button>
   `;
 }
@@ -65,6 +65,9 @@ function renderStream() {
   stream.innerHTML = posts.map((post, index) => {
     const number = index + 1;
     const liked = likedPosts.has(index);
+    const mediaRatio = post.ratio || mediaRatios[index] || "4 / 5";
+    const [ratioWidth, ratioHeight] = mediaRatio.split("/").map(Number);
+    const orientation = ratioHeight > ratioWidth ? "portrait" : "landscape";
     return `
       <article class="post-stream__post" id="post-${number}" data-stream-post="${index}">
         <header class="post-stream__header">
@@ -84,7 +87,7 @@ function renderStream() {
           </button>
         </header>
 
-        <figure class="post-stream__media" style="--media-ratio: ${mediaRatios[index] || "3 / 4"}">
+        <figure class="post-stream__media is-${orientation}" style="--media-ratio: ${escapeHtml(mediaRatio)}; --media-background: url('${escapeHtml(post.image)}')">
           <img src="${escapeHtml(post.image)}" alt="준호와 채빈의 웨딩사진 ${number}" loading="${number === 1 ? "eager" : "lazy"}" style="${escapeHtml(window.WeddingAdminStore.imageStyle(post.edit))}">
           <span class="post-stream__counter">${String(number).padStart(2, "0")} / ${String(posts.length).padStart(2, "0")}</span>
         </figure>
@@ -324,3 +327,4 @@ async function initializePostStream() {
 }
 
 initializePostStream();
+

@@ -330,6 +330,11 @@ body.account-page-body {
   font-size: .78rem;
 }
 
+.message-header__spacer {
+  width: 2.8rem;
+  height: 2.8rem;
+}
+
 .message-header__actions {
   display: flex;
   gap: .35rem;
@@ -345,7 +350,7 @@ body.account-page-body {
 .message-content {
   min-height: 0;
   flex: 1;
-  padding: 0 1rem 7.4rem;
+  padding: 0 1rem 8.6rem;
   overflow-y: auto;
   overscroll-behavior: contain;
 }
@@ -454,6 +459,14 @@ body.account-page-body {
   white-space: pre-wrap;
 }
 
+.message-memo__name {
+  display: block;
+  margin-bottom: .3rem;
+  color: rgba(255, 255, 255, .78);
+  font-size: .68rem;
+  font-weight: 600;
+}
+
 .message-memo time {
   display: block;
   margin-top: .38rem;
@@ -467,10 +480,26 @@ body.account-page-body {
   bottom: 0;
   left: 0;
   display: flex;
+  flex-direction: column;
   align-items: center;
   gap: .55rem;
   padding: .7rem .9rem max(.9rem, env(safe-area-inset-bottom));
   background: rgba(255, 255, 255, .97);
+}
+
+.message-composer__name {
+  width: 100%;
+  padding: .58rem 1rem;
+  color: #0f0f0f;
+  background: #f4f4f6;
+  border: 0;
+  border-radius: 999px;
+  font-size: .82rem;
+  outline: 0;
+}
+
+.message-composer__name::placeholder {
+  color: #777;
 }
 
 .message-composer__camera {
@@ -489,9 +518,10 @@ body.account-page-body {
 
 .message-composer__field {
   display: flex;
+  width: 100%;
   min-width: 0;
   min-height: 3rem;
-  flex: 1;
+  flex: 0 0 auto;
   align-items: center;
   gap: .35rem;
   padding: .2rem .35rem .2rem 1rem;
@@ -527,16 +557,8 @@ body.account-page-body {
 }
 
 .message-composer__field .message-composer__send {
-  display: none;
-  color: #4152f2;
-}
-
-.message-composer__field:focus-within .message-composer__send {
   display: grid;
-}
-
-.message-composer__field:focus-within #memoStickerButton {
-  display: none;
+  color: #4152f2;
 }
 
 .message-composer__plus {

@@ -192,11 +192,12 @@ body.post-detail-body {
   position: relative;
   display: grid;
   width: 100%;
+  height: auto;
   margin: 0;
-  aspect-ratio: var(--media-ratio, 3 / 4);
-  min-height: 15rem;
-  max-height: 78dvh;
-  overflow: hidden;
+  aspect-ratio: var(--media-ratio, 4 / 5);
+  min-height: 0;
+  max-height: none;
+  overflow: visible;
   place-items: center;
   background:
     radial-gradient(circle at 50% 38%, rgba(255, 255, 255, .75), transparent 52%),
@@ -204,18 +205,34 @@ body.post-detail-body {
   touch-action: pan-y;
   cursor: zoom-in;
   -webkit-touch-callout: none;
+  isolation: isolate;
+}
+
+.post-stream__media.is-portrait {
+  height: auto;
+  aspect-ratio: var(--media-ratio, 4 / 5);
+}
+
+.post-stream__media.is-landscape {
+  height: auto;
+  aspect-ratio: var(--media-ratio, 4 / 3);
 }
 
 .post-stream__media.is-pinching {
+  z-index: 40;
   cursor: zoom-out;
 }
 
 .post-stream__media img {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
   display: block;
   width: 100%;
   height: 100%;
   max-height: 100%;
   object-fit: contain;
+  object-position: center;
   transform-origin: center center;
   transition: transform .2s cubic-bezier(.22, .8, .2, 1);
   user-select: none;

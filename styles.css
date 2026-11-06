@@ -1350,7 +1350,7 @@ svg {
 }
 
 .social-post__media--grid .gallery button {
-  aspect-ratio: 1287 / 1428;
+  aspect-ratio: 16 / 15;
 }
 
 .social-post__grid-count {
@@ -2993,7 +2993,7 @@ dialog::backdrop {
 
 .feed-puzzle__tile {
   position: relative;
-  aspect-ratio: 1287 / 1428;
+  aspect-ratio: 16 / 15;
   padding: 0;
   overflow: hidden;
   background: #eee8e2;

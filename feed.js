@@ -2,6 +2,10 @@ const MAP_URL = "https://map.naver.com/p/search/%EB%8D%94%EC%97%90%EC%8A%A4%EB%B
 
 const basePosts = window.WEDDING_POSTS;
 let posts = [];
+const puzzleThumbs = Array.from(
+  { length: 12 },
+  (_, index) => `./images/puzzle/tile-${String(index + 1).padStart(2, "0")}.jpg`
+);
 
 const grid = document.querySelector("#accountFeedGrid");
 const toast = document.querySelector("#feedToast");
@@ -16,40 +20,28 @@ function showToast(message) {
 
 function openPost(index) {
   sessionStorage.setItem("post-feed-origin", "true");
-  if (index === 0) {
-    window.location.assign("./invitation.html#top");
-    return;
-  }
   const total = posts.length || 11;
-  const postNumber = ((index + 3) % total) + 1;
+  const postNumber = index === 0 ? 1 : ((index + 3) % total) + 1;
   window.location.assign(`./post.html?tile=${postNumber}`);
 }
 
 function renderGrid() {
   grid.replaceChildren();
-  posts.forEach((post, index) => {
+  puzzleThumbs.forEach((imageSource, index) => {
     const button = document.createElement("button");
     button.type = "button";
     button.className = "feed-puzzle__tile";
     button.setAttribute("aria-label", `${index + 1}번째 피드 게시물 보기`);
 
-    if (post.design) {
-      button.classList.add("feed-puzzle__tile--design");
-      const design = document.createElement("span");
-      design.innerHTML = "<small>SAVE THE DATE</small><strong>J <i>&amp;</i> C</strong><em>2027. 03. 27</em>";
-      button.append(design);
-    } else {
-      const image = document.createElement("img");
-      image.src = post.thumb || post.image;
-      image.alt = post.caption;
-      image.loading = "lazy";
-      image.style.cssText = window.WeddingAdminStore.imageStyle(post.edit);
-      button.append(image);
-    }
+    const image = document.createElement("img");
+    image.src = imageSource;
+    image.alt = `퍼즐 웨딩사진 ${index + 1}번`;
+    image.loading = "lazy";
+    button.append(image);
 
     const meta = document.createElement("span");
     meta.className = "feed-puzzle__meta";
-    meta.innerHTML = `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.8 4.6c-2.2-2.2-5.8-2.2-8 0L12 5.4l-.8-.8a5.7 5.7 0 0 0-8 8L12 21l8.8-8.4a5.7 5.7 0 0 0 0-8Z"/></svg><b>${post.likes}</b>`;
+    meta.innerHTML = `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.8 4.6c-2.2-2.2-5.8-2.2-8 0L12 5.4l-.8-.8a5.7 5.7 0 0 0-8 8L12 21l8.8-8.4a5.7 5.7 0 0 0 0-8Z"/></svg><b>${168 + ((index * 17) % 73)}</b>`;
     button.append(meta);
     button.addEventListener("click", () => openPost(index));
     grid.append(button);
@@ -162,6 +154,8 @@ async function initializeFeed() {
   } catch {
     posts = basePosts;
   }
+  const postCount = document.querySelector("[data-feed-post-count]");
+  if (postCount) postCount.textContent = String(posts.length);
   renderGrid();
 }
 

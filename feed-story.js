@@ -1,6 +1,6 @@
 const feedStories = [
   {
-    image: "./images/KakaoTalk_20261025_205325815.jpg",
+    image: "./images/slide_2%202.JPG",
     time: "오늘",
     small: "WE'RE GETTING MARRIED",
     title: "우리, 결혼합니다",
@@ -8,7 +8,7 @@ const feedStories = [
     date: "2027. 03. 27 · SAT · 11 AM"
   },
   {
-    image: "./images/KakaoTalk_20261025_205325815_03.jpg",
+    image: "./images/slide_0%203.JPG",
     time: "결혼식 날짜",
     small: "THE WEDDING DAY",
     title: "2027. 03. 27.",
@@ -16,7 +16,7 @@ const feedStories = [
     date: "SATURDAY, 11:00 AM"
   },
   {
-    image: "./images/KakaoTalk_20261025_205325815_02.jpg",
+    image: "./images/slide_0%202.JPG",
     time: "예식 안내",
     small: "CEREMONY",
     title: "AM 11:00",
@@ -40,7 +40,7 @@ const feedStories = [
     date: "SEOUL · BORAMAE"
   },
   {
-    image: "./images/KakaoTalk_20261025_205325815_09.jpg",
+    image: "./images/slide_0%209.JPG",
     time: "우리의 초대",
     small: "WITH LOVE",
     title: "함께해 주세요",
@@ -59,7 +59,7 @@ function ensureFeedStoryDialog() {
       <div class="story-progress" id="storyProgress" aria-hidden="true"></div>
       <div class="story-viewer__header">
         <div class="story-viewer__profile">
-          <img src="./images/KakaoTalk_20261025_205325815.jpg" alt="">
+          <img src="./images/slide_2%202.JPG" alt="">
           <div>
             <span class="story-account">junho.chaebeen</span>
             <span id="storyTime">방금 전</span>
@@ -74,7 +74,7 @@ function ensureFeedStoryDialog() {
           </button>
         </div>
       </div>
-      <img class="story-viewer__image" id="storyImage" src="./images/KakaoTalk_20261025_205325815.jpg" alt="웨딩 스토리 사진">
+      <img class="story-viewer__image" id="storyImage" src="./images/slide_2%202.JPG" alt="웨딩 스토리 사진">
       <div class="story-viewer__shade"></div>
       <div class="story-viewer__content" id="storyContent"></div>
       <button class="story-viewer__reply" type="button" data-story-message>메시지 보내기...</button>
@@ -189,3 +189,4 @@ feedStoryDialog.addEventListener("close", () => {
 feedStoryDialog.addEventListener("click", (event) => {
   if (event.target === feedStoryDialog) feedStoryDialog.close();
 });
+

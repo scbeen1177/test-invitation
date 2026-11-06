@@ -2,6 +2,7 @@ const params = new URLSearchParams(window.location.search);
 const source = params.get("from") || "feed";
 const tile = Math.min(11, Math.max(1, Number(params.get("tile") || 1)));
 const form = document.querySelector("#messageForm");
+const nameInput = document.querySelector("#memoName");
 const input = document.querySelector("#memoInput");
 const memosContainer = document.querySelector("#messageMemos");
 const toast = document.querySelector("#messageToast");
@@ -39,10 +40,13 @@ function renderMemos() {
     const bubble = document.createElement("div");
     bubble.className = "message-memo";
     const copy = document.createElement("p");
+    const name = document.createElement("strong");
     const date = document.createElement("time");
+    name.className = "message-memo__name";
+    name.textContent = memo.name || "익명";
     copy.textContent = memo.text;
     date.textContent = memo.date || "방금 전";
-    bubble.append(copy, date);
+    bubble.append(name, copy, date);
     memosContainer.append(bubble);
   });
 }
@@ -59,22 +63,16 @@ document.querySelector("#messageBackButton").addEventListener("click", () => {
   window.location.assign("./index.html");
 });
 
-document.querySelector("#messageProfileButton").addEventListener("click", () => {
-  window.location.assign("./index.html");
-});
-
-document.querySelector("#messageInquiryButton").addEventListener("click", () => {
-  input.focus();
-  input.placeholder = "궁금한 점을 남겨주세요.";
-});
-
 form.addEventListener("submit", (event) => {
   event.preventDefault();
   const text = input.value.trim();
   if (!text) return;
   const memos = getMemos();
   memos.push({
+    name: nameInput.value.trim() || "익명",
     text,
+    source,
+    tile,
     date: new Intl.DateTimeFormat("ko-KR", {
       month: "long",
       day: "numeric",
@@ -85,12 +83,8 @@ form.addEventListener("submit", (event) => {
   localStorage.setItem("wedding-memos", JSON.stringify(memos.slice(-30)));
   form.reset();
   renderMemos();
-  showToast("축하 메모를 전했어요.");
+  showToast("축하 메시지를 남겼어요.");
   content.scrollTo({ top: content.scrollHeight, behavior: "smooth" });
-});
-
-["messageCallButton", "messageVideoButton", "memoCameraButton", "memoVoiceButton", "memoImageButton", "memoStickerButton", "memoPlusButton"].forEach((id) => {
-  document.querySelector(`#${id}`).addEventListener("click", () => showToast("이 기능은 준비 중이에요."));
 });
 
 renderMemos();
