@@ -16,7 +16,13 @@ function showToast(message) {
 
 function openPost(index) {
   sessionStorage.setItem("post-feed-origin", "true");
-  window.location.assign(`./post.html?tile=${index + 1}`);
+  if (index === 0) {
+    window.location.assign("./invitation.html#top");
+    return;
+  }
+  const total = posts.length || 11;
+  const postNumber = ((index + 3) % total) + 1;
+  window.location.assign(`./post.html?tile=${postNumber}`);
 }
 
 function renderGrid() {
@@ -72,15 +78,22 @@ async function shareFeed() {
   }
 }
 
-document.querySelector("#feedBackButton").addEventListener("click", () => {
-  window.location.assign("./index.html");
+const homeNavButton = document.querySelector("#feedHomeButton");
+const accountNavButton = document.querySelector("#feedAccountButton");
+
+function activateBottomNav(button) {
+  document.querySelectorAll(".bottom-nav__item").forEach((item) => {
+    item.classList.toggle("bottom-nav__item--active", item === button);
+  });
+}
+
+homeNavButton.addEventListener("click", () => {
+  activateBottomNav(homeNavButton);
+  window.scrollTo({ top: 0, behavior: "smooth" });
 });
 
-document.querySelector("#feedHomeButton").addEventListener("click", () => {
-  window.location.assign("./index.html#top");
-});
-
-document.querySelector("#feedAccountButton").addEventListener("click", () => {
+accountNavButton.addEventListener("click", () => {
+  activateBottomNav(accountNavButton);
   window.scrollTo({ top: 0, behavior: "smooth" });
 });
 
@@ -107,11 +120,11 @@ document.querySelector("#feedMoreButton").addEventListener("click", () => {
 document.querySelectorAll("[data-navigate]").forEach((button) => {
   button.addEventListener("click", () => {
     if (button.dataset.navigate === "story") {
-      window.location.assign("./index.html?story=1");
+      window.location.assign("./invitation.html?story=1");
       return;
     }
     const target = button.dataset.navigate === "calendar" ? "top" : "details";
-    window.location.assign(`./index.html#${target}`);
+    window.location.assign(`./invitation.html#${target}`);
   });
 });
 

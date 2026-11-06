@@ -34,6 +34,7 @@ function getStoredLikes() {
 }
 
 const likedPosts = getStoredLikes();
+const zoomStates = new WeakMap();
 
 window.history.scrollRestoration = "manual";
 
@@ -69,7 +70,7 @@ function renderStream() {
         <header class="post-stream__header">
           ${avatarMarkup()}
           <div class="post-stream__identity">
-            <a href="./feed.html">
+            <a href="./index.html">
               junho.chaebeen
               <svg class="verified" viewBox="0 0 24 24" aria-label="공식 계정" aria-hidden="true">
                 <path d="m12 1.8 2.4 1.8 3 .1 1 2.8 2.3 1.9-1 2.8 1 2.8-2.3 1.9-1 2.8-3 .1L12 22.2l-2.4-1.8-3-.1-1-2.8-2.3-1.9 1-2.8-1-2.8 2.3-1.9 1-2.8 3-.1L12 1.8Z"/>
@@ -97,7 +98,7 @@ function renderStream() {
               <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 9.4 9.4 0 0 1-3.8-.8L3 21l1.9-5.2A8.4 8.4 0 1 1 21 11.5Z"/></svg>
             </button>
             <button class="icon-button" type="button" data-stream-share="${index}" aria-label="${number}번째 게시물 공유">
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21.8 2.2 2.7 9.1c-.8.3-.8 1.4 0 1.7l7.4 2.7 2.7 7.4c.3.8 1.4.8 1.7 0l6.9-19.1c.1-.5-.3-.8-.6-.7Z"/><path d="m10.1 13.6 4.2-4.2"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path stroke-linejoin="round" stroke-linecap="round" d="M21.2 2.3c.6-.2 1.1.3.9.9l-6 17.2c-.2.6-1 .7-1.4.1l-3.3-6-6-3.3c-.6-.4-.5-1.2.1-1.4L21.2 2.3Z"/><path stroke-linecap="round" d="m10.4 14.2 10.9-11.2"/></svg>
             </button>
           </div>
           <button class="icon-button post-stream__save" type="button" data-stream-save="${index}" aria-label="게시물 저장" aria-pressed="false">
@@ -107,7 +108,7 @@ function renderStream() {
 
         <div class="post-stream__copy">
           <div class="post-stream__likes"><strong data-like-count="${index}">${(post.likes + (liked ? 1 : 0)).toLocaleString("ko-KR")}</strong>명이 좋아합니다</div>
-          <p class="post-stream__caption"><a href="./feed.html">junho.chaebeen</a>${escapeHtml(post.caption)}</p>
+          <p class="post-stream__caption"><a href="./index.html">junho.chaebeen</a>${escapeHtml(post.caption)}</p>
           <div class="post-stream__tags"><span>#준호채빈</span><span>#그램퍼즐</span><span>#20270327</span></div>
           <button class="post-stream__memo" type="button" data-stream-message>
             <span>축하 메모 남기기</span>
@@ -164,7 +165,7 @@ function updateActivePost() {
 }
 
 function returnToAccountFeed() {
-  window.location.assign("./feed.html");
+  window.location.assign("./index.html");
 }
 
 document.querySelector("#postBackButton").addEventListener("click", returnToAccountFeed);
@@ -188,7 +189,7 @@ stream.addEventListener("click", (event) => {
     return;
   }
 
-  if (event.target.closest('a[href="./feed.html"]')) {
+  if (event.target.closest('a[href="./index.html"]')) {
     event.preventDefault();
     returnToAccountFeed();
     return;
@@ -228,6 +229,73 @@ stream.addEventListener("click", (event) => {
     showToast(saved ? "게시물을 저장했어요." : "저장을 취소했어요.");
   }
 });
+
+function getPointerDistance(points) {
+  const [first, second] = [...points.values()];
+  return Math.hypot(second.x - first.x, second.y - first.y);
+}
+
+stream.addEventListener("pointerdown", (event) => {
+  const media = event.target.closest(".post-stream__media");
+  if (!media) return;
+
+  let state = zoomStates.get(media);
+  if (!state) {
+    state = { pointers: new Map(), startDistance: 0, startScale: 1, scale: 1 };
+    zoomStates.set(media, state);
+  }
+
+  state.pointers.set(event.pointerId, { x: event.clientX, y: event.clientY });
+  if (state.pointers.size === 2) {
+    state.startDistance = getPointerDistance(state.pointers);
+    state.startScale = state.scale;
+    media.classList.add("is-pinching");
+    for (const pointerId of state.pointers.keys()) {
+      try {
+        media.setPointerCapture(pointerId);
+      } catch {
+        // The pointer may already be captured by the browser.
+      }
+    }
+  }
+}, { passive: false });
+
+stream.addEventListener("pointermove", (event) => {
+  const media = event.target.closest(".post-stream__media");
+  if (!media) return;
+  const state = zoomStates.get(media);
+  if (!state || !state.pointers.has(event.pointerId)) return;
+
+  state.pointers.set(event.pointerId, { x: event.clientX, y: event.clientY });
+  if (state.pointers.size < 2 || state.startDistance <= 0) return;
+
+  event.preventDefault();
+  const distance = getPointerDistance(state.pointers);
+  state.scale = Math.min(4, Math.max(1, state.startScale * (distance / state.startDistance)));
+  media.querySelector("img").style.transform = `scale(${state.scale})`;
+}, { passive: false });
+
+function finishPinch(event) {
+  const media = event.target.closest(".post-stream__media");
+  if (!media) return;
+  const state = zoomStates.get(media);
+  if (!state) return;
+
+  state.pointers.delete(event.pointerId);
+  if (state.pointers.size >= 2) return;
+
+  state.scale = 1;
+  state.startDistance = 0;
+  state.startScale = 1;
+  media.classList.remove("is-pinching");
+  media.querySelector("img").style.transform = "scale(1)";
+}
+
+stream.addEventListener("pointerup", finishPinch);
+stream.addEventListener("pointercancel", finishPinch);
+
+document.addEventListener("gesturestart", (event) => event.preventDefault(), { passive: false });
+document.addEventListener("gesturechange", (event) => event.preventDefault(), { passive: false });
 
 window.addEventListener("scroll", () => {
   if (scrollFrame !== null) return;

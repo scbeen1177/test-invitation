@@ -724,7 +724,7 @@ function closeFeedPost() {
 
 function openFeed() {
   sessionStorage.setItem("invitation-feed-origin", "true");
-  window.location.assign("./feed.html");
+  window.location.assign("./index.html");
 }
 
 function lockPageForFeed() {

@@ -56,11 +56,11 @@ document.querySelector("#messageBackButton").addEventListener("click", () => {
     window.location.assign(`./post.html?tile=${tile}`);
     return;
   }
-  window.location.assign("./feed.html");
+  window.location.assign("./index.html");
 });
 
 document.querySelector("#messageProfileButton").addEventListener("click", () => {
-  window.location.assign("./feed.html");
+  window.location.assign("./index.html");
 });
 
 document.querySelector("#messageInquiryButton").addEventListener("click", () => {
